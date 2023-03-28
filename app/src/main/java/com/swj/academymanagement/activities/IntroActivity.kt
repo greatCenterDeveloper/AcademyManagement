@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
+import android.os.Looper
 import com.swj.academymanagement.databinding.ActivityIntroBinding
 
 class IntroActivity : AppCompatActivity() {
@@ -11,7 +12,7 @@ class IntroActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
-        val handler:Handler = Handler()
+        val handler:Handler = Handler(Looper.getMainLooper())
         handler.postDelayed({
             startActivity(Intent(this, LoginActivity::class.java))
             finish()
