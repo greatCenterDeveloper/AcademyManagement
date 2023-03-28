@@ -13,6 +13,9 @@
         android:theme="@style/Theme.AcademyManagement"
         tools:targetApi="31">
         <activity
+            android:name=".activities.AcademySignupActivity"
+            android:exported="false" />
+        <activity
             android:name=".activities.AcademyLoginActivity"
             android:exported="false" />
         <activity
