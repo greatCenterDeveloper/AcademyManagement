@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activities.IntroActivity">
+
+    <ImageView
+        android:id="@+id/iv_intro"
+        android:layout_width="250dp"
+        android:layout_height="250dp"
+        android:src="@drawable/galaxy_intro"
+        android:layout_centerInParent="true"
+        android:padding="16dp"/>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_below="@id/iv_intro"
+        android:layout_centerHorizontal="true">
+
+        <ImageView
+            android:id="@+id/iv_logo"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/galaxy_logo"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="빅유니버스 학원"
+            android:textSize="24sp"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:fontFamily="@font/cookierunbold"
+            android:layout_gravity="center"
+            android:layout_marginLeft="8dp"/>
+    </LinearLayout>
+
+</RelativeLayout>
