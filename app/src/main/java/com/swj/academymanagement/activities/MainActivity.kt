@@ -34,11 +34,14 @@ class MainActivity : AppCompatActivity() {
         else
             teacher = intent.getSerializableExtra("teacher") as Member
 
+        teacher.courseArr.add(0,"선택안함")
         binding.tvTeacherName.text = "${teacher.name} 선생님 어서오세요."
 
         // 학생 관리
         binding.btnStudentManagement.setOnClickListener {
-            startActivity(Intent(this, StudentManagementActivity::class.java))
+            val intent = Intent(this, StudentManagementActivity::class.java)
+            intent.putExtra("teacher", teacher)
+            startActivity(intent)
         }
         // 수업 목록
         binding.btnClassDayList.setOnClickListener {  }

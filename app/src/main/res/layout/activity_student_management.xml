@@ -47,14 +47,14 @@
                     android:src="@drawable/ic_action_backspace"
                     android:layout_alignParentRight="true"
                     android:background="@color/civ_click_color"/>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#666666"
+                    android:layout_below="@id/civ_home"/>
             </RelativeLayout>
         </com.google.android.material.appbar.CollapsingToolbarLayout>
-
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="#666666"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -107,7 +107,7 @@
                 <!--inputType : none → 키보드 입력창이 안 올라온다.-->
                 <!--dropDownHeight : 드롭다운창 높이 지정-->
                 <AutoCompleteTextView
-                    android:id="@+id/ac_tv"
+                    android:id="@+id/ac_tv_course"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="none"
@@ -123,6 +123,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
-        android:layout_marginTop="8dp"/>
+        android:layout_marginTop="8dp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        android:orientation="vertical"/>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
