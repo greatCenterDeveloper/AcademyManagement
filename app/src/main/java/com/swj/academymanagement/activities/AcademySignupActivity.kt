@@ -1,5 +1,6 @@
 package com.swj.academymanagement.activities
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.CheckBox
@@ -14,7 +15,7 @@ class AcademySignupActivity : AppCompatActivity() {
     // 학생, 선생님 둘 중 하나 선택했는지 확인..
     var authCheck = false
     // 아이디 중복검사 했는지 확인..
-    var idCheck = false
+    var emailIdCheck = false
     // 비밀번호가 서로 일치하는지 확인..
     var passwordCheck = false
     // 핸드폰 중복검사 했는지 확인..
@@ -41,27 +42,27 @@ class AcademySignupActivity : AppCompatActivity() {
         val profile:String = ""
 
         // 아이디
-        var id:String = binding.tilInputId.editText!!.text.toString()
+        var emailId:String = binding.tilEmailId.editText!!.text.toString()
 
         // 아이디 중복 체크
         binding.btnIdCheck.setOnClickListener{
-            if(id.equals("")) {
+            if(emailId.equals("")) {
                 AlertDialog.Builder(this).setMessage("아이디를 입력하세요.").setPositiveButton("OK", null).show()
-                idCheck = false
+                emailIdCheck = false
             } else {
                 // 중복된 아이디가 없는지 Retrofit
             }
         }
 
         // 비밀번호
-        var password:String = binding.tilInputPassword.editText!!.text.toString()
+        var password:String = binding.tilPassword.editText!!.text.toString()
 
         // 비밀번호 확인과 일치하는지?
-        passwordCheck = binding.tilInputPasswordCheck.editText!!.text.toString().equals(password)
+        passwordCheck = binding.tilPasswordCheck.editText!!.text.toString().equals(password)
 
         var name:String = ""
-        if (!binding.tilInputName.editText!!.text.toString().equals(""))
-            name = binding.tilInputName.editText!!.text.toString()
+        if (!binding.tilName.editText!!.text.toString().equals(""))
+            name = binding.tilName.editText!!.text.toString()
 
         val courseArr:MutableList<String> = mutableListOf()
         if (binding.cbMiddleKor.isChecked) courseArr.add(binding.cbMiddleKor.text.toString())
@@ -109,10 +110,13 @@ class AcademySignupActivity : AppCompatActivity() {
         // 이름 입력함
         // 강좌 선택함
         // 휴대폰 번호 중복되지 않을 경우 가입 승인
-        if(authCheck && idCheck && passwordCheck && !name.equals("") && courseArr.size != 0 && !call.equals("")) {
+        if(authCheck && emailIdCheck && passwordCheck && !name.equals("") && courseArr.size != 0 && !call.equals("")) {
             // 가입 처리 Retrofit
-            val member:Member = Member(authority, profile, id, password, name, courseArr, call)
+            val member:Member = Member(authority, profile, emailId, password, name, courseArr, call)
 
+
+            // 가입 완료 후 다시 로그인 화면으로...
+            //finish()
         }
     }
 }
