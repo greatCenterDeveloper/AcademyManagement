@@ -6,6 +6,7 @@ import android.widget.CheckBox
 import androidx.appcompat.app.AlertDialog
 import com.google.android.material.radiobutton.MaterialRadioButton
 import com.swj.academymanagement.databinding.ActivityAcademySignupBinding
+import com.swj.academymanagement.model.Member
 
 class AcademySignupActivity : AppCompatActivity() {
 
@@ -37,7 +38,7 @@ class AcademySignupActivity : AppCompatActivity() {
         }
 
         // 사진 경로
-        //val profile
+        val profile:String = ""
 
         // 아이디
         var id:String = binding.tilInputId.editText!!.text.toString()
@@ -109,7 +110,9 @@ class AcademySignupActivity : AppCompatActivity() {
         // 강좌 선택함
         // 휴대폰 번호 중복되지 않을 경우 가입 승인
         if(authCheck && idCheck && passwordCheck && !name.equals("") && courseArr.size != 0 && !call.equals("")) {
-            // 가입 승인 Retrofit
+            // 가입 처리 Retrofit
+            val member:Member = Member(authority, profile, id, password, name, courseArr, call)
+
         }
     }
 }
