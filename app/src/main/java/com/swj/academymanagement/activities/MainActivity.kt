@@ -44,7 +44,10 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
         // 수업 목록
-        binding.btnClassDayList.setOnClickListener {  }
+        binding.btnClassDayList.setOnClickListener {
+            val intent = Intent(this, CourseScheduleActivity::class.java)
+            startActivity(intent)
+        }
 
         // 출결 현황
         binding.btnAttendance.setOnClickListener {  }

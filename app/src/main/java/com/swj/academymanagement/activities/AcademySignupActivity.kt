@@ -4,7 +4,11 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.CheckBox
+import androidx.activity.result.ActivityResultCallback
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
+import com.bumptech.glide.Glide
 import com.google.android.material.radiobutton.MaterialRadioButton
 import com.swj.academymanagement.databinding.ActivityAcademySignupBinding
 import com.swj.academymanagement.model.Member
@@ -20,12 +24,31 @@ class AcademySignupActivity : AppCompatActivity() {
     var passwordCheck = false
     // 핸드폰 중복검사 했는지 확인..
     var callCheck = false
+    // 사진 경로
+    var profile:String = ""
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
         binding.btnSighup.setOnClickListener { signUp() }
+        binding.btnProfileSelect.setOnClickListener {
+            val intent = Intent(Intent.ACTION_OPEN_DOCUMENT).setType("image/*")
+            imagePickResultLauncher.launch(intent)
+        }
     }
+
+    private val imagePickResultLauncher:ActivityResultLauncher<Intent> =
+        registerForActivityResult(
+            ActivityResultContracts.StartActivityForResult(),
+            ActivityResultCallback {
+                if(it.resultCode != RESULT_CANCELED) {
+                    val intent:Intent = it.data!!
+                    profile = intent.data.toString()
+                    Glide.with(this).load(intent.data).into(binding.ivProfile)
+                }
+            }
+        )
 
     // 가입 버튼 클릭
     private fun signUp() {
@@ -39,7 +62,7 @@ class AcademySignupActivity : AppCompatActivity() {
         }
 
         // 사진 경로
-        val profile:String = ""
+        //val profile = ""
 
         // 아이디
         var emailId:String = binding.tilEmailId.editText!!.text.toString()
