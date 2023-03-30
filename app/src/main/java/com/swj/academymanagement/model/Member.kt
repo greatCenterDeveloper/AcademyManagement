@@ -2,7 +2,7 @@ package com.swj.academymanagement.model
 
 import java.io.Serializable
 
-data class Member (
+class Member (
     var authority:String,
     var profile:String,
     var emailId:String,
@@ -10,4 +10,6 @@ data class Member (
     var name:String,
     var courseArr:MutableList<String>,
     var call:String
-):Serializable
+):Serializable {
+    var course:String = ""
+}

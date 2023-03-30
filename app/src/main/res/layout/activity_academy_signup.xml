@@ -257,44 +257,6 @@
                     android:layout_marginLeft="8dp"/>
 
                 <CheckBox
-                    android:id="@+id/cb_middle_math"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="중등 수학"
-                    android:textStyle="bold"
-                    android:textColor="@color/black"
-                    android:textSize="16sp"
-                    android:fontFamily="@font/cookierunbold"
-                    android:layout_marginLeft="8dp"
-                    android:layout_below="@id/cb_middle_kor"/>
-
-                <CheckBox
-                    android:id="@+id/cb_high_math"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="고등 수학"
-                    android:textStyle="bold"
-                    android:textColor="@color/black"
-                    android:textSize="16sp"
-                    android:fontFamily="@font/cookierunbold"
-                    android:layout_toRightOf="@id/cb_middle_kor"
-                    android:layout_marginLeft="8dp"
-                    android:layout_alignTop="@id/cb_middle_math"/>
-
-                <CheckBox
-                    android:id="@+id/cb_high_math_advance"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="고등 수학 심화"
-                    android:textStyle="bold"
-                    android:textColor="@color/black"
-                    android:textSize="16sp"
-                    android:fontFamily="@font/cookierunbold"
-                    android:layout_toRightOf="@id/cb_high_kor"
-                    android:layout_marginLeft="8dp"
-                    android:layout_alignTop="@id/cb_middle_math"/>
-
-                <CheckBox
                     android:id="@+id/cb_middle_eng"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -304,7 +266,7 @@
                     android:textSize="16sp"
                     android:fontFamily="@font/cookierunbold"
                     android:layout_marginLeft="8dp"
-                    android:layout_below="@id/cb_middle_math"/>
+                    android:layout_below="@id/cb_middle_kor"/>
 
                 <CheckBox
                     android:id="@+id/cb_high_eng"
@@ -331,6 +293,44 @@
                     android:layout_toRightOf="@id/cb_high_kor"
                     android:layout_marginLeft="8dp"
                     android:layout_alignTop="@id/cb_middle_eng"/>
+
+                <CheckBox
+                    android:id="@+id/cb_middle_math"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="중등 수학"
+                    android:textStyle="bold"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    android:fontFamily="@font/cookierunbold"
+                    android:layout_marginLeft="8dp"
+                    android:layout_below="@id/cb_middle_eng"/>
+
+                <CheckBox
+                    android:id="@+id/cb_high_math"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="고등 수학"
+                    android:textStyle="bold"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    android:fontFamily="@font/cookierunbold"
+                    android:layout_toRightOf="@id/cb_middle_kor"
+                    android:layout_marginLeft="8dp"
+                    android:layout_alignTop="@id/cb_middle_math"/>
+
+                <CheckBox
+                    android:id="@+id/cb_high_math_advance"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="고등 수학 심화"
+                    android:textStyle="bold"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    android:fontFamily="@font/cookierunbold"
+                    android:layout_toRightOf="@id/cb_high_kor"
+                    android:layout_marginLeft="8dp"
+                    android:layout_alignTop="@id/cb_middle_math"/>
             </RelativeLayout>
 
             <TextView
