@@ -27,11 +27,11 @@ class StudentManagementAdapter(val context:Context, val studentArr:MutableList<M
 
         holder.binding.tvName.text = student.name
 
-        val courses:StringBuffer = StringBuffer()
+        val courses = StringBuffer()
         for(course in student.courseArr) {
-            if(course.contains("국어")) courses.append("국어, ")
-            if(course.contains("영어")) courses.append("영어, ")
-            if(course.contains("수학")) courses.append("수학")
+            if(course == "국어") courses.append("국어, ")
+            if(course == "영어") courses.append("영어, ")
+            if(course == "수학") courses.append("수학")
         }
 
         var courseTemp:String = courses.toString()

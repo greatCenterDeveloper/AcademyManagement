@@ -36,9 +36,8 @@ class StudentManagementActivity : AppCompatActivity() {
         binding.acTvCourse.setAdapter(courseAdapter)
 
         val courseArr = mutableListOf<String>()
-        courseArr.add("중등 국어")
-        courseArr.add("고등 수학")
-        courseArr.add("고등 수학 심화")
+        courseArr.add("국어")
+        courseArr.add("수학")
 
         val studentArr:MutableList<Member> = mutableListOf()
         studentArr.add(Member("학생", "", "aaa@aaa.com", "aaa", "sam", courseArr, "010-1234-5678"))

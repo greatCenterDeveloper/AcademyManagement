@@ -88,17 +88,9 @@ class AcademySignupActivity : AppCompatActivity() {
             name = binding.tilName.editText!!.text.toString()
 
         val courseArr:MutableList<String> = mutableListOf()
-        if (binding.cbMiddleKor.isChecked) courseArr.add(binding.cbMiddleKor.text.toString())
-        if (binding.cbHighKor.isChecked) courseArr.add(binding.cbHighKor.text.toString())
-        if (binding.cbHighKorAdvance.isChecked) courseArr.add(binding.cbHighKorAdvance.text.toString())
-
-        if (binding.cbMiddleMath.isChecked) courseArr.add(binding.cbMiddleMath.text.toString())
-        if (binding.cbHighMath.isChecked) courseArr.add(binding.cbHighMath.text.toString())
-        if (binding.cbHighMathAdvance.isChecked) courseArr.add(binding.cbHighMathAdvance.text.toString())
-
-        if (binding.cbMiddleEng.isChecked) courseArr.add(binding.cbMiddleEng.text.toString())
-        if (binding.cbHighEng.isChecked) courseArr.add(binding.cbHighEng.text.toString())
-        if (binding.cbHighEngAdvance.isChecked) courseArr.add(binding.cbHighEngAdvance.text.toString())
+        if (binding.cbKor.isChecked) courseArr.add(binding.cbKor.text.toString())
+        if (binding.cbEng.isChecked) courseArr.add(binding.cbEng.text.toString())
+        if (binding.cbMath.isChecked) courseArr.add(binding.cbMath.text.toString())
 
         var call1 = ""
         if (binding.tilCall1.editText!!.text.toString().length == 3) {
