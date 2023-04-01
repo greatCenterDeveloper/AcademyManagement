@@ -50,7 +50,10 @@ class MainActivity : AppCompatActivity() {
         }
 
         // 출결 현황
-        binding.btnAttendance.setOnClickListener {  }
+        binding.btnAttendance.setOnClickListener {
+            val intent = Intent(this, AttendanceActivity::class.java)
+            startActivity(intent)
+        }
         // 문자 보내기
         binding.btnSendMessage.setOnClickListener {  }
 
