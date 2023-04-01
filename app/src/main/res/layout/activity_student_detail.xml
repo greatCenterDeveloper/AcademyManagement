@@ -1,0 +1,286 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    tools:context=".activities.StudentDetailActivity">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/appbar"
+        android:background="@color/white">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_scrollFlags="scroll|enterAlways">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/civ_home"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/ic_action_home"
+                android:background="@color/civ_click_color"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="학생 관리"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                android:textSize="24sp"
+                android:fontFamily="@font/cookierunblack"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"/>
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/civ_backspace"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/ic_action_backspace"
+                android:layout_alignParentRight="true"
+                android:background="@color/civ_click_color"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#666666"
+                android:layout_below="@id/civ_home"/>
+        </RelativeLayout>
+
+        <androidx.appcompat.widget.Toolbar
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:contentInsetStart="0dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="8dp">
+
+                <ImageView
+                    android:id="@+id/iv_profile"
+                    android:layout_width="50dp"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/user_icon"
+                    android:background="#aaaaaa"
+                    android:layout_marginTop="8dp"
+                    android:layout_alignTop="@id/tv_name_title"
+                    android:layout_alignBottom="@id/tv_call_title"/>
+
+                <TextView
+                    android:id="@+id/tv_name_title"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:text="이름"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    android:textSize="20sp"
+                    android:fontFamily="@font/cookierunblack"
+                    android:layout_toRightOf="@id/iv_profile"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginTop="8dp"/>
+
+                <TextView
+                    android:id="@+id/tv_course_title"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:text="강좌"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    android:textSize="20sp"
+                    android:fontFamily="@font/cookierunblack"
+                    android:layout_alignLeft="@id/tv_name_title"
+                    android:layout_below="@id/tv_name_title"
+                    android:layout_marginTop="8dp"/>
+
+                <TextView
+                    android:id="@+id/tv_call_title"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:text="휴대폰"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    android:textSize="20sp"
+                    android:fontFamily="@font/cookierunblack"
+                    android:layout_alignLeft="@id/tv_name_title"
+                    android:layout_below="@id/tv_course_title"
+                    android:layout_marginTop="8dp"/>
+
+                <TextView
+                    android:id="@+id/tv_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:text="홍길동"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    android:textSize="20sp"
+                    android:fontFamily="@font/cookierunblack"
+                    android:layout_alignTop="@id/tv_name_title"
+                    android:layout_toRightOf="@id/tv_name_title"/>
+
+                <TextView
+                    android:id="@+id/tv_course"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:text="국어, 영어"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    android:textSize="20sp"
+                    android:fontFamily="@font/cookierunblack"
+                    android:layout_alignTop="@id/tv_course_title"
+                    android:layout_toRightOf="@id/tv_course_title"/>
+
+                <TextView
+                    android:id="@+id/tv_call"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:text="010-1234-5678"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    android:textSize="20sp"
+                    android:fontFamily="@font/cookierunblack"
+                    android:layout_alignTop="@id/tv_call_title"
+                    android:layout_toRightOf="@id/tv_call_title"/>
+
+                <LinearLayout
+                    android:id="@+id/layout_btns"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_below="@id/iv_profile"
+                    android:layout_marginTop="8dp">
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/btn_counsel"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="7"
+                        android:text="상담하기"
+                        android:textStyle="bold"
+                        android:textSize="14sp"
+                        android:fontFamily="@font/cookierunblack"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"/>
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/btn_send_message"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="7"
+                        android:text="문자보내기"
+                        android:textStyle="bold"
+                        android:textSize="14sp"
+                        android:fontFamily="@font/cookierunblack"/>
+                </LinearLayout>
+            </RelativeLayout>
+        </androidx.appcompat.widget.Toolbar>
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="16dp">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_course"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                android:orientation="vertical"
+                android:nestedScrollingEnabled="false"/>
+
+            <RelativeLayout
+                android:id="@+id/layout_counsel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/layout_border"
+                android:layout_below="@id/recycler_course"
+                android:layout_marginTop="16dp">
+                <TextView
+                    android:id="@+id/tv_counsel_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="상담현황"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    android:textSize="20sp"
+                    android:fontFamily="@font/cookierunblack"
+                    android:layout_marginLeft="16dp"/>
+
+                <RelativeLayout
+                    android:id="@+id/counsel_line"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_below="@id/tv_counsel_title"
+                    android:background="#666666"
+                    android:layout_marginTop="4dp"/>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recycler_counsel"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/counsel_line"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    android:orientation="vertical"
+                    android:nestedScrollingEnabled="false"
+                    android:paddingLeft="8dp"
+                    android:paddingRight="8dp"/>
+            </RelativeLayout>
+
+
+            <RelativeLayout
+                android:id="@+id/layout_message"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/layout_border"
+                android:layout_below="@id/layout_counsel"
+                android:layout_marginTop="16dp">
+                <TextView
+                    android:id="@+id/tv_message_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="문자(SNS) 현황"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    android:textSize="20sp"
+                    android:fontFamily="@font/cookierunblack"
+                    android:layout_marginLeft="16dp"/>
+
+                <RelativeLayout
+                    android:id="@+id/message_line"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_below="@id/tv_message_title"
+                    android:background="#666666"
+                    android:layout_marginTop="4dp"/>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recycler_message"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/message_line"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    android:orientation="vertical"
+                    android:nestedScrollingEnabled="false"
+                    android:paddingLeft="8dp"
+                    android:paddingRight="8dp"/>
+            </RelativeLayout>
+        </RelativeLayout>
+    </androidx.core.widget.NestedScrollView>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -7,13 +7,19 @@
     android:padding="16dp"
     tools:context=".activities.AcademyLoginActivity">
 
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
     <LinearLayout
         android:id="@+id/layout_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="16dp">
+        android:layout_marginTop="16dp"
+        android:layout_below="@id/toolbar">
 
         <ImageView
             android:id="@+id/iv_logo"
@@ -59,16 +65,17 @@
             android:layout_below="@id/tv_title"/>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/til_input_id"
+            android:id="@+id/til_email_id"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_margin="8dp"
-            android:hint="아이디"
+            android:hint="이메일 아이디"
             app:endIconMode="clear_text"
             android:layout_below="@id/line">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/email_id"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:drawableStart="@drawable/user_icon"
@@ -77,18 +84,19 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/til_input_password"
+            android:id="@+id/til_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_margin="8dp"
             android:hint="비밀번호"
             app:endIconMode="password_toggle"
-            android:layout_below="@id/til_input_id">
+            android:layout_below="@id/til_email_id">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:inputType="textPassword"
                 android:drawableStart="@drawable/password_icon"
                 android:drawablePadding="16dp"/>
 
@@ -98,7 +106,7 @@
             android:id="@+id/checkbox_login_info"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/til_input_password"
+            android:layout_below="@id/til_password"
             android:layout_marginLeft="16dp"/>
 
         <androidx.appcompat.widget.AppCompatTextView
@@ -109,7 +117,7 @@
             android:textColor="@color/black"
             android:textSize="16sp"
             android:fontFamily="@font/cookierunbold"
-            android:layout_below="@id/til_input_password"
+            android:layout_below="@id/til_password"
             android:layout_toRightOf="@id/checkbox_login_info"
             android:layout_marginTop="10dp"/>
 
