@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    tools:context=".activities.SmsSendActivity">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/appbar"
+        android:background="@color/white"
+        app:elevation="0dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_scrollFlags="scroll|enterAlways">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/civ_home"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/ic_action_home"
+                android:background="@color/civ_click_color"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="SMS 발송"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                android:textSize="24sp"
+                android:fontFamily="@font/cookierunblack"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"/>
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/civ_backspace"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/ic_action_backspace"
+                android:layout_alignParentRight="true"
+                android:background="@color/civ_click_color"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#666666"
+                android:layout_below="@id/civ_home"/>
+        </RelativeLayout>
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:contentInsetStart="0dp">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_below="@id/toolbar">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                    android:hint="학생명"
+                    android:layout_weight="13">
+
+                    <!--inputType : none → 키보드 입력창이 안 올라온다.-->
+                    <!--dropDownHeight : 드롭다운창 높이 지정-->
+                    <AutoCompleteTextView
+                        android:id="@+id/ac_tv_student"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/cookierunbold"
+                        android:inputType="none"
+                        android:dropDownHeight="160dp"/>
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tv_call_number"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="6"
+                    android:text="010-1234-5678"
+                    android:textStyle="bold"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
+                    android:fontFamily="@font/cookierunbold"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    style="@style/Widget.Material3.AutoCompleteTextView.OutlinedBox"
+                    android:layout_marginLeft="8dp"/>
+            </LinearLayout>
+        </androidx.appcompat.widget.Toolbar>
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_cancel"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:text="취소"
+        android:textStyle="bold"
+        android:textSize="16sp"
+        android:fontFamily="@font/cookierunblack"
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="16dp"
+        android:layout_marginLeft="16dp"/>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_send_message"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:text="SMS 발송"
+        android:textStyle="bold"
+        android:textSize="16sp"
+        android:fontFamily="@font/cookierunblack"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="16dp"/>
+
+    <LinearLayout
+        android:id="@+id/layout_image"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_above="@id/btn_cancel">
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="7">
+            <androidx.viewpager2.widget.ViewPager2
+                android:id="@+id/pager"
+                android:layout_width="match_parent"
+                android:layout_height="120dp"
+                android:background="#dddddd"/>
+            <com.tbuonomo.viewpagerdotsindicator.WormDotsIndicator
+                android:id="@+id/dots_indicator"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@id/pager"
+                android:layout_centerHorizontal="true"
+                app:dotsClickable="true"
+                app:dotsColor="@color/teal_200"
+                app:dotsStrokeColor="@color/white"/>
+        </RelativeLayout>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_select_image"
+            android:layout_width="110dp"
+            android:layout_height="wrap_content"
+            android:text="사진 선택"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:fontFamily="@font/cookierunblack"
+            android:gravity="center"
+            android:layout_gravity="bottom"
+            android:layout_marginLeft="16dp"/>
+    </LinearLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/til_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_marginRight="4dp"
+        android:hint="SMS 내용..."
+        app:endIconMode="clear_text"
+        android:nestedScrollingEnabled="true"
+        android:layout_below="@id/appbar"
+        android:layout_above="@id/layout_image"
+        android:layout_marginBottom="16dp">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:inputType="text"
+            android:fontFamily="@font/cookierunbold"
+            android:gravity="top"/>
+    </com.google.android.material.textfield.TextInputLayout>
+</RelativeLayout>
