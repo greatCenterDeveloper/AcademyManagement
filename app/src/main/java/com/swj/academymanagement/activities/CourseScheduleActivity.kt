@@ -1,10 +1,8 @@
 package com.swj.academymanagement.activities
 
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.appcompat.app.AlertDialog
-import androidx.core.view.children
+import com.swj.academymanagement.adapters.CourseScheduleAdapter
 import com.swj.academymanagement.databinding.ActivityCourseScheduleBinding
 import com.swj.academymanagement.model.CourseScheduleTeacher
 import com.swj.academymanagement.model.Member
@@ -39,211 +37,24 @@ class CourseScheduleActivity : AppCompatActivity() {
         val week:Week = WeekDay.getWeekDate()
 
         val courseScheduleArr:MutableList<CourseScheduleTeacher> = mutableListOf()
-        courseScheduleArr.add(CourseScheduleTeacher(week.monday.date, week.monday.day, "국어", "monday1", "101호", studentArr))
-        courseScheduleArr.add(CourseScheduleTeacher(week.monday.date, week.monday.day, "영어", "monday2", "103호", studentArr))
-        courseScheduleArr.add(CourseScheduleTeacher(week.monday.date, week.monday.day, "수학", "monday3", "102호", studentZeroArr))
+        courseScheduleArr.add(CourseScheduleTeacher(week.monday.date, week.monday.day, "국어", "1", "101호", studentArr))
+        courseScheduleArr.add(CourseScheduleTeacher(week.tuesday.date, week.tuesday.day, "영어", "1", "103호", studentArr))
+        courseScheduleArr.add(CourseScheduleTeacher(week.wednesday.date, week.wednesday.day, "수학", "1", "102호", studentZeroArr))
+        courseScheduleArr.add(CourseScheduleTeacher(week.thursday.date, week.thursday.day, "국어", "1", "101호", studentArr))
+        courseScheduleArr.add(CourseScheduleTeacher(week.friday.date, week.friday.day, "영어", "1", "103호", studentZeroArr))
 
-        courseScheduleArr.add(CourseScheduleTeacher(week.tuesday.date, week.tuesday.day, "영어", "tuesday1", "103호", studentArr))
-        courseScheduleArr.add(CourseScheduleTeacher(week.tuesday.date, week.tuesday.day, "수학", "tuesday2", "102호", studentZeroArr))
-        courseScheduleArr.add(CourseScheduleTeacher(week.tuesday.date, week.tuesday.day, "국어", "tuesday3", "101호", studentZeroArr))
+        courseScheduleArr.add(CourseScheduleTeacher(week.monday.date, week.monday.day, "영어", "2", "103호", studentArr))
+        courseScheduleArr.add(CourseScheduleTeacher(week.tuesday.date, week.tuesday.day, "수학", "2", "102호", studentZeroArr))
+        courseScheduleArr.add(CourseScheduleTeacher(week.wednesday.date, week.wednesday.day, "국어", "2", "101호", studentZeroArr))
+        courseScheduleArr.add(CourseScheduleTeacher(week.thursday.date, week.thursday.day, "수학", "2", "102호", studentZeroArr))
+        courseScheduleArr.add(CourseScheduleTeacher(week.friday.date, week.friday.day, "수학", "2", "102호", studentArr))
 
-        courseScheduleArr.add(CourseScheduleTeacher(week.wednesday.date, week.wednesday.day, "수학", "wednesday1", "102호", studentZeroArr))
-        courseScheduleArr.add(CourseScheduleTeacher(week.wednesday.date, week.wednesday.day, "국어", "wednesday2", "101호", studentZeroArr))
-        courseScheduleArr.add(CourseScheduleTeacher(week.wednesday.date, week.wednesday.day, "영어", "wednesday3", "103호", studentArr))
+        courseScheduleArr.add(CourseScheduleTeacher(week.monday.date, week.monday.day, "수학", "3", "102호", studentZeroArr))
+        courseScheduleArr.add(CourseScheduleTeacher(week.tuesday.date, week.tuesday.day, "국어", "3", "101호", studentZeroArr))
+        courseScheduleArr.add(CourseScheduleTeacher(week.wednesday.date, week.wednesday.day, "영어", "3", "103호", studentArr))
+        courseScheduleArr.add(CourseScheduleTeacher(week.thursday.date, week.thursday.day, "영어", "3", "103호", studentArr))
+        courseScheduleArr.add(CourseScheduleTeacher(week.friday.date, week.friday.day, "국어", "3", "101호", studentArr))
 
-        courseScheduleArr.add(CourseScheduleTeacher(week.thursday.date, week.thursday.day, "국어", "thursday1", "101호", studentArr))
-        courseScheduleArr.add(CourseScheduleTeacher(week.thursday.date, week.thursday.day, "수학", "thursday2", "102호", studentZeroArr))
-        courseScheduleArr.add(CourseScheduleTeacher(week.thursday.date, week.thursday.day, "영어", "thursday3", "103호", studentArr))
-
-        courseScheduleArr.add(CourseScheduleTeacher(week.friday.date, week.friday.day, "영어", "friday1", "103호", studentZeroArr))
-        courseScheduleArr.add(CourseScheduleTeacher(week.friday.date, week.friday.day, "수학", "friday2", "102호", studentArr))
-        courseScheduleArr.add(CourseScheduleTeacher(week.friday.date, week.friday.day, "국어", "friday3", "101호", studentArr))
-
-
-
-        /*binding.monday1300.setOnClickListener {
-            lateinit var intent:Intent
-
-            for(schedule in courseScheduleArr) {
-                if(schedule.period == "monday1") {
-                    intent = Intent(this, CourseScheduleDetailActivity::class.java)
-                    intent.putExtra("schedule", schedule)
-                    break;
-                }
-            }
-            startActivity(intent)
-        }
-        binding.monday1400.setOnClickListener {
-            lateinit var intent:Intent
-
-            for(schedule in courseScheduleArr) {
-                if(schedule.period == "monday2") {
-                    intent = Intent(this, CourseScheduleDetailActivity::class.java)
-                    intent.putExtra("schedule", schedule)
-                    break;
-                }
-            }
-            startActivity(intent)
-        }
-        binding.monday1500.setOnClickListener {
-            lateinit var intent:Intent
-
-            for(schedule in courseScheduleArr) {
-                if(schedule.period == "monday3") {
-                    intent = Intent(this, CourseScheduleDetailActivity::class.java)
-                    intent.putExtra("schedule", schedule)
-                    break;
-                }
-            }
-            startActivity(intent)
-        }
-
-        binding.tuesday1300.setOnClickListener {
-            lateinit var intent:Intent
-
-            for(schedule in courseScheduleArr) {
-                if(schedule.period == "tuesday1") {
-                    intent = Intent(this, CourseScheduleDetailActivity::class.java)
-                    intent.putExtra("schedule", schedule)
-                    break;
-                }
-            }
-            startActivity(intent)
-        }
-        binding.tuesday1400.setOnClickListener {
-            lateinit var intent:Intent
-
-            for(schedule in courseScheduleArr) {
-                if(schedule.period == "tuesday2") {
-                    intent = Intent(this, CourseScheduleDetailActivity::class.java)
-                    intent.putExtra("schedule", schedule)
-                    break;
-                }
-            }
-            startActivity(intent)
-        }
-        binding.tuesday1500.setOnClickListener {
-            lateinit var intent:Intent
-
-            for(schedule in courseScheduleArr) {
-                if(schedule.period == "tuesday3") {
-                    intent = Intent(this, CourseScheduleDetailActivity::class.java)
-                    intent.putExtra("schedule", schedule)
-                    break;
-                }
-            }
-            startActivity(intent)
-        }
-
-        binding.wednesday1300.setOnClickListener {
-            lateinit var intent:Intent
-
-            for(schedule in courseScheduleArr) {
-                if(schedule.period == "wednesday1") {
-                    intent = Intent(this, CourseScheduleDetailActivity::class.java)
-                    intent.putExtra("schedule", schedule)
-                    break;
-                }
-            }
-            startActivity(intent)
-        }
-        binding.wednesday1400.setOnClickListener {
-            lateinit var intent:Intent
-
-            for(schedule in courseScheduleArr) {
-                if(schedule.period == "wednesday2") {
-                    intent = Intent(this, CourseScheduleDetailActivity::class.java)
-                    intent.putExtra("schedule", schedule)
-                    break;
-                }
-            }
-            startActivity(intent)
-        }
-        binding.wednesday1500.setOnClickListener {
-            lateinit var intent:Intent
-
-            for(schedule in courseScheduleArr) {
-                if(schedule.period == "wednesday3") {
-                    intent = Intent(this, CourseScheduleDetailActivity::class.java)
-                    intent.putExtra("schedule", schedule)
-                    break;
-                }
-            }
-            startActivity(intent)
-        }
-
-        binding.thursday1300.setOnClickListener {
-            lateinit var intent:Intent
-
-            for(schedule in courseScheduleArr) {
-                if(schedule.period == "thursday1") {
-                    intent = Intent(this, CourseScheduleDetailActivity::class.java)
-                    intent.putExtra("schedule", schedule)
-                    break;
-                }
-            }
-            startActivity(intent)
-        }
-        binding.thursday1400.setOnClickListener {
-            lateinit var intent:Intent
-
-            for(schedule in courseScheduleArr) {
-                if(schedule.period == "thursday2") {
-                    intent = Intent(this, CourseScheduleDetailActivity::class.java)
-                    intent.putExtra("schedule", schedule)
-                    break;
-                }
-            }
-            startActivity(intent)
-        }
-        binding.thursday1500.setOnClickListener {
-            lateinit var intent:Intent
-
-            for(schedule in courseScheduleArr) {
-                if(schedule.period == "thursday3") {
-                    intent = Intent(this, CourseScheduleDetailActivity::class.java)
-                    intent.putExtra("schedule", schedule)
-                    break;
-                }
-            }
-            startActivity(intent)
-        }
-
-        binding.friday1300.setOnClickListener {
-            lateinit var intent:Intent
-
-            for(schedule in courseScheduleArr) {
-                if(schedule.period == "friday1") {
-                    intent = Intent(this, CourseScheduleDetailActivity::class.java)
-                    intent.putExtra("schedule", schedule)
-                    break;
-                }
-            }
-            startActivity(intent)
-        }
-        binding.friday1400.setOnClickListener {
-            lateinit var intent:Intent
-
-            for(schedule in courseScheduleArr) {
-                if(schedule.period == "friday2") {
-                    intent = Intent(this, CourseScheduleDetailActivity::class.java)
-                    intent.putExtra("schedule", schedule)
-                    break;
-                }
-            }
-            startActivity(intent)
-        }
-        binding.friday1500.setOnClickListener {
-            lateinit var intent:Intent
-
-            for(schedule in courseScheduleArr) {
-                if(schedule.period == "friday3") {
-                    intent = Intent(this, CourseScheduleDetailActivity::class.java)
-                    intent.putExtra("schedule", schedule)
-                    break;
-                }
-            }
-            startActivity(intent)
-        }*/
+        binding.recycler.adapter = CourseScheduleAdapter(this, courseScheduleArr)
     }
 }
