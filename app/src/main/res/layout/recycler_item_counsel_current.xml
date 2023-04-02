@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardCornerRadius="16dp"
+    app:cardBackgroundColor="#eeeeee"
+    app:contentPadding="8dp"
+    android:layout_margin="8dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/tv_teacher"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="나강사 선생님"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:fontFamily="@font/cookierunbold"
+            android:layout_marginLeft="16dp"/>
+
+        <TextView
+            android:id="@+id/tv_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="2023-02-18"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:fontFamily="@font/cookierunbold"
+            android:layout_below="@id/tv_teacher"
+            android:layout_marginLeft="8dp"/>
+
+        <RelativeLayout
+            android:id="@+id/line"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#666666"
+            android:layout_margin="4dp"
+            android:layout_below="@id/tv_date"/>
+
+        <TextView
+            android:id="@+id/tv_student"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="홍길동"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:fontFamily="@font/cookierunbold"
+            android:layout_marginLeft="16dp"
+            android:layout_below="@id/line"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="( 학생 상담 )"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:fontFamily="@font/cookierunbold"
+            android:layout_marginLeft="16dp"
+            android:layout_below="@id/line"
+            android:layout_toRightOf="@id/tv_student"/>
+
+        <TextView
+            android:id="@+id/tv_counsel_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="상담 상담 상담 상담"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:fontFamily="@font/cookierunbold"
+            android:layout_below="@id/tv_student"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/layout_border"
+            android:padding="8dp"/>
+
+    </RelativeLayout>
+</androidx.cardview.widget.CardView>

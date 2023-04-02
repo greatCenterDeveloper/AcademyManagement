@@ -55,15 +55,19 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
         // 문자 보내기
-        binding.btnSendMessage.setOnClickListener {  }
+        binding.btnSendMessage.setOnClickListener {
+            val intent = Intent(this, SmsSendActivity::class.java)
+            startActivity(intent)
+        }
 
-        // 일정
-        binding.btnSchedule.setOnClickListener {  }
         // 상담 현황
-        binding.btnCounsel.setOnClickListener {  }
-
+        binding.btnCounsel.setOnClickListener {
+            val intent = Intent(this, CounselActivity::class.java)
+            startActivity(intent)
+        }
         // 교재 검색
         binding.btnTeachingBook.setOnClickListener {  }
+
         // 선생님 노트
         binding.btnTeacherNote.setOnClickListener {  }
     }
