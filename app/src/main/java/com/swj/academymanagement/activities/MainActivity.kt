@@ -66,7 +66,10 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
         // 교재 검색
-        binding.btnTeachingBook.setOnClickListener {  }
+        binding.btnTeachingBook.setOnClickListener {
+            val intent = Intent(this, TeachingBookActivity::class.java)
+            startActivity(intent)
+        }
 
         // 선생님 노트
         binding.btnTeacherNote.setOnClickListener {  }
