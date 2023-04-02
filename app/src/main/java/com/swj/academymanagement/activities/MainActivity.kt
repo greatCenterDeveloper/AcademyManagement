@@ -72,6 +72,9 @@ class MainActivity : AppCompatActivity() {
         }
 
         // 선생님 노트
-        binding.btnTeacherNote.setOnClickListener {  }
+        binding.btnTeacherNote.setOnClickListener {
+            val intent = Intent(this, TeacherNoteActivity::class.java)
+            startActivity(intent)
+        }
     }
 }

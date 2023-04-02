@@ -84,22 +84,29 @@
         android:layout_marginTop="8dp"
         android:layout_below="@id/tv_name_title"/>
 
-    <TextView
-        android:id="@+id/tv_counsel_request_content"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/til_counsel_request_content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="상담을 원합니다\n고민이 너무 많습니다"
-        android:textStyle="bold"
-        android:textColor="@color/black"
-        android:textSize="16sp"
-        android:fontFamily="@font/cookierunbold"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        app:endIconMode="none"
         android:layout_below="@id/tv_counsel_request_title"
         android:layout_above="@id/tv_counsel_title"
         android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
-        android:background="@drawable/layout_border"
-        android:padding="8dp"/>
+        android:layout_marginBottom="8dp">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:inputType="none"
+            android:text="상담을 원합니다\n고민이 너무 많습니다"
+            android:gravity="top"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:fontFamily="@font/cookierunbold"/>
+    </com.google.android.material.textfield.TextInputLayout>
 
     <TextView
         android:id="@+id/tv_counsel_title"
@@ -113,20 +120,27 @@
         android:layout_marginLeft="8dp"
         android:layout_centerVertical="true"/>
 
-    <TextView
-        android:id="@+id/tv_counsel_content"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/til_counsel_content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="상담 상담 상담 상담"
-        android:textStyle="bold"
-        android:textColor="@color/black"
-        android:textSize="16sp"
-        android:fontFamily="@font/cookierunbold"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        app:endIconMode="clear_text"
         android:layout_below="@id/tv_counsel_title"
         android:layout_alignParentBottom="true"
         android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
-        android:background="@drawable/layout_border"
-        android:padding="8dp"/>
+        android:layout_marginBottom="8dp">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:inputType="textMultiLine"
+            android:gravity="top"
+            android:text="상담 상담 상담 상담"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:fontFamily="@font/cookierunbold"/>
+    </com.google.android.material.textfield.TextInputLayout>
 </RelativeLayout>

@@ -14,6 +14,7 @@ class CounselDetailActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.tvName.text = intent.getStringExtra("name")
-        binding.tvCounselRequestContent.text = intent.getStringExtra("")
+        binding.tilCounselRequestContent
+            .editText!!.setText(intent.getStringExtra("counselRequest"))
     }
 }
