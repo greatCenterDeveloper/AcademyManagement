@@ -7,12 +7,18 @@ import android.os.Bundle
 import android.view.WindowInsets
 import android.view.WindowManager
 import android.widget.Toast
+import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.appcompat.app.AlertDialog
+import com.swj.academymanagement.R
 import com.swj.academymanagement.databinding.ActivityMainBinding
+import com.swj.academymanagement.databinding.DialogMyInfoUpdateBinding
+import com.swj.academymanagement.databinding.DialogPasswordUpdateBinding
 import com.swj.academymanagement.model.Member
 
 class MainActivity : AppCompatActivity() {
 
     val binding:ActivityMainBinding by lazy { ActivityMainBinding.inflate(layoutInflater) }
+    lateinit var drawerToggle:ActionBarDrawerToggle
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,6 +31,63 @@ class MainActivity : AppCompatActivity() {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN
             )
+        }
+        setSupportActionBar(binding.toolbar)
+        supportActionBar?.setDisplayShowTitleEnabled(false
+        )
+        drawerToggle = ActionBarDrawerToggle(this,
+            binding.drawerLayout, binding.toolbar, R.string.open, R.string.close)
+
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        drawerToggle.syncState()
+        binding.drawerLayout.addDrawerListener(drawerToggle)
+
+        binding.nav.setNavigationItemSelectedListener {
+            if(it.itemId == R.id.menu_my_info_update) {
+                val dialogBinding = DialogMyInfoUpdateBinding.inflate(layoutInflater)
+                val dialog: AlertDialog = AlertDialog.Builder(this)
+                    .setView(dialogBinding.root)
+                    .create()
+                dialogBinding.btnCancel.setOnClickListener { dialog.dismiss() }
+                dialog.show()
+
+                dialogBinding.btnUpdate.setOnClickListener {
+                    val name = dialogBinding.tilName.editText?.text.toString()
+                    val call1 = dialogBinding.tilCall1.editText?.text.toString()
+                    val call2 = dialogBinding.tilCall2.editText?.text.toString()
+                    val call3 = dialogBinding.tilCall3.editText?.text.toString()
+                    val call = "${call1}-${call2}-${call3}"
+                    val prevPassword = dialogBinding.tilPrevPassword.editText?.text.toString()
+                    val password = dialogBinding.tilPassword.editText?.text.toString()
+                    val passwordCheck = dialogBinding.tilPasswordCheck.editText?.text.toString()
+
+                    if(password == passwordCheck) {
+                        Toast.makeText(this, "수정 되었습니다.", Toast.LENGTH_SHORT).show()
+                        dialog.dismiss()
+                    }
+                }
+            } else if(it.itemId == R.id.menu_password_update) {
+                val dialogBinding = DialogPasswordUpdateBinding.inflate(layoutInflater)
+                val dialog: AlertDialog = AlertDialog.Builder(this)
+                    .setView(dialogBinding.root)
+                    .create()
+                dialogBinding.btnCancel.setOnClickListener { dialog.dismiss() }
+                dialog.show()
+
+                dialogBinding.btnUpdate.setOnClickListener {
+                    val prevPassword = dialogBinding.tilPrevPassword.editText?.text.toString()
+                    val password = dialogBinding.tilPassword.editText?.text.toString()
+                    val passwordCheck = dialogBinding.tilPasswordCheck.editText?.text.toString()
+
+                    if(password == passwordCheck) {
+                        Toast.makeText(this, "수정 되었습니다.", Toast.LENGTH_SHORT).show()
+                        dialog.dismiss()
+                    }
+                }
+            }
+
+            binding.drawerLayout.closeDrawer(binding.nav)
+            false
         }
 
         lateinit var teacher:Member
