@@ -33,8 +33,8 @@ class MainActivity : AppCompatActivity() {
             )
         }
         setSupportActionBar(binding.toolbar)
-        supportActionBar?.setDisplayShowTitleEnabled(false
-        )
+        supportActionBar?.setDisplayShowTitleEnabled(false)
+
         drawerToggle = ActionBarDrawerToggle(this,
             binding.drawerLayout, binding.toolbar, R.string.open, R.string.close)
 
