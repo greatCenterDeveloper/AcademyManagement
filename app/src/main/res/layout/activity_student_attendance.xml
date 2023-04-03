@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    tools:context=".activities.StudentAttendanceActivity">
+
+    <RelativeLayout
+        android:id="@+id/layout_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:layout_width="70dp"
+            android:layout_height="50dp"
+            android:src="@drawable/galaxy_logo"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="출결 인증"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:textSize="24sp"
+            android:fontFamily="@font/cookierunblack"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"/>
+
+        <ImageView
+            android:id="@+id/iv_backspace"
+            android:layout_width="70dp"
+            android:layout_height="50dp"
+            android:src="@drawable/ic_action_backspace"
+            android:layout_alignParentRight="true"
+            android:background="?attr/selectableItemBackgroundBorderless"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#666666"
+            android:layout_below="@id/iv_backspace"
+            android:layout_marginTop="4dp"/>
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/tv_title1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="올 때 등원 클릭!"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:textSize="32sp"
+        android:fontFamily="@font/cookierunblack"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/layout_title"
+        android:layout_marginTop="60dp"/>
+
+    <TextView
+        android:id="@+id/tv_title2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="갈 때 하원 클릭!"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:textSize="32sp"
+        android:fontFamily="@font/cookierunblack"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/tv_title1"
+        android:layout_marginTop="24dp"/>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_attendance"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="등  원"
+        android:textStyle="bold"
+        android:textSize="40sp"
+        android:fontFamily="@font/cookierunblack"
+        android:layout_below="@id/tv_title2"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="40dp"
+        android:paddingLeft="60dp"
+        android:paddingRight="60dp"/>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_gohome"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="하  원"
+        android:textStyle="bold"
+        android:textSize="40sp"
+        android:fontFamily="@font/cookierunblack"
+        android:layout_below="@id/btn_attendance"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="32dp"
+        android:paddingLeft="60dp"
+        android:paddingRight="60dp"/>
+
+</RelativeLayout>
