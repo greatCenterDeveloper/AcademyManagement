@@ -34,7 +34,7 @@ class TeacherNoteWorkFragment : Fragment() {
             val sdf = SimpleDateFormat("yyyy/MM/dd")
             sdf.timeZone = TimeZone.getTimeZone("Asia/Seoul")
 
-            val date = sdf.parse(Date().toString()).toString()
+            val date = sdf.format(Date())
             val note = Note(kind, title, date, content)
             Toast.makeText(requireActivity(), "${date}", Toast.LENGTH_SHORT).show()
         }

@@ -106,7 +106,11 @@ class StudentActivity : AppCompatActivity() {
         }
 
         // 상담 신청
-        binding.btnCounselRequest.setOnClickListener {  }
+        binding.btnCounselRequest.setOnClickListener {
+            val intent = Intent(this, CounselRequestActivity::class.java)
+            intent.putExtra("student", Gson().toJson(student))
+            startActivity(intent)
+        }
 
         // 수업 노트
         binding.btnClassNote.setOnClickListener {
