@@ -29,5 +29,7 @@ class CounselDetailActivity : AppCompatActivity() {
         binding.tvName.text = intent.getStringExtra("name")
         binding.tilCounselRequestContent
             .editText!!.setText(intent.getStringExtra("counselRequest"))
+
+        binding.tilCounselRequestContent.editText?.transitionName = "counselDetailTeacher"
     }
 }

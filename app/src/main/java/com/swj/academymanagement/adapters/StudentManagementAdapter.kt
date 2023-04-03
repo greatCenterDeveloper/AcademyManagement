@@ -2,6 +2,7 @@ package com.swj.academymanagement.adapters
 
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView.Adapter
@@ -47,6 +48,13 @@ class StudentManagementAdapter(val context:Context, val studentArr:MutableList<M
         holder.binding.tvCourse.text = course
         holder.binding.tvCall.text = student.call
         student.course = course
+
+        holder.binding.btnPhoneCall.setOnClickListener {
+            val intent = Intent()
+            intent.action = Intent.ACTION_DIAL
+            intent.data = Uri.parse("tel:${student.call}")
+            context.startActivity(intent)
+        }
 
         holder.binding.root.setOnClickListener {
             val intent:Intent = Intent(context, StudentDetailActivity::class.java)

@@ -41,7 +41,7 @@ class StudentManagementCourseAdapter(val context:Context, val courseArr:MutableL
             //dialog.setContentView(dialogBinding.root)
 
             dialogBinding.tvCourse.text = smc.course
-            dialogBinding.civClose.setOnClickListener { dialog.dismiss() }
+            dialogBinding.ivClose.setOnClickListener { dialog.dismiss() }
 
             val attendanceArr:MutableList<StudentManagementDialogAttendance> = mutableListOf()
             attendanceArr.add(StudentManagementDialogAttendance(

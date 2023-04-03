@@ -50,6 +50,7 @@ class MainActivity : AppCompatActivity() {
                     .setView(dialogBinding.root)
                     .create()
                 dialogBinding.btnCancel.setOnClickListener { dialog.dismiss() }
+                dialogBinding.ivClose.setOnClickListener { dialog.dismiss() }
                 dialog.show()
 
                 dialogBinding.btnUpdate.setOnClickListener {
@@ -73,6 +74,7 @@ class MainActivity : AppCompatActivity() {
                     .setView(dialogBinding.root)
                     .create()
                 dialogBinding.btnCancel.setOnClickListener { dialog.dismiss() }
+                dialogBinding.ivClose.setOnClickListener { dialog.dismiss() }
                 dialog.show()
 
                 dialogBinding.btnUpdate.setOnClickListener {
