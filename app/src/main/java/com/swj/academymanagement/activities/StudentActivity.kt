@@ -110,9 +110,9 @@ class StudentActivity : AppCompatActivity() {
 
         // 수업 노트
         binding.btnClassNote.setOnClickListener {
-            val intent = Intent()
+            val intent = Intent(this, ClassNoteActivity::class.java)
             intent.putExtra("student", Gson().toJson(student))
-            //startActivity(intent)
+            startActivity(intent)
         }
 
         // 교재 검색

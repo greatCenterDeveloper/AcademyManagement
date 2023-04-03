@@ -7,7 +7,6 @@ import android.view.WindowInsets
 import android.view.WindowManager
 import android.widget.Toast
 import com.google.gson.Gson
-import com.swj.academymanagement.R
 import com.swj.academymanagement.databinding.ActivityCourseScheduleDetailStudentBinding
 import com.swj.academymanagement.model.CourseSchedule
 

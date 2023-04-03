@@ -8,8 +8,8 @@ import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.swj.academymanagement.databinding.RecyclerItemTeacherNoteBinding
 import com.swj.academymanagement.model.Note
 
-class TeacherNoteAdapter(val context: Context, val noteArr:MutableList<Note>)
-    :Adapter<TeacherNoteAdapter.VH>() {
+class NoteAdapter(val context: Context, val noteArr:MutableList<Note>)
+    :Adapter<NoteAdapter.VH>() {
     inner class VH(val binding:RecyclerItemTeacherNoteBinding):ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VH

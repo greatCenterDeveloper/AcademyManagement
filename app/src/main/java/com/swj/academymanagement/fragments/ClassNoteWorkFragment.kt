@@ -6,22 +6,21 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import com.swj.academymanagement.databinding.FragmentTeacherNoteBinding
+import com.swj.academymanagement.databinding.FragmentClassNoteWorkBinding
 import com.swj.academymanagement.model.Note
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.TimeZone
 
-class TeacherNoteFragment : Fragment() {
-
-    lateinit var binding:FragmentTeacherNoteBinding
+class ClassNoteWorkFragment : Fragment() {
+    lateinit var binding:FragmentClassNoteWorkBinding
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentTeacherNoteBinding.inflate(inflater, container, false)
+        binding = FragmentClassNoteWorkBinding.inflate(inflater, container, false)
         return binding.root
     }
 
