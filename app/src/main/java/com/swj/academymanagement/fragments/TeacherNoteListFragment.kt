@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.swj.academymanagement.adapters.TeacherNoteAdapter
 import com.swj.academymanagement.databinding.FragmentTeacherNoteListBinding
-import com.swj.academymanagement.model.TeacherNote
+import com.swj.academymanagement.model.Note
 
 class TeacherNoteListFragment : Fragment() {
 
@@ -25,10 +25,10 @@ class TeacherNoteListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val tna:MutableList<TeacherNote> = mutableListOf()
-        tna.add(TeacherNote("할일", "국어 검색", "2023/03/24", "구글 검색"))
-        tna.add(TeacherNote("노트", "국어 동영상", "2023/03/25", "유튜브 검색"))
-        tna.add(TeacherNote("할일", "국어 문제집", "2023/03/26", "네이버 검색"))
+        val tna:MutableList<Note> = mutableListOf()
+        tna.add(Note("할일", "국어 검색", "2023/03/24", "구글 검색"))
+        tna.add(Note("노트", "국어 동영상", "2023/03/25", "유튜브 검색"))
+        tna.add(Note("할일", "국어 문제집", "2023/03/26", "네이버 검색"))
         binding.recycler.adapter = TeacherNoteAdapter(requireActivity(), tna)
     }
 }

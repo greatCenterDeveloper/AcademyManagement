@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.swj.academymanagement.databinding.FragmentTeacherNoteWorkBinding
-import com.swj.academymanagement.model.TeacherNote
+import com.swj.academymanagement.model.Note
 import java.text.SimpleDateFormat
 import java.util.Date
 
@@ -32,7 +32,7 @@ class TeacherNoteWorkFragment : Fragment() {
             val content:String = binding.tilCounselContent.editText!!.text.toString()
             val sdf = SimpleDateFormat("yyyy/MM/dd")
             val date = sdf.parse(Date().toString()).toString()
-            val teacherNote = TeacherNote(kind, title, date, content)
+            val note = Note(kind, title, date, content)
             Toast.makeText(requireActivity(), "${date}", Toast.LENGTH_SHORT).show()
         }
     }

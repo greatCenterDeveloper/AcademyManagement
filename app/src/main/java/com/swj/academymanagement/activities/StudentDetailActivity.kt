@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.WindowInsets
 import android.view.WindowManager
 import com.bumptech.glide.Glide
+import com.google.gson.Gson
 import com.swj.academymanagement.adapters.StudentManagementCounselAdapter
 import com.swj.academymanagement.adapters.StudentManagementCourseAdapter
 import com.swj.academymanagement.adapters.StudentManagementMessageAdapter
@@ -35,12 +36,7 @@ class StudentDetailActivity : AppCompatActivity() {
         binding.ivBackspace.setOnClickListener { finish() }
 
 
-        lateinit var student:Member
-
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU)
-            student = intent.getSerializableExtra("student", Member::class.java)!!
-        else
-            student = intent.getSerializableExtra("student") as Member
+        val student:Member = Gson().fromJson(intent.getStringExtra("student"), Member::class.java)
 
         if(!student.profile.equals(""))
             Glide.with(this).load(student.profile).into(binding.ivProfile)

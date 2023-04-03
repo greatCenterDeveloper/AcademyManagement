@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView.Adapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
+import com.google.gson.Gson
 import com.swj.academymanagement.activities.CourseScheduleDetailActivity
 import com.swj.academymanagement.databinding.RecyclerItemCourseScheduleBinding
 import com.swj.academymanagement.model.CourseScheduleTeacher
@@ -26,7 +27,7 @@ class CourseScheduleAdapter(val context: Context, val scheduleArr:MutableList<Co
 
         holder.binding.root.setOnClickListener {
             val intent = Intent(context, CourseScheduleDetailActivity::class.java)
-            intent.putExtra("schedule", cs)
+            intent.putExtra("schedule", Gson().toJson(cs))
             context.startActivity(intent)
         }
     }

@@ -68,6 +68,9 @@ class AcademyLoginActivity : AppCompatActivity() {
             tempPassword = "sss"
             name = "robin"
             call = "010-1111-2222"
+            courseArr.clear()
+            courseArr.add("국어")
+            courseArr.add("영어")
 
             // 학생 로그인
             if(emailId.equals(tempEmailId) && password.equals(tempPassword)) {

@@ -102,7 +102,7 @@ class StudentActivity : AppCompatActivity() {
             // 권한이 학생이면 수강 중인 강좌의 시간표 보기
             // 권한(선생, 학생)을 보고 권한에 맞는 수업 목록 상세 화면 이동
             intent.putExtra("student", Gson().toJson(student))
-            //startActivity(intent)
+            startActivity(intent)
         }
 
         // 상담 신청

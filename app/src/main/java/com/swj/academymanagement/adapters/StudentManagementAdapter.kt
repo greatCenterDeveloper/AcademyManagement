@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView.Adapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.bumptech.glide.Glide
+import com.google.gson.Gson
 import com.swj.academymanagement.activities.StudentDetailActivity
 import com.swj.academymanagement.databinding.RecyclerItemStudentManagementBinding
 import com.swj.academymanagement.model.Member
@@ -58,7 +59,7 @@ class StudentManagementAdapter(val context:Context, val studentArr:MutableList<M
 
         holder.binding.root.setOnClickListener {
             val intent:Intent = Intent(context, StudentDetailActivity::class.java)
-            intent.putExtra("student", student)
+            intent.putExtra("student", Gson().toJson(student))
             context.startActivity(intent)
         }
     }
