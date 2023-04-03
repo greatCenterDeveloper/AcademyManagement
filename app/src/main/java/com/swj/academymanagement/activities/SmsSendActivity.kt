@@ -31,6 +31,7 @@ class SmsSendActivity : AppCompatActivity() {
             )
         }
 
+        binding.ivBackspace.setOnClickListener { finish() }
         binding.pager.adapter = SmsImageAdapter(this, images)
         binding.dotsIndicator.attachTo(binding.pager)
         binding.btnSelectImage.setOnClickListener { selectImage() }

@@ -5,9 +5,10 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.WindowInsets
 import android.view.WindowManager
-import com.swj.academymanagement.R
+import com.google.gson.Gson
 import com.swj.academymanagement.adapters.AttendanceAdapter
 import com.swj.academymanagement.databinding.ActivityAttendanceBinding
+import com.swj.academymanagement.model.Member
 import com.swj.academymanagement.model.StudentAttendance
 
 class AttendanceActivity : AppCompatActivity() {
@@ -26,6 +27,18 @@ class AttendanceActivity : AppCompatActivity() {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN
             )
         }
+
+        val teacher = Gson().fromJson(intent.getStringExtra("teacher"), Member::class.java)
+
+        /*binding.ivHome.setOnClickListener {
+            val intent = Intent(this, MainActivity::class.java)
+            intent.putExtra("teacher", Gson().toJson(teacher))
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            startActivity(intent)
+        }*/
+
+        binding.ivBackspace.setOnClickListener { finish() }
 
         val saa:MutableList<StudentAttendance> = mutableListOf()
         saa.add(StudentAttendance("국어", "가강사", "2023/02/11", "로빈", "10:30", "15:47"))

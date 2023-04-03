@@ -3,11 +3,9 @@ package com.swj.academymanagement.activities
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.MenuItem
 import android.view.WindowInsets
 import android.view.WindowManager
 import androidx.fragment.app.Fragment
-import com.google.android.material.navigation.NavigationBarView
 import com.swj.academymanagement.R
 import com.swj.academymanagement.databinding.ActivityTeacherNoteBinding
 import com.swj.academymanagement.fragments.TeacherNoteFragment
@@ -31,6 +29,8 @@ class TeacherNoteActivity : AppCompatActivity() {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN
             )
         }
+
+        binding.ivBackspace.setOnClickListener { finish() }
 
         fragments[0] = TeacherNoteListFragment()
         fragments[1] = TeacherNoteWorkFragment()

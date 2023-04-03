@@ -6,13 +6,13 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.WindowInsets
 import android.view.WindowManager
-import android.widget.CheckBox
 import androidx.activity.result.ActivityResultCallback
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import com.bumptech.glide.Glide
 import com.google.android.material.radiobutton.MaterialRadioButton
+import com.google.gson.Gson
 import com.swj.academymanagement.databinding.ActivityAcademySignupBinding
 import com.swj.academymanagement.model.Member
 
@@ -139,8 +139,7 @@ class AcademySignupActivity : AppCompatActivity() {
         // 휴대폰 번호 중복되지 않을 경우 가입 승인
         if(authCheck && emailIdCheck && passwordCheck && !name.equals("") && courseArr.size != 0 && !call.equals("")) {
             // 가입 처리 Retrofit
-            val member:Member = Member(authority, profile, emailId, password, name, courseArr, call)
-
+            val jsonMember:String = Gson().toJson(Member(authority, profile, emailId, password, name, courseArr, call))
 
             // 가입 완료 후 다시 로그인 화면으로...
             //finish()

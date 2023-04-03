@@ -19,12 +19,10 @@
             android:layout_height="wrap_content"
             app:layout_scrollFlags="scroll|enterAlways">
 
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/civ_home"
-                android:layout_width="50dp"
+            <ImageView
+                android:layout_width="70dp"
                 android:layout_height="50dp"
-                android:src="@drawable/ic_action_home"
-                android:background="@color/civ_click_color"/>
+                android:src="@drawable/galaxy_logo"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -37,19 +35,20 @@
                 android:layout_centerHorizontal="true"
                 android:layout_centerVertical="true"/>
 
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/civ_backspace"
-                android:layout_width="50dp"
+            <ImageView
+                android:id="@+id/iv_backspace"
+                android:layout_width="70dp"
                 android:layout_height="50dp"
                 android:src="@drawable/ic_action_backspace"
                 android:layout_alignParentRight="true"
-                android:background="@color/civ_click_color"/>
+                android:background="?attr/selectableItemBackgroundBorderless"/>
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:background="#666666"
-                android:layout_below="@id/civ_home"/>
+                android:layout_below="@id/iv_backspace"
+                android:layout_marginTop="4dp"/>
         </RelativeLayout>
 
         <androidx.appcompat.widget.Toolbar

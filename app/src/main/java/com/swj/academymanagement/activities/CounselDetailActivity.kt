@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.WindowInsets
 import android.view.WindowManager
-import com.swj.academymanagement.R
 import com.swj.academymanagement.databinding.ActivityCounselDetailBinding
 
 class CounselDetailActivity : AppCompatActivity() {
@@ -24,6 +23,8 @@ class CounselDetailActivity : AppCompatActivity() {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN
             )
         }
+
+        binding.ivBackspace.setOnClickListener { finish() }
 
         binding.tvName.text = intent.getStringExtra("name")
         binding.tilCounselRequestContent

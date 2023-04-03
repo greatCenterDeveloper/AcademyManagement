@@ -10,6 +10,6 @@ class Member (
     var name:String,
     var courseArr:MutableList<String>,
     var call:String
-):Serializable {
+) : Serializable {
     var course:String = ""
 }

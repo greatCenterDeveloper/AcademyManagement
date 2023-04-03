@@ -9,6 +9,7 @@ import android.view.WindowManager
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AlertDialog
+import com.google.gson.Gson
 import com.swj.academymanagement.R
 import com.swj.academymanagement.databinding.ActivityMainBinding
 import com.swj.academymanagement.databinding.DialogMyInfoUpdateBinding
@@ -90,12 +91,14 @@ class MainActivity : AppCompatActivity() {
             false
         }
 
-        lateinit var teacher:Member
+        val teacher = Gson().fromJson(intent.getStringExtra("teacher"), Member::class.java)
+
+        /*lateinit var teacher:Member
 
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU)
             teacher = intent.getSerializableExtra("teacher", Member::class.java)!!
         else
-            teacher = intent.getSerializableExtra("teacher") as Member
+            teacher = intent.getSerializableExtra("teacher") as Member*/
 
         teacher.courseArr.add(0,"선택안함")
         binding.tvTeacherName.text = "${teacher.name} 선생님 어서오세요."
@@ -103,40 +106,46 @@ class MainActivity : AppCompatActivity() {
         // 학생 관리
         binding.btnStudentManagement.setOnClickListener {
             val intent = Intent(this, StudentManagementActivity::class.java)
-            intent.putExtra("teacher", teacher)
+            intent.putExtra("teacher", Gson().toJson(teacher))
             startActivity(intent)
         }
         // 수업 목록
         binding.btnClassDayList.setOnClickListener {
             val intent = Intent(this, CourseScheduleActivity::class.java)
+            intent.putExtra("teacher", Gson().toJson(teacher))
             startActivity(intent)
         }
 
         // 출결 현황
         binding.btnAttendance.setOnClickListener {
             val intent = Intent(this, AttendanceActivity::class.java)
+            intent.putExtra("teacher", Gson().toJson(teacher))
             startActivity(intent)
         }
         // 문자 보내기
         binding.btnSendMessage.setOnClickListener {
             val intent = Intent(this, SmsSendActivity::class.java)
+            intent.putExtra("teacher", Gson().toJson(teacher))
             startActivity(intent)
         }
 
         // 상담 현황
         binding.btnCounsel.setOnClickListener {
             val intent = Intent(this, CounselActivity::class.java)
+            intent.putExtra("teacher", Gson().toJson(teacher))
             startActivity(intent)
         }
         // 교재 검색
         binding.btnTeachingBook.setOnClickListener {
             val intent = Intent(this, TeachingBookActivity::class.java)
+            intent.putExtra("teacher", Gson().toJson(teacher))
             startActivity(intent)
         }
 
         // 선생님 노트
         binding.btnTeacherNote.setOnClickListener {
             val intent = Intent(this, TeacherNoteActivity::class.java)
+            intent.putExtra("teacher", Gson().toJson(teacher))
             startActivity(intent)
         }
     }

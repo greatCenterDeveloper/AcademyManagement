@@ -29,6 +29,8 @@ class CourseScheduleDetailActivity : AppCompatActivity() {
             )
         }
 
+        binding.ivBackspace.setOnClickListener { finish() }
+
         var cst:CourseScheduleTeacher
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU)
             cst = intent.getSerializableExtra("schedule", CourseScheduleTeacher::class.java)!!

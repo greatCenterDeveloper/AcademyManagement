@@ -29,6 +29,8 @@ class CourseScheduleActivity : AppCompatActivity() {
             )
         }
 
+        binding.ivBackspace.setOnClickListener { finish() }
+
         val courseArr = mutableListOf<String>()
         courseArr.add("국어")
         courseArr.add("수학")

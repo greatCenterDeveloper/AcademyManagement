@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.WindowInsets
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
-import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.swj.academymanagement.adapters.CounselAdapter
 import com.swj.academymanagement.databinding.ActivityCounselBinding
@@ -26,6 +25,8 @@ class CounselActivity : AppCompatActivity() {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN
             )
         }
+
+        binding.ivBackspace.setOnClickListener { finish() }
 
         binding.pager.adapter = CounselAdapter(this)
 

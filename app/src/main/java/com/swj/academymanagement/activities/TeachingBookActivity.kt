@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.WindowInsets
 import android.view.WindowManager
-import com.swj.academymanagement.R
 import com.swj.academymanagement.adapters.TeachingBookAdapter
 import com.swj.academymanagement.databinding.ActivityTeachingBookBinding
 import com.swj.academymanagement.model.ShoppingItem
@@ -26,6 +25,8 @@ class TeachingBookActivity : AppCompatActivity() {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN
             )
         }
+
+        binding.ivBackspace.setOnClickListener { finish() }
 
         val teachingBookArr:MutableList<ShoppingItem> = mutableListOf()
 
