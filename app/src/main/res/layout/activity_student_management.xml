@@ -11,19 +11,18 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:theme="@style/appbar"
-        android:background="@color/white">
+        android:background="@color/white"
+        app:elevation="0dp">
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_scrollFlags="scroll|enterAlways">
 
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/civ_home"
-                android:layout_width="50dp"
+            <ImageView
+                android:layout_width="70dp"
                 android:layout_height="50dp"
-                android:src="@drawable/ic_action_home"
-                android:background="@color/civ_click_color"/>
+                android:src="@drawable/galaxy_logo"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -36,25 +35,27 @@
                 android:layout_centerHorizontal="true"
                 android:layout_centerVertical="true"/>
 
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/civ_backspace"
-                android:layout_width="50dp"
+            <ImageView
+                android:id="@+id/iv_backspace"
+                android:layout_width="70dp"
                 android:layout_height="50dp"
                 android:src="@drawable/ic_action_backspace"
                 android:layout_alignParentRight="true"
-                android:background="@color/civ_click_color"/>
+                android:background="?attr/selectableItemBackgroundBorderless"/>
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:background="#666666"
-                android:layout_below="@id/civ_home"/>
+                android:layout_below="@id/iv_backspace"
+                android:layout_marginTop="4dp"/>
         </RelativeLayout>
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize">
+            android:layout_height="?attr/actionBarSize"
+            app:contentInsetStart="0dp">
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -69,12 +70,13 @@
                     android:layout_marginRight="4dp"
                     android:hint="이름 입력"
                     app:endIconMode="clear_text"
-                    android:layout_weight="4">
+                    android:layout_weight="6">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="text"
+                        android:textSize="13sp"
                         android:fontFamily="@font/cookierunbold"/>
 
                 </com.google.android.material.textfield.TextInputLayout>
@@ -86,7 +88,8 @@
                     android:text="검색"
                     android:textStyle="bold"
                     android:textColor="@color/black"
-                    android:textSize="16sp"
+                    android:textSize="13sp"
+                    android:fontFamily="@font/cookierunbold"
                     android:layout_gravity="center_vertical"
                     android:layout_marginTop="8dp"
                     android:layout_marginBottom="8dp"/>
@@ -109,7 +112,9 @@
                         android:id="@+id/ac_tv_course"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:fontFamily="@font/cookierunbold"
                         android:inputType="none"
+                        android:textSize="13sp"
                         android:dropDownHeight="160dp"/>
 
                 </com.google.android.material.textfield.TextInputLayout>

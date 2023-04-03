@@ -6,7 +6,6 @@ import android.os.Bundle
 import android.view.WindowInsets
 import android.view.WindowManager
 import com.bumptech.glide.Glide
-import com.swj.academymanagement.R
 import com.swj.academymanagement.adapters.StudentManagementCounselAdapter
 import com.swj.academymanagement.adapters.StudentManagementCourseAdapter
 import com.swj.academymanagement.adapters.StudentManagementMessageAdapter
@@ -32,6 +31,9 @@ class StudentDetailActivity : AppCompatActivity() {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN
             )
         }
+
+        binding.ivBackspace.setOnClickListener { finish() }
+
 
         lateinit var student:Member
 

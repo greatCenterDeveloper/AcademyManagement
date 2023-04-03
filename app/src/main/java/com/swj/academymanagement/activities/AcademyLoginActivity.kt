@@ -1,9 +1,12 @@
 package com.swj.academymanagement.activities
 
 import android.content.Intent
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Toast
+import android.view.WindowInsets
+import android.view.WindowManager
+import com.google.gson.Gson
 import com.swj.academymanagement.R
 import com.swj.academymanagement.databinding.ActivityAcademyLoginBinding
 import com.swj.academymanagement.model.Member
@@ -15,6 +18,15 @@ class AcademyLoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            window.insetsController?.hide(WindowInsets.Type.statusBars())
+        } else {
+            window.setFlags(
+                WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN
+            )
+        }
 
         binding.toolbar.setNavigationIcon(R.drawable.ic_action_backspace)
         setSupportActionBar(binding.toolbar)
@@ -36,16 +48,16 @@ class AcademyLoginActivity : AppCompatActivity() {
             var tempPassword = "aaa"
             var name = "sam"
             val courseArr:MutableList<String> = mutableListOf()
-            courseArr.add("중등 국어")
-            courseArr.add("중등 수학")
-            courseArr.add("중등 영어")
+            courseArr.add("국어")
+            courseArr.add("수학")
+            courseArr.add("영어")
             var call = "010-1234-5678"
 
             // 선생님 로그인
             if(emailId.equals(tempEmailId) && password.equals(tempPassword)) {
                 val teacherMember = Member(authority, profile, emailId, password, name, courseArr, call)
                 val intent = Intent(this, MainActivity::class.java)
-                intent.putExtra("teacher", teacherMember)
+                intent.putExtra("teacher", Gson().toJson(teacherMember))
                 startActivity(intent)
                 finish()
             }
@@ -61,7 +73,7 @@ class AcademyLoginActivity : AppCompatActivity() {
             if(emailId.equals(tempEmailId) && password.equals(tempPassword)) {
                 val studentMember = Member(authority, profile, emailId, password, name, courseArr, call)
                 val intent = Intent(this, StudentActivity::class.java)
-                intent.putExtra("student", studentMember);
+                intent.putExtra("student", Gson().toJson(studentMember))
                 startActivity(intent)
                 finish()
             }

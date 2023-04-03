@@ -1,11 +1,18 @@
 package com.swj.academymanagement.activities
 
 import android.content.Intent
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.CheckBox
+import android.view.WindowInsets
+import android.view.WindowManager
+import androidx.activity.result.ActivityResultCallback
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
+import com.bumptech.glide.Glide
 import com.google.android.material.radiobutton.MaterialRadioButton
+import com.google.gson.Gson
 import com.swj.academymanagement.databinding.ActivityAcademySignupBinding
 import com.swj.academymanagement.model.Member
 
@@ -20,12 +27,40 @@ class AcademySignupActivity : AppCompatActivity() {
     var passwordCheck = false
     // 핸드폰 중복검사 했는지 확인..
     var callCheck = false
+    // 사진 경로
+    var profile:String = ""
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            window.insetsController?.hide(WindowInsets.Type.statusBars())
+        } else {
+            window.setFlags(
+                WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN
+            )
+        }
+
         binding.btnSighup.setOnClickListener { signUp() }
+        binding.btnProfileSelect.setOnClickListener {
+            val intent = Intent(Intent.ACTION_OPEN_DOCUMENT).setType("image/*")
+            imagePickResultLauncher.launch(intent)
+        }
     }
+
+    private val imagePickResultLauncher:ActivityResultLauncher<Intent> =
+        registerForActivityResult(
+            ActivityResultContracts.StartActivityForResult(),
+            ActivityResultCallback {
+                if(it.resultCode != RESULT_CANCELED) {
+                    val intent:Intent = it.data!!
+                    profile = intent.data.toString()
+                    Glide.with(this).load(intent.data).into(binding.ivProfile)
+                }
+            }
+        )
 
     // 가입 버튼 클릭
     private fun signUp() {
@@ -39,7 +74,7 @@ class AcademySignupActivity : AppCompatActivity() {
         }
 
         // 사진 경로
-        val profile:String = ""
+        //val profile = ""
 
         // 아이디
         var emailId:String = binding.tilEmailId.editText!!.text.toString()
@@ -65,17 +100,9 @@ class AcademySignupActivity : AppCompatActivity() {
             name = binding.tilName.editText!!.text.toString()
 
         val courseArr:MutableList<String> = mutableListOf()
-        if (binding.cbMiddleKor.isChecked) courseArr.add(binding.cbMiddleKor.text.toString())
-        if (binding.cbHighKor.isChecked) courseArr.add(binding.cbHighKor.text.toString())
-        if (binding.cbHighKorAdvance.isChecked) courseArr.add(binding.cbHighKorAdvance.text.toString())
-
-        if (binding.cbMiddleMath.isChecked) courseArr.add(binding.cbMiddleMath.text.toString())
-        if (binding.cbHighMath.isChecked) courseArr.add(binding.cbHighMath.text.toString())
-        if (binding.cbHighMathAdvance.isChecked) courseArr.add(binding.cbHighMathAdvance.text.toString())
-
-        if (binding.cbMiddleEng.isChecked) courseArr.add(binding.cbMiddleEng.text.toString())
-        if (binding.cbHighEng.isChecked) courseArr.add(binding.cbHighEng.text.toString())
-        if (binding.cbHighEngAdvance.isChecked) courseArr.add(binding.cbHighEngAdvance.text.toString())
+        if (binding.cbKor.isChecked) courseArr.add(binding.cbKor.text.toString())
+        if (binding.cbEng.isChecked) courseArr.add(binding.cbEng.text.toString())
+        if (binding.cbMath.isChecked) courseArr.add(binding.cbMath.text.toString())
 
         var call1 = ""
         if (binding.tilCall1.editText!!.text.toString().length == 3) {
@@ -112,8 +139,7 @@ class AcademySignupActivity : AppCompatActivity() {
         // 휴대폰 번호 중복되지 않을 경우 가입 승인
         if(authCheck && emailIdCheck && passwordCheck && !name.equals("") && courseArr.size != 0 && !call.equals("")) {
             // 가입 처리 Retrofit
-            val member:Member = Member(authority, profile, emailId, password, name, courseArr, call)
-
+            val jsonMember:String = Gson().toJson(Member(authority, profile, emailId, password, name, courseArr, call))
 
             // 가입 완료 후 다시 로그인 화면으로...
             //finish()

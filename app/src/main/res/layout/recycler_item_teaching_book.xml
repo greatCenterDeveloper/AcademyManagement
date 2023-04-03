@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardCornerRadius="16dp"
+    app:cardBackgroundColor="#eeeeee"
+    app:contentPadding="8dp"
+    android:layout_margin="8dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/iv"
+            android:layout_width="match_parent"
+            android:layout_height="160dp"
+            android:scaleType="centerCrop"
+            android:background="#cccccc"/>
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ITEM TITLE"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:fontFamily="@font/cookierunblack"
+            android:layout_below="@id/iv"
+            android:layout_marginTop="8dp"
+            android:layout_marginLeft="12dp"
+            android:padding="8dp"/>
+
+        <TextView
+            android:id="@+id/tv_low_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_title"
+            android:text="1000"
+            android:textColor="@color/purple_700"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            android:fontFamily="@font/cookierunblack"
+            android:layout_marginLeft="12dp"
+            android:padding="4dp" />
+
+        <TextView
+            android:id="@+id/tv_mall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="MALL NAME"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:textSize="12sp"
+            android:fontFamily="@font/cookierunblack"
+            android:layout_below="@id/tv_low_price"
+            android:layout_marginLeft="12dp"
+            android:layout_marginBottom="4dp"/>
+
+    </RelativeLayout>
+
+</androidx.cardview.widget.CardView>

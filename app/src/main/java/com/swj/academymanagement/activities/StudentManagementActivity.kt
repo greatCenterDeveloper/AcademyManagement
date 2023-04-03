@@ -6,7 +6,7 @@ import android.os.Bundle
 import android.view.WindowInsets
 import android.view.WindowManager
 import android.widget.ArrayAdapter
-import com.swj.academymanagement.R
+import com.google.gson.Gson
 import com.swj.academymanagement.adapters.StudentManagementAdapter
 import com.swj.academymanagement.databinding.ActivityStudentManagementBinding
 import com.swj.academymanagement.model.Member
@@ -26,19 +26,22 @@ class StudentManagementActivity : AppCompatActivity() {
             )
         }
 
-        lateinit var teacher: Member
+        binding.ivBackspace.setOnClickListener { finish() }
+
+        /*lateinit var teacher: Member
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU)
             teacher = intent.getSerializableExtra("teacher", Member::class.java)!!
         else
-            teacher = intent.getSerializableExtra("teacher") as Member
+            teacher = intent.getSerializableExtra("teacher") as Member*/
+
+        val teacher = Gson().fromJson(intent.getStringExtra("teacher"), Member::class.java)
 
         val courseAdapter:ArrayAdapter<String> = ArrayAdapter(this, android.R.layout.simple_list_item_1, teacher.courseArr)
         binding.acTvCourse.setAdapter(courseAdapter)
 
         val courseArr = mutableListOf<String>()
-        courseArr.add("중등 국어")
-        courseArr.add("고등 수학")
-        courseArr.add("고등 수학 심화")
+        courseArr.add("국어")
+        courseArr.add("수학")
 
         val studentArr:MutableList<Member> = mutableListOf()
         studentArr.add(Member("학생", "", "aaa@aaa.com", "aaa", "sam", courseArr, "010-1234-5678"))
