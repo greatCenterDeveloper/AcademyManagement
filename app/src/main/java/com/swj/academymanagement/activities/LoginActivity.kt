@@ -38,6 +38,12 @@ class LoginActivity : AppCompatActivity() {
             binding.layoutSignup.visibility = View.VISIBLE
         }
 
+        // 로그인 버튼
+        binding.btnLogin.setOnClickListener {
+            binding.layoutLogin.visibility = View.VISIBLE
+            binding.layoutSignup.visibility = View.GONE
+        }
+
         // 학원 아이디로 가입하기 버튼
         binding.btnAcademyAccountSignup.setOnClickListener {
             startActivity(Intent(this, AcademySignupActivity::class.java))

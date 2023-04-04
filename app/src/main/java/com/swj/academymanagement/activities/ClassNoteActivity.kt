@@ -3,8 +3,10 @@ package com.swj.academymanagement.activities
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.MotionEvent
 import android.view.WindowInsets
 import android.view.WindowManager
+import android.view.inputmethod.InputMethodManager
 import androidx.fragment.app.Fragment
 import com.swj.academymanagement.R
 import com.swj.academymanagement.databinding.ActivityClassNoteBinding
@@ -59,5 +61,12 @@ class ClassNoteActivity : AppCompatActivity() {
             }
             true
         }
+    }
+
+    override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
+        val imm: InputMethodManager = getSystemService(InputMethodManager::class.java)
+        imm.hideSoftInputFromWindow(currentFocus?.windowToken, 0)
+        currentFocus?.clearFocus()
+        return super.dispatchTouchEvent(ev)
     }
 }

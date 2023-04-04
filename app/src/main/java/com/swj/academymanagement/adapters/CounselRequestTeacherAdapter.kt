@@ -8,6 +8,7 @@ import androidx.core.app.ActivityOptionsCompat
 import androidx.core.util.Pair
 import androidx.recyclerview.widget.RecyclerView.Adapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
+import com.google.gson.Gson
 import com.swj.academymanagement.activities.CounselActivity
 import com.swj.academymanagement.activities.CounselDetailActivity
 import com.swj.academymanagement.databinding.RecyclerItemCounselRequestTeacherBinding
@@ -33,9 +34,7 @@ class CounselRequestTeacherAdapter(val context: Context, val counselRequestTeach
 
         holder.binding.btnCounsel.setOnClickListener {
             val intent = Intent(context, CounselDetailActivity::class.java)
-            intent.putExtra("studentId", crt.studentId)
-            intent.putExtra("name", crt.name)
-            intent.putExtra("counselRequest", crt.counselContent)
+            intent.putExtra("counselRequest", Gson().toJson(crt))
 
             val options: ActivityOptionsCompat =
                 ActivityOptionsCompat.makeSceneTransitionAnimation(

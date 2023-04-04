@@ -29,7 +29,7 @@
             android:layout_centerVertical="true"/>
 
         <ImageView
-            android:id="@+id/iv_backspace"
+            android:id="@+id/iv_save"
             android:layout_width="70dp"
             android:layout_height="50dp"
             android:src="@drawable/baseline_check_24"
@@ -40,7 +40,7 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:background="#666666"
-            android:layout_below="@id/iv_backspace"
+            android:layout_below="@id/iv_save"
             android:layout_marginTop="4dp"/>
     </RelativeLayout>
 
@@ -98,7 +98,9 @@
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:inputType="none"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:scrollbars="vertical"
             android:text="상담을 원합니다\n고민이 너무 많습니다"
             android:gravity="top"
             android:textStyle="bold"

@@ -3,8 +3,10 @@ package com.swj.academymanagement.activities
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.MotionEvent
 import android.view.WindowInsets
 import android.view.WindowManager
+import android.view.inputmethod.InputMethodManager
 import android.widget.ArrayAdapter
 import com.google.gson.Gson
 import com.swj.academymanagement.adapters.StudentManagementAdapter
@@ -56,5 +58,12 @@ class StudentManagementActivity : AppCompatActivity() {
         studentArr.add(Member("학생", "", "wqe@ddd.com", "aaa", "tom", courseArr, "010-4675-2655"))
 
         binding.recycler.adapter = StudentManagementAdapter(this, studentArr)
+    }
+
+    override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
+        val imm: InputMethodManager = getSystemService(InputMethodManager::class.java)
+        imm.hideSoftInputFromWindow(currentFocus?.windowToken, 0)
+        currentFocus?.clearFocus()
+        return super.dispatchTouchEvent(ev)
     }
 }

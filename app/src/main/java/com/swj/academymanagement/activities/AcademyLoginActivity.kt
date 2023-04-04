@@ -4,8 +4,10 @@ import android.content.Intent
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.MotionEvent
 import android.view.WindowInsets
 import android.view.WindowManager
+import android.view.inputmethod.InputMethodManager
 import com.google.gson.Gson
 import com.swj.academymanagement.R
 import com.swj.academymanagement.databinding.ActivityAcademyLoginBinding
@@ -38,6 +40,9 @@ class AcademyLoginActivity : AppCompatActivity() {
             finish()
         }
 
+        binding.tilEmailId.editText?.setOnClickListener { binding.tilEmailId.editText?.selectAll() }
+        binding.tilPassword.editText?.setOnClickListener { binding.tilPassword.editText?.selectAll() }
+
         binding.btnLogin.setOnClickListener {
             val emailId:String = binding.tilEmailId.editText?.text.toString()
             val password:String = binding.tilPassword.editText?.text.toString()
@@ -60,6 +65,9 @@ class AcademyLoginActivity : AppCompatActivity() {
                 intent.putExtra("teacher", Gson().toJson(teacherMember))
                 startActivity(intent)
                 finish()
+            } else { // 로그인 실패
+                binding.tilEmailId.editText?.requestFocus()
+                binding.tilEmailId.editText?.selectAll()
             }
 
             authority = "학생"
@@ -79,6 +87,9 @@ class AcademyLoginActivity : AppCompatActivity() {
                 intent.putExtra("student", Gson().toJson(studentMember))
                 startActivity(intent)
                 finish()
+            } else { // 로그인 실패
+                binding.tilEmailId.editText?.requestFocus()
+                binding.tilEmailId.editText?.selectAll()
             }
         }
     }
@@ -86,5 +97,14 @@ class AcademyLoginActivity : AppCompatActivity() {
     override fun onSupportNavigateUp(): Boolean {
         finish()
         return super.onSupportNavigateUp()
+    }
+
+    override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
+        if(binding.tilEmailId.editText?.text.toString() != "" && binding.tilPassword.editText?.text.toString() != "") {
+            val imm:InputMethodManager = getSystemService(InputMethodManager::class.java)
+            imm.hideSoftInputFromWindow(currentFocus?.windowToken, 0)
+            currentFocus?.clearFocus()
+        }
+        return super.dispatchTouchEvent(ev)
     }
 }
