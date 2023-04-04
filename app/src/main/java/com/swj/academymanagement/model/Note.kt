@@ -4,6 +4,6 @@ data class Note(
     val kind:String,
     val title:String,
     val date:String,
-    val content:String
-    //val authority:String
+    val content:String,
+    val authority:String
 )

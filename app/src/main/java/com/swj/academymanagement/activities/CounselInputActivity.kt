@@ -8,7 +8,6 @@ import android.view.WindowInsets
 import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
-import com.swj.academymanagement.R
 import com.swj.academymanagement.databinding.ActivityCounselInputBinding
 import java.text.SimpleDateFormat
 import java.util.Date

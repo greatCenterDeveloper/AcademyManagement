@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.swj.academymanagement.activities.TeacherNoteActivity
+import com.swj.academymanagement.activities.ClassNoteActivity
 import com.swj.academymanagement.adapters.NoteAdapter
 import com.swj.academymanagement.databinding.FragmentClassNoteListBinding
 import com.swj.academymanagement.model.Member
@@ -27,12 +27,12 @@ class ClassNoteListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        /*val teacher: Member = (activity as TeacherNoteActivity).teacher!!
+        val student: Member = (activity as ClassNoteActivity).student!!
 
         val noteArr:MutableList<Note> = mutableListOf()
-        noteArr.add(Note("할일", "검색", "2023/03/24", "구글 국어 검색"))
-        noteArr.add(Note("노트", "국어 동영상", "2023/03/25", "유튜브 국어 검색"))
-        noteArr.add(Note("할일", "국어 문제집", "2023/03/26", "133P 풀기"))
-        binding.recycler.adapter = NoteAdapter(requireActivity(), noteArr)*/
+        noteArr.add(Note("할일", "검색", "2023/03/24", "구글 국어 검색", student.authority))
+        noteArr.add(Note("노트", "국어 동영상", "2023/03/25", "유튜브 국어 검색", student.authority))
+        noteArr.add(Note("할일", "국어 문제집", "2023/03/26", "133P 풀기", student.authority))
+        binding.recycler.adapter = NoteAdapter(requireActivity(), noteArr)
     }
 }

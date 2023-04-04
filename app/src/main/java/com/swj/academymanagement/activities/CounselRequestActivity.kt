@@ -7,7 +7,6 @@ import android.os.Bundle
 import android.view.View
 import android.view.WindowInsets
 import android.view.WindowManager
-import com.swj.academymanagement.R
 import com.swj.academymanagement.adapters.CounselRequestAdapter
 import com.swj.academymanagement.databinding.ActivityCounselRequestBinding
 import com.swj.academymanagement.model.CounselRequest

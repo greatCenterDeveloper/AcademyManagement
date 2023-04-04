@@ -6,7 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import com.swj.academymanagement.activities.ClassNoteActivity
 import com.swj.academymanagement.databinding.FragmentClassNoteWorkBinding
+import com.swj.academymanagement.model.Member
 import com.swj.academymanagement.model.Note
 import java.text.SimpleDateFormat
 import java.util.Date
@@ -27,6 +29,8 @@ class ClassNoteWorkFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val student: Member = (activity as ClassNoteActivity).student!!
+
         binding.btnSave.setOnClickListener {
             val kind:String = "노트"
             val title:String = binding.tilTitle.editText!!.text.toString()
@@ -35,7 +39,7 @@ class ClassNoteWorkFragment : Fragment() {
             sdf.timeZone = TimeZone.getTimeZone("Asia/Seoul")
 
             val date = sdf.format(Date())
-            val note = Note(kind, title, date, content)
+            val note = Note(kind, title, date, content, student.authority)
             Toast.makeText(requireActivity(), "${date}", Toast.LENGTH_SHORT).show()
         }
     }

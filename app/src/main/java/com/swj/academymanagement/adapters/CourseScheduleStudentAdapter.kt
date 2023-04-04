@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView.Adapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.google.gson.Gson
-import com.swj.academymanagement.activities.CourseScheduleDetailActivity
 import com.swj.academymanagement.activities.CourseScheduleDetailStudentActivity
 import com.swj.academymanagement.databinding.RecyclerItemCourseScheduleBinding
 import com.swj.academymanagement.model.CourseSchedule
