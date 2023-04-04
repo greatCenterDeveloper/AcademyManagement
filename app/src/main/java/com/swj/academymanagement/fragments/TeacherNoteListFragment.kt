@@ -5,8 +5,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.swj.academymanagement.activities.TeacherNoteActivity
 import com.swj.academymanagement.adapters.NoteAdapter
 import com.swj.academymanagement.databinding.FragmentTeacherNoteListBinding
+import com.swj.academymanagement.model.Member
 import com.swj.academymanagement.model.Note
 
 class TeacherNoteListFragment : Fragment() {
@@ -25,10 +27,12 @@ class TeacherNoteListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val teacher:Member = (activity as TeacherNoteActivity).teacher!!
+
         val noteArr:MutableList<Note> = mutableListOf()
-        noteArr.add(Note("할일", "국어 검색", "2023/03/24", "구글 검색"))
-        noteArr.add(Note("노트", "국어 동영상", "2023/03/25", "유튜브 검색"))
-        noteArr.add(Note("할일", "국어 문제집", "2023/03/26", "네이버 검색"))
+        noteArr.add(Note("할일", "국어 검색", "2023/03/24", "구글 검색", teacher.authority))
+        noteArr.add(Note("노트", "국어 동영상", "2023/03/25", "유튜브 검색", teacher.authority))
+        noteArr.add(Note("할일", "국어 문제집", "2023/03/26", "네이버 검색", teacher.authority))
         binding.recycler.adapter = NoteAdapter(requireActivity(), noteArr)
     }
 }

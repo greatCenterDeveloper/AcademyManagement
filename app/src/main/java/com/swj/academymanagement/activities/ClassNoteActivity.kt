@@ -8,16 +8,19 @@ import android.view.WindowInsets
 import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
 import androidx.fragment.app.Fragment
+import com.google.gson.Gson
 import com.swj.academymanagement.R
 import com.swj.academymanagement.databinding.ActivityClassNoteBinding
 import com.swj.academymanagement.fragments.ClassNoteFragment
 import com.swj.academymanagement.fragments.ClassNoteListFragment
 import com.swj.academymanagement.fragments.ClassNoteWorkFragment
+import com.swj.academymanagement.model.Member
 
 class ClassNoteActivity : AppCompatActivity() {
 
     val binding:ActivityClassNoteBinding by lazy { ActivityClassNoteBinding.inflate(layoutInflater) }
     private val fragments = arrayOfNulls<Fragment>(3)
+    var student:Member? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,6 +36,9 @@ class ClassNoteActivity : AppCompatActivity() {
         }
 
         binding.ivBackspace.setOnClickListener { finish() }
+
+        student = Gson().fromJson(intent.getStringExtra("student"), Member::class.java)
+
         fragments[0] = ClassNoteListFragment()
         fragments[1] = ClassNoteWorkFragment()
         fragments[2] = ClassNoteFragment()
