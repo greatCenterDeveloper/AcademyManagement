@@ -10,7 +10,7 @@
         android:id="@+id/tv_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="비밀번호 수정"
+        android:text="아이디 찾기"
         android:textStyle="bold"
         android:textColor="@color/black"
         android:textSize="16sp"
@@ -41,13 +41,13 @@
         android:layout_marginRight="4dp"/>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/til_prev_password"
+        android:id="@+id/til_input_call"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         app:boxBackgroundColor="@color/white"
-        app:endIconMode="password_toggle"
-        android:hint="이전 비밀번호"
+        app:endIconMode="clear_text"
+        android:hint="휴대폰 번호(-포함 입력)"
         android:layout_below="@id/line"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
@@ -57,55 +57,7 @@
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:inputType="textPassword"
-            android:textStyle="bold"
-            android:textColor="@color/black"
-            android:textSize="13sp"
-            android:fontFamily="@font/cookierunbold"/>
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/til_password"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        app:boxBackgroundColor="@color/white"
-        app:endIconMode="password_toggle"
-        android:hint="비밀번호"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginTop="4dp"
-        android:layout_marginBottom="4dp"
-        android:layout_below="@id/til_prev_password">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:inputType="textPassword"
-            android:textStyle="bold"
-            android:textColor="@color/black"
-            android:textSize="13sp"
-            android:fontFamily="@font/cookierunbold"/>
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/til_password_check"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        app:boxBackgroundColor="@color/white"
-        app:endIconMode="password_toggle"
-        android:hint="비밀번호 확인"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginTop="4dp"
-        android:layout_marginBottom="4dp"
-        android:layout_below="@id/til_password">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:inputType="textPassword"
+            android:inputType="text"
             android:textStyle="bold"
             android:textColor="@color/black"
             android:textSize="13sp"
@@ -113,16 +65,17 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btn_update"
+        android:id="@+id/btn_find"
         android:layout_width="130dp"
         android:layout_height="wrap_content"
-        android:text="수정"
+        android:text="찾기"
         android:textStyle="bold"
         android:textSize="12sp"
         android:fontFamily="@font/cookierunblack"
-        android:layout_below="@id/til_password_check"
+        android:layout_below="@id/til_input_call"
         android:layout_alignParentRight="true"
-        android:layout_marginRight="16dp"/>
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="8dp"/>
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btn_cancel"
@@ -132,7 +85,7 @@
         android:textStyle="bold"
         android:textSize="12sp"
         android:fontFamily="@font/cookierunblack"
-        android:layout_below="@id/til_password_check"
+        android:layout_alignTop="@id/btn_find"
         android:layout_marginLeft="16dp"
         android:layout_marginBottom="4dp"/>
 </RelativeLayout>

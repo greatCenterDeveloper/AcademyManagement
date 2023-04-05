@@ -10,17 +10,26 @@ import android.view.MenuItem
 import android.view.WindowInsets
 import android.view.WindowManager
 import android.widget.Toast
+import androidx.activity.result.ActivityResultCallback
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AlertDialog
+import com.bumptech.glide.Glide
 import com.google.gson.Gson
 import com.swj.academymanagement.R
 import com.swj.academymanagement.databinding.ActivityStudentBinding
 import com.swj.academymanagement.databinding.DialogMyInfoUpdateBinding
 import com.swj.academymanagement.databinding.DialogPasswordUpdateBinding
 import com.swj.academymanagement.model.Member
+import de.hdodenhof.circleimageview.CircleImageView
 
 class StudentActivity : AppCompatActivity() {
 
     val binding:ActivityStudentBinding by lazy { ActivityStudentBinding.inflate(layoutInflater) }
+    lateinit var drawerToggle:ActionBarDrawerToggle
+    var profile:String = ""
+    lateinit var civ:CircleImageView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,6 +45,13 @@ class StudentActivity : AppCompatActivity() {
         }
         setSupportActionBar(binding.toolbar)
         supportActionBar?.setDisplayShowTitleEnabled(false)
+
+        drawerToggle = ActionBarDrawerToggle(this,
+            binding.drawerLayout, binding.toolbar, R.string.open, R.string.close)
+
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        drawerToggle.syncState()
+        binding.drawerLayout.addDrawerListener(drawerToggle)
 
         binding.nav.setNavigationItemSelectedListener {
             if(it.itemId == R.id.menu_my_info_update) {
@@ -87,6 +103,13 @@ class StudentActivity : AppCompatActivity() {
             false
         }
 
+        val headerView = binding.nav.getHeaderView(0)
+        civ = headerView.findViewById(R.id.civ_profile)
+        civ.setOnClickListener {
+            val intent = Intent(Intent.ACTION_OPEN_DOCUMENT).setType("image/*")
+            imagePickResultLauncher.launch(intent)
+        }
+
         val student = Gson().fromJson(intent.getStringExtra("student"), Member::class.java)
         student.courseArr.add(0,"선택안함")
         binding.tvStudentName.text = "${student.name} 학생 오늘도 열심히 공부!"
@@ -129,6 +152,21 @@ class StudentActivity : AppCompatActivity() {
             startActivity(intent)
         }
     }
+
+    private val imagePickResultLauncher: ActivityResultLauncher<Intent> =
+        registerForActivityResult(
+            ActivityResultContracts.StartActivityForResult(),
+            ActivityResultCallback {
+                if(it.resultCode != RESULT_CANCELED) {
+                    val intent:Intent = it.data!!
+                    profile = intent.data.toString()
+
+                    // 디비 프로필 사진 경로 변경..
+
+                    Glide.with(this).load(intent.data).into(civ)
+                }
+            }
+        )
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.option, menu)

@@ -8,9 +8,13 @@ import android.view.MotionEvent
 import android.view.WindowInsets
 import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
+import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import com.google.gson.Gson
 import com.swj.academymanagement.R
 import com.swj.academymanagement.databinding.ActivityAcademyLoginBinding
+import com.swj.academymanagement.databinding.DialogFindIdBinding
+import com.swj.academymanagement.databinding.DialogFindPasswordBinding
 import com.swj.academymanagement.model.Member
 
 class AcademyLoginActivity : AppCompatActivity() {
@@ -43,6 +47,38 @@ class AcademyLoginActivity : AppCompatActivity() {
         binding.tilEmailId.editText?.setOnClickListener { binding.tilEmailId.editText?.selectAll() }
         binding.tilPassword.editText?.setOnClickListener { binding.tilPassword.editText?.selectAll() }
 
+        // 아이디 찾기
+        binding.btnFindId.setOnClickListener {
+            val dialogBinding = DialogFindIdBinding.inflate(layoutInflater)
+            val dialog: AlertDialog = AlertDialog.Builder(this)
+                .setView(dialogBinding.root)
+                .create()
+            dialogBinding.btnCancel.setOnClickListener { dialog.dismiss() }
+            dialogBinding.ivClose.setOnClickListener { dialog.dismiss() }
+            dialog.show()
+            dialogBinding.btnFind.setOnClickListener {
+                val call:String = dialogBinding.tilInputCall.editText?.text.toString()
+                Toast.makeText(this, "휴대폰 번호 : ${call}", Toast.LENGTH_SHORT).show()
+            }
+        }
+
+        // 비밀번호 찾기
+        binding.btnFindPassword.setOnClickListener {
+            val dialogBinding = DialogFindPasswordBinding.inflate(layoutInflater)
+            val dialog: AlertDialog = AlertDialog.Builder(this)
+                .setView(dialogBinding.root)
+                .create()
+            dialogBinding.btnCancel.setOnClickListener { dialog.dismiss() }
+            dialogBinding.ivClose.setOnClickListener { dialog.dismiss() }
+            dialog.show()
+            dialogBinding.btnFind.setOnClickListener {
+                val id:String = dialogBinding.tilInputId.editText?.text.toString()
+                val call:String = dialogBinding.tilInputCall.editText?.text.toString()
+                Toast.makeText(this, "아이디 : ${id}\n휴대폰 번호 : ${call}", Toast.LENGTH_SHORT).show()
+            }
+        }
+
+        // 로그인
         binding.btnLogin.setOnClickListener {
             val emailId:String = binding.tilEmailId.editText?.text.toString()
             val password:String = binding.tilPassword.editText?.text.toString()

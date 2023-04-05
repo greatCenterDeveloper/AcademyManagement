@@ -6,7 +6,7 @@
     android:background="#dddddd">
 
     <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/profile"
+        android:id="@+id/civ_profile"
         android:layout_width="80dp"
         android:layout_height="80dp"
         android:src="@drawable/user_icon"
@@ -24,7 +24,7 @@
         android:textColor="@color/black"
         android:textSize="20sp"
         android:fontFamily="@font/cookierunblack"
-        android:layout_below="@id/profile"
+        android:layout_below="@id/civ_profile"
         android:layout_marginLeft="8dp"/>
 
     <TextView
