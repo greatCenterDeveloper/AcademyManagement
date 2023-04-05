@@ -1,9 +1,12 @@
 package com.swj.academymanagement.activities
 
+import android.content.DialogInterface
 import android.content.Intent
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.view.WindowInsets
 import android.view.WindowManager
 import android.widget.Toast
@@ -125,5 +128,26 @@ class StudentActivity : AppCompatActivity() {
             intent.putExtra("student", Gson().toJson(student))
             startActivity(intent)
         }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.option, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if(item.itemId == R.id.menu_logout) {
+            AlertDialog.Builder(this)
+                .setMessage("로그아웃 하시겠습니까?")
+                .setPositiveButton("OK", DialogInterface.OnClickListener { dialogInterface, i ->
+                    val intent = Intent(this, LoginActivity::class.java)
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                    startActivity(intent)
+                })
+                .setNegativeButton("NO", null)
+                .show()
+        }
+        return super.onOptionsItemSelected(item)
     }
 }
