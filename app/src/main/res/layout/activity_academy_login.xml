@@ -65,17 +65,16 @@
             android:layout_below="@id/tv_title"/>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/til_email_id"
+            android:id="@+id/til_id"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_margin="8dp"
-            android:hint="이메일 아이디"
+            android:hint="아이디"
             app:endIconMode="clear_text"
             android:layout_below="@id/line">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/email_id"
                 android:inputType="text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -92,7 +91,7 @@
             android:layout_margin="8dp"
             android:hint="비밀번호"
             app:endIconMode="password_toggle"
-            android:layout_below="@id/til_email_id">
+            android:layout_below="@id/til_id">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"

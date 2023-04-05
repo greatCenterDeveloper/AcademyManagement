@@ -43,7 +43,7 @@ class NoteAdapter(val context: Context, val noteArr:MutableList<Note>)
             popMenu.setOnMenuItemClickListener {
                 if(it.itemId == R.id.menu_note_update) {
                     // 수정 화면으로 이동
-                    if(note.authority == "선생님") {
+                    if(note.authority == "teacher") {
                         val intent = Intent(context, TeacherNoteDetailActivity::class.java)
                         intent.putExtra("note", Gson().toJson(note))
                         intent.putExtra("position", position)
@@ -52,7 +52,7 @@ class NoteAdapter(val context: Context, val noteArr:MutableList<Note>)
                                 context as TeacherNoteActivity, Pair(holder.binding.tvContent, "note")
                             )
                         context.startActivity(intent, options.toBundle())
-                    } else if(note.authority == "학생") {
+                    } else if(note.authority == "student") {
                         val intent = Intent(context, ClassNoteDetailActivity::class.java)
                         intent.putExtra("note", Gson().toJson(note))
                         intent.putExtra("position", position)

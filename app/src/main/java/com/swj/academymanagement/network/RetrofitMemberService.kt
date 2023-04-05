@@ -14,13 +14,13 @@ import retrofit2.http.Query
 
 interface RetrofitMemberService {
     // 아이디 중복 검사.. 결과 문자열 : ( "사용", "중복" )
-    //@GET("")
-    //fun memberSignUpIdCheck(@Query("id") memberId:String):Call<String>
+    @GET("/member/memberIdCheck.php")
+    fun memberSignUpIdCheck(@Query("id") memberId:String):Call<String>
 
     // 휴대폰 번호 중복 검사.. 결과 문자열 : ( "사용", "중복" )
-    //@FormUrlEncoded
-    //@POST("")
-    //fun memberSignUpCallNumberCheck(@Field("call") call:String):Call<String>
+    @FormUrlEncoded
+    @POST("/member/memberCallCheck.php")
+    fun memberSignUpCallNumberCheck(@Field("call") call:String):Call<String>
 
     // 가입 승인 처리.. 결과 문자열 : ( "가입 완료", "가입 불가" )
     @POST("/member/memberSignup.php")

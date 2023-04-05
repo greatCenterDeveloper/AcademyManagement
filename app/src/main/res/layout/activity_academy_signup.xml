@@ -102,23 +102,24 @@
             android:layout_marginTop="4dp"/>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/til_email_id"
+            android:id="@+id/til_id"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_marginTop="8dp"
             android:layout_marginLeft="8dp"
             android:layout_marginRight="8dp"
-            android:hint="이메일 아이디"
+            android:hint="아이디"
             app:endIconMode="clear_text"
             android:layout_below="@id/rg_authority"
             android:layout_toRightOf="@id/iv_profile"
             android:layout_toLeftOf="@id/btn_id_check">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/tiet_id"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textEmailAddress"
+                android:inputType="text"
                 android:fontFamily="@font/cookierunbold"/>
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -132,9 +133,9 @@
             android:textSize="12sp"
             android:fontFamily="@font/cookierunblack"
             android:layout_below="@id/rg_authority"
-            android:layout_alignTop="@id/til_email_id"
+            android:layout_alignTop="@id/til_id"
             android:layout_alignParentRight="true"
-            android:layout_alignBottom="@id/til_email_id"
+            android:layout_alignBottom="@id/til_id"
             android:layout_marginRight="8dp"/>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -147,7 +148,7 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:hint="비밀번호"
             app:endIconMode="password_toggle"
-            android:layout_below="@id/til_email_id"
+            android:layout_below="@id/til_id"
             android:layout_toRightOf="@id/iv_profile"
             android:layout_alignParentRight="true">
 

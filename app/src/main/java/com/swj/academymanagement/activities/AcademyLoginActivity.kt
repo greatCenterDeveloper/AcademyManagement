@@ -44,9 +44,6 @@ class AcademyLoginActivity : AppCompatActivity() {
             finish()
         }
 
-        binding.tilEmailId.editText?.setOnClickListener { binding.tilEmailId.editText?.selectAll() }
-        binding.tilPassword.editText?.setOnClickListener { binding.tilPassword.editText?.selectAll() }
-
         // 아이디 찾기
         binding.btnFindId.setOnClickListener {
             val dialogBinding = DialogFindIdBinding.inflate(layoutInflater)
@@ -80,10 +77,10 @@ class AcademyLoginActivity : AppCompatActivity() {
 
         // 로그인
         binding.btnLogin.setOnClickListener {
-            val emailId:String = binding.tilEmailId.editText?.text.toString()
+            val emailId:String = binding.tilId.editText?.text.toString()
             val password:String = binding.tilPassword.editText?.text.toString()
 
-            var authority = "선생님"
+            var authority = "teacher"
             var profile = ""
             var tempEmailId = "aaa"
             var tempPassword = "aaa"
@@ -102,11 +99,11 @@ class AcademyLoginActivity : AppCompatActivity() {
                 startActivity(intent)
                 finish()
             } else { // 로그인 실패
-                binding.tilEmailId.editText?.requestFocus()
-                binding.tilEmailId.editText?.selectAll()
+                binding.tilId.editText?.requestFocus()
+                binding.tilId.editText?.selectAll()
             }
 
-            authority = "학생"
+            authority = "student"
             profile = ""
             tempEmailId = "sss"
             tempPassword = "sss"
@@ -124,8 +121,8 @@ class AcademyLoginActivity : AppCompatActivity() {
                 startActivity(intent)
                 finish()
             } else { // 로그인 실패
-                binding.tilEmailId.editText?.requestFocus()
-                binding.tilEmailId.editText?.selectAll()
+                binding.tilId.editText?.requestFocus()
+                binding.tilId.editText?.selectAll()
             }
         }
     }
@@ -136,7 +133,7 @@ class AcademyLoginActivity : AppCompatActivity() {
     }
 
     override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
-        if(binding.tilEmailId.editText?.text.toString() != "" && binding.tilPassword.editText?.text.toString() != "") {
+        if(binding.tilId.editText?.text.toString() != "" && binding.tilPassword.editText?.text.toString() != "") {
             val imm:InputMethodManager = getSystemService(InputMethodManager::class.java)
             imm.hideSoftInputFromWindow(currentFocus?.windowToken, 0)
             currentFocus?.clearFocus()

@@ -48,7 +48,7 @@ class StudentDetailActivity : AppCompatActivity() {
         val requestCourseArr:MutableList<StudentManagementCourse> = mutableListOf()
         for(course in student.courseArr) {
             var i = 1
-            requestCourseArr.add(StudentManagementCourse(course, "", "강사${i}", "10", "0", student.emailId))
+            requestCourseArr.add(StudentManagementCourse(course, "", "강사${i}", "10", "0", student.id))
         }
 
         binding.recyclerCourse.adapter = StudentManagementCourseAdapter(this, requestCourseArr)
