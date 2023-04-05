@@ -39,7 +39,8 @@
         android:layout_alignTop="@id/tv_course"
         android:layout_alignBottom="@id/tv_course"
         android:layout_alignParentRight="true"
-        android:layout_marginRight="16dp"/>
+        android:layout_marginRight="16dp"
+        android:clickable="true"/>
 
     <RelativeLayout
         android:id="@+id/line"

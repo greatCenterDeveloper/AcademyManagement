@@ -2,8 +2,10 @@ package com.swj.academymanagement.activities
 
 import android.os.Build
 import android.os.Bundle
+import android.view.MotionEvent
 import android.view.WindowInsets
 import android.view.WindowManager
+import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.tabs.TabLayoutMediator
 import com.swj.academymanagement.adapters.CounselAdapter
@@ -34,5 +36,12 @@ class CounselActivity : AppCompatActivity() {
                 tab, position -> tab.text = tabTitle[position]
         }
         mediator.attach()
+    }
+
+    override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
+        val imm: InputMethodManager = getSystemService(InputMethodManager::class.java)
+        imm.hideSoftInputFromWindow(currentFocus?.windowToken, 0)
+        currentFocus?.clearFocus()
+        return super.dispatchTouchEvent(ev)
     }
 }

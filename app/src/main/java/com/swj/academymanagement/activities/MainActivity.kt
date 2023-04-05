@@ -1,25 +1,36 @@
 package com.swj.academymanagement.activities
 
+import android.content.DialogInterface
 import android.content.Intent
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
+import android.view.View
 import android.view.WindowInsets
 import android.view.WindowManager
 import android.widget.Toast
+import androidx.activity.result.ActivityResultCallback
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AlertDialog
+import com.bumptech.glide.Glide
 import com.google.gson.Gson
 import com.swj.academymanagement.R
 import com.swj.academymanagement.databinding.ActivityMainBinding
 import com.swj.academymanagement.databinding.DialogMyInfoUpdateBinding
 import com.swj.academymanagement.databinding.DialogPasswordUpdateBinding
 import com.swj.academymanagement.model.Member
+import de.hdodenhof.circleimageview.CircleImageView
 
 class MainActivity : AppCompatActivity() {
 
     val binding:ActivityMainBinding by lazy { ActivityMainBinding.inflate(layoutInflater) }
     lateinit var drawerToggle:ActionBarDrawerToggle
+    var profile:String = ""
+    lateinit var civ:CircleImageView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,7 +55,7 @@ class MainActivity : AppCompatActivity() {
         binding.drawerLayout.addDrawerListener(drawerToggle)
 
         binding.nav.setNavigationItemSelectedListener {
-            if(it.itemId == R.id.menu_my_info_update) {
+            if(it.itemId == R.id.menu_my_info_update) { // NavigationView 메뉴 내 정보 수정
                 val dialogBinding = DialogMyInfoUpdateBinding.inflate(layoutInflater)
                 val dialog: AlertDialog = AlertDialog.Builder(this)
                     .setView(dialogBinding.root)
@@ -68,7 +79,7 @@ class MainActivity : AppCompatActivity() {
                         dialog.dismiss()
                     }
                 }
-            } else if(it.itemId == R.id.menu_password_update) {
+            } else if(it.itemId == R.id.menu_password_update) { // NavigationView 메뉴 비밀번호 수정
                 val dialogBinding = DialogPasswordUpdateBinding.inflate(layoutInflater)
                 val dialog: AlertDialog = AlertDialog.Builder(this)
                     .setView(dialogBinding.root)
@@ -91,6 +102,13 @@ class MainActivity : AppCompatActivity() {
 
             binding.drawerLayout.closeDrawer(binding.nav)
             false
+        }
+
+        val headerView = binding.nav.getHeaderView(0)
+        civ = headerView.findViewById(R.id.civ_profile)
+        civ.setOnClickListener {
+            val intent = Intent(Intent.ACTION_OPEN_DOCUMENT).setType("image/*")
+            imagePickResultLauncher.launch(intent)
         }
 
         val teacher = Gson().fromJson(intent.getStringExtra("teacher"), Member::class.java)
@@ -150,5 +168,41 @@ class MainActivity : AppCompatActivity() {
             intent.putExtra("teacher", Gson().toJson(teacher))
             startActivity(intent)
         }
+    }
+
+    private val imagePickResultLauncher: ActivityResultLauncher<Intent> =
+        registerForActivityResult(
+            ActivityResultContracts.StartActivityForResult(),
+            ActivityResultCallback {
+                if(it.resultCode != RESULT_CANCELED) {
+                    val intent:Intent = it.data!!
+                    profile = intent.data.toString()
+
+                    // 디비 프로필 사진 경로 변경..
+
+                    Glide.with(this).load(intent.data).into(civ)
+                }
+            }
+        )
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.option, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if(item.itemId == R.id.menu_logout) {
+            AlertDialog.Builder(this)
+                .setMessage("로그아웃 하시겠습니까?")
+                .setPositiveButton("OK", DialogInterface.OnClickListener { dialogInterface, i ->
+                    val intent = Intent(this, LoginActivity::class.java)
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                    startActivity(intent)
+                })
+                .setNegativeButton("NO", null)
+                .show()
+        }
+        return super.onOptionsItemSelected(item)
     }
 }

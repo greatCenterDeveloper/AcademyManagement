@@ -71,6 +71,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:menu="@menu/bnv"
+            android:theme="@style/Widget.BottomNavigationView"
             app:itemTextColor="@color/bnv_item_color"
             app:itemIconTint="@color/bnv_item_color"
             app:labelVisibilityMode="selected"/>

@@ -4,8 +4,10 @@ import android.content.Intent
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.MotionEvent
 import android.view.WindowInsets
 import android.view.WindowManager
+import android.view.inputmethod.InputMethodManager
 import androidx.activity.result.ActivityResultCallback
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
@@ -61,6 +63,22 @@ class AcademySignupActivity : AppCompatActivity() {
                 }
             }
         )
+
+    override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
+        // 비밀번호 확인까지 입력하고 프로필 사진을 등록하는 경우도 있으므로 소프트 키보드 숨기기
+        // 이름 입력하면 강좌 선택해야하므로 소프트 키보드 숨기기
+        // 전화번호 전부 입력하면 가입 버튼 눌러야 하므로 소프트 키보드 숨기기
+        if(binding.tilPasswordCheck.editText?.text.toString() != "" ||
+           binding.tilName.editText?.text.toString() != "" ||
+          (binding.tilCall1.editText?.text.toString() != "" &&
+           binding.tilCall2.editText?.text.toString() != "" &&
+           binding.tilCall3.editText?.text.toString() != "")) {
+            val imm: InputMethodManager = getSystemService(InputMethodManager::class.java)
+            imm.hideSoftInputFromWindow(currentFocus?.windowToken, 0)
+            currentFocus?.clearFocus()
+        }
+        return super.dispatchTouchEvent(ev)
+    }
 
     // 가입 버튼 클릭
     private fun signUp() {

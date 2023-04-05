@@ -7,7 +7,7 @@
     android:padding="4dp">
 
     <TextView
-        android:id="@+id/tv_course"
+        android:id="@+id/tv_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="내 정보 수정"
@@ -24,17 +24,18 @@
         android:layout_height="0dp"
         android:src="@drawable/baseline_close_24"
         android:background="?attr/selectableItemBackgroundBorderless"
-        android:layout_alignTop="@id/tv_course"
-        android:layout_alignBottom="@id/tv_course"
+        android:layout_alignTop="@id/tv_title"
+        android:layout_alignBottom="@id/tv_title"
         android:layout_alignParentRight="true"
-        android:layout_marginRight="16dp"/>
+        android:layout_marginRight="16dp"
+        android:clickable="true"/>
 
     <RelativeLayout
         android:id="@+id/line"
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="#666666"
-        android:layout_below="@id/tv_course"
+        android:layout_below="@id/tv_title"
         android:layout_marginTop="8dp"
         android:layout_marginLeft="4dp"
         android:layout_marginRight="4dp"/>

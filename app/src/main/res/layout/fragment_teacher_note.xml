@@ -9,7 +9,7 @@
         android:id="@+id/tv_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="노트 작성"
+        android:text="노트 내용 작성"
         android:textStyle="bold"
         android:textColor="@color/black"
         android:textSize="24sp"
@@ -17,7 +17,7 @@
         android:layout_marginLeft="8dp"/>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/til_work_title"
+        android:id="@+id/til_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -52,13 +52,13 @@
         android:layout_marginRight="16dp"/>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/til_counsel_content"
+        android:id="@+id/til_content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         app:endIconMode="clear_text"
         android:hint="내용"
-        android:layout_below="@id/til_work_title"
+        android:layout_below="@id/til_title"
         android:layout_above="@id/btn_save"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"

@@ -4,11 +4,17 @@ import android.content.Intent
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.MotionEvent
 import android.view.WindowInsets
 import android.view.WindowManager
+import android.view.inputmethod.InputMethodManager
+import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import com.google.gson.Gson
 import com.swj.academymanagement.R
 import com.swj.academymanagement.databinding.ActivityAcademyLoginBinding
+import com.swj.academymanagement.databinding.DialogFindIdBinding
+import com.swj.academymanagement.databinding.DialogFindPasswordBinding
 import com.swj.academymanagement.model.Member
 
 class AcademyLoginActivity : AppCompatActivity() {
@@ -38,6 +44,41 @@ class AcademyLoginActivity : AppCompatActivity() {
             finish()
         }
 
+        binding.tilEmailId.editText?.setOnClickListener { binding.tilEmailId.editText?.selectAll() }
+        binding.tilPassword.editText?.setOnClickListener { binding.tilPassword.editText?.selectAll() }
+
+        // 아이디 찾기
+        binding.btnFindId.setOnClickListener {
+            val dialogBinding = DialogFindIdBinding.inflate(layoutInflater)
+            val dialog: AlertDialog = AlertDialog.Builder(this)
+                .setView(dialogBinding.root)
+                .create()
+            dialogBinding.btnCancel.setOnClickListener { dialog.dismiss() }
+            dialogBinding.ivClose.setOnClickListener { dialog.dismiss() }
+            dialog.show()
+            dialogBinding.btnFind.setOnClickListener {
+                val call:String = dialogBinding.tilInputCall.editText?.text.toString()
+                Toast.makeText(this, "휴대폰 번호 : ${call}", Toast.LENGTH_SHORT).show()
+            }
+        }
+
+        // 비밀번호 찾기
+        binding.btnFindPassword.setOnClickListener {
+            val dialogBinding = DialogFindPasswordBinding.inflate(layoutInflater)
+            val dialog: AlertDialog = AlertDialog.Builder(this)
+                .setView(dialogBinding.root)
+                .create()
+            dialogBinding.btnCancel.setOnClickListener { dialog.dismiss() }
+            dialogBinding.ivClose.setOnClickListener { dialog.dismiss() }
+            dialog.show()
+            dialogBinding.btnFind.setOnClickListener {
+                val id:String = dialogBinding.tilInputId.editText?.text.toString()
+                val call:String = dialogBinding.tilInputCall.editText?.text.toString()
+                Toast.makeText(this, "아이디 : ${id}\n휴대폰 번호 : ${call}", Toast.LENGTH_SHORT).show()
+            }
+        }
+
+        // 로그인
         binding.btnLogin.setOnClickListener {
             val emailId:String = binding.tilEmailId.editText?.text.toString()
             val password:String = binding.tilPassword.editText?.text.toString()
@@ -60,6 +101,9 @@ class AcademyLoginActivity : AppCompatActivity() {
                 intent.putExtra("teacher", Gson().toJson(teacherMember))
                 startActivity(intent)
                 finish()
+            } else { // 로그인 실패
+                binding.tilEmailId.editText?.requestFocus()
+                binding.tilEmailId.editText?.selectAll()
             }
 
             authority = "학생"
@@ -68,6 +112,9 @@ class AcademyLoginActivity : AppCompatActivity() {
             tempPassword = "sss"
             name = "robin"
             call = "010-1111-2222"
+            courseArr.clear()
+            courseArr.add("국어")
+            courseArr.add("영어")
 
             // 학생 로그인
             if(emailId.equals(tempEmailId) && password.equals(tempPassword)) {
@@ -76,6 +123,9 @@ class AcademyLoginActivity : AppCompatActivity() {
                 intent.putExtra("student", Gson().toJson(studentMember))
                 startActivity(intent)
                 finish()
+            } else { // 로그인 실패
+                binding.tilEmailId.editText?.requestFocus()
+                binding.tilEmailId.editText?.selectAll()
             }
         }
     }
@@ -83,5 +133,14 @@ class AcademyLoginActivity : AppCompatActivity() {
     override fun onSupportNavigateUp(): Boolean {
         finish()
         return super.onSupportNavigateUp()
+    }
+
+    override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
+        if(binding.tilEmailId.editText?.text.toString() != "" && binding.tilPassword.editText?.text.toString() != "") {
+            val imm:InputMethodManager = getSystemService(InputMethodManager::class.java)
+            imm.hideSoftInputFromWindow(currentFocus?.windowToken, 0)
+            currentFocus?.clearFocus()
+        }
+        return super.dispatchTouchEvent(ev)
     }
 }

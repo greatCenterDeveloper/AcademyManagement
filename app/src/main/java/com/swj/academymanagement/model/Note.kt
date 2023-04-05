@@ -1,8 +1,9 @@
 package com.swj.academymanagement.model
 
-data class TeacherNote(
+data class Note(
     val kind:String,
     val title:String,
     val date:String,
-    val content:String
+    val content:String,
+    val authority:String
 )

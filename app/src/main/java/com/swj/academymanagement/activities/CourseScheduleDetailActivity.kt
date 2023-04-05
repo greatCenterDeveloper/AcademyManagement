@@ -6,7 +6,8 @@ import android.os.Bundle
 import android.view.View
 import android.view.WindowInsets
 import android.view.WindowManager
-import com.swj.academymanagement.adapters.CourseScheduleStudentAdapter
+import com.google.gson.Gson
+import com.swj.academymanagement.adapters.CourseScheduleStudentListAdapter
 import com.swj.academymanagement.databinding.ActivityCourseScheduleDetailBinding
 import com.swj.academymanagement.model.CourseScheduleTeacher
 
@@ -31,14 +32,12 @@ class CourseScheduleDetailActivity : AppCompatActivity() {
 
         binding.ivBackspace.setOnClickListener { finish() }
 
-        var cst:CourseScheduleTeacher
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU)
-            cst = intent.getSerializableExtra("schedule", CourseScheduleTeacher::class.java)!!
-        else
-            cst = intent.getSerializableExtra("schedule") as CourseScheduleTeacher
+        val cst:CourseScheduleTeacher = Gson().fromJson(intent.getStringExtra("schedule"), CourseScheduleTeacher::class.java)
 
         binding.tvDate.text = cst.date
         binding.tvDay.text = "(${cst.day})"
+        binding.tvCourse.text = "${cst.course} 강좌"
+        binding.tvRoom.text = "(${cst.room})"
 
         when(cst.period) {
             "1" -> {
@@ -55,13 +54,11 @@ class CourseScheduleDetailActivity : AppCompatActivity() {
             }
         }
 
-        binding.tvRoom.text = "(${cst.room})"
-
-
         if(cst.students.size > 0)
-            binding.recycler.adapter = CourseScheduleStudentAdapter(this, cst.students)
+            binding.recycler.adapter = CourseScheduleStudentListAdapter(this, cst.students)
         else {
             binding.recycler.visibility = View.GONE
+            binding.btnSave.visibility = View.GONE
             binding.tvNoStudent.visibility = View.VISIBLE
         }
 

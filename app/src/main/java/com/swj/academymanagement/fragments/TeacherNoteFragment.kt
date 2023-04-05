@@ -6,10 +6,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import com.swj.academymanagement.activities.TeacherNoteActivity
 import com.swj.academymanagement.databinding.FragmentTeacherNoteBinding
-import com.swj.academymanagement.model.TeacherNote
+import com.swj.academymanagement.model.Member
+import com.swj.academymanagement.model.Note
 import java.text.SimpleDateFormat
 import java.util.Date
+import java.util.TimeZone
 
 class TeacherNoteFragment : Fragment() {
 
@@ -27,13 +30,17 @@ class TeacherNoteFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val teacher: Member = (activity as TeacherNoteActivity).teacher!!
+
         binding.btnSave.setOnClickListener {
             val kind:String = "노트"
-            val title:String = binding.tilWorkTitle.editText!!.text.toString()
-            val content:String = binding.tilCounselContent.editText!!.text.toString()
+            val title:String = binding.tilTitle.editText!!.text.toString()
+            val content:String = binding.tilContent.editText!!.text.toString()
             val sdf = SimpleDateFormat("yyyy/MM/dd")
-            val date = sdf.parse(Date().toString()).toString()
-            val teacherNote = TeacherNote(kind, title, date, content)
+            sdf.timeZone = TimeZone.getTimeZone("Asia/Seoul")
+
+            val date = sdf.format(Date())
+            val note = Note(kind, title, date, content, teacher.authority)
             Toast.makeText(requireActivity(), "${date}", Toast.LENGTH_SHORT).show()
         }
     }
