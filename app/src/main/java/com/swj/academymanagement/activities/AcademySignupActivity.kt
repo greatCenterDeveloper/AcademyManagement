@@ -4,10 +4,12 @@ import android.content.Intent
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.MotionEvent
 import android.view.WindowInsets
 import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
+import android.widget.Toast
 import androidx.activity.result.ActivityResultCallback
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
@@ -17,18 +19,23 @@ import com.google.android.material.radiobutton.MaterialRadioButton
 import com.google.gson.Gson
 import com.swj.academymanagement.databinding.ActivityAcademySignupBinding
 import com.swj.academymanagement.model.Member
+import com.swj.academymanagement.network.RetrofitHelper
+import com.swj.academymanagement.network.RetrofitMemberService
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class AcademySignupActivity : AppCompatActivity() {
 
     val binding:ActivityAcademySignupBinding by lazy { ActivityAcademySignupBinding.inflate(layoutInflater) }
     // 학생, 선생님 둘 중 하나 선택했는지 확인..
-    var authCheck = false
+    var authCheck = true
     // 아이디 중복검사 했는지 확인..
-    var emailIdCheck = false
+    var emailIdCheck = true
     // 비밀번호가 서로 일치하는지 확인..
-    var passwordCheck = false
+    var passwordCheck = true
     // 핸드폰 중복검사 했는지 확인..
-    var callCheck = false
+    var callCheck = true
     // 사진 경로
     var profile:String = ""
 
@@ -137,7 +144,7 @@ class AcademySignupActivity : AppCompatActivity() {
             call3 = binding.tilCall3.editText!!.text.toString()
         }
 
-        var call = ""
+        var call = "${call1}-${call2}-${call3}"
         binding.btnCallCheck.setOnClickListener {
             if (call1.equals("") || call2.equals("") || call3.equals("")) {
                 AlertDialog.Builder(this).setMessage("휴대폰 번호를 입력하세요.").setPositiveButton("OK", null).show()
@@ -155,9 +162,22 @@ class AcademySignupActivity : AppCompatActivity() {
         // 이름 입력함
         // 강좌 선택함
         // 휴대폰 번호 중복되지 않을 경우 가입 승인
+        //AlertDialog.Builder(this).setMessage("${authCheck} / ${emailIdCheck} / ${passwordCheck}\n${!name.equals("")} / ${courseArr.size != 0} / ${!call.equals("")}").show()
         if(authCheck && emailIdCheck && passwordCheck && !name.equals("") && courseArr.size != 0 && !call.equals("")) {
             // 가입 처리 Retrofit
-            val jsonMember:String = Gson().toJson(Member(authority, profile, emailId, password, name, courseArr, call))
+            val member = Member(authority, profile, emailId, password, name, courseArr, call)
+
+            val retrofit = RetrofitHelper.getRetrofitInstance()
+            retrofit.create(RetrofitMemberService::class.java).memberSignUp(member).enqueue(object : Callback<String> {
+                override fun onResponse(call: Call<String>, response: Response<String>) {
+                    val result = response.body()
+                    Toast.makeText(this@AcademySignupActivity, result, Toast.LENGTH_SHORT).show()
+                }
+
+                override fun onFailure(call: Call<String>, t: Throwable) {
+                    Toast.makeText(this@AcademySignupActivity, "회원 가입 실패!\n${t.message}", Toast.LENGTH_SHORT).show()
+                }
+            })
 
             // 가입 완료 후 다시 로그인 화면으로...
             //finish()

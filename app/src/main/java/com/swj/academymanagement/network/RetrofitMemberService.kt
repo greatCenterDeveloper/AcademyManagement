@@ -12,22 +12,19 @@ import retrofit2.http.POST
 import retrofit2.http.Part
 import retrofit2.http.Query
 
-interface RetrofitService {
+interface RetrofitMemberService {
     // 아이디 중복 검사.. 결과 문자열 : ( "사용", "중복" )
-    @GET("")
-    fun memberSignUpIdCheck(@Query("id") memberId:String):Call<String>
+    //@GET("")
+    //fun memberSignUpIdCheck(@Query("id") memberId:String):Call<String>
 
     // 휴대폰 번호 중복 검사.. 결과 문자열 : ( "사용", "중복" )
-    @FormUrlEncoded
-    @POST("")
-    fun memberSignUpCallNumberCheck(@Field("call") call:String):Call<String>
+    //@FormUrlEncoded
+    //@POST("")
+    //fun memberSignUpCallNumberCheck(@Field("call") call:String):Call<String>
 
     // 가입 승인 처리.. 결과 문자열 : ( "가입 완료", "가입 불가" )
-    @POST("")
+    @POST("/member/memberSignup.php")
     fun memberSignUp(@Body member:Member):Call<String>
 
     // 프로필 사진을 올렸을 경우 파이어베이스 서버에 업로드하기.. 결과 문자열 : ( "성공", "살패" )
-    @Multipart
-    @POST("")
-    fun memberProfileUpload(@Part profile:MultipartBody.Part):Call<String>
 }
