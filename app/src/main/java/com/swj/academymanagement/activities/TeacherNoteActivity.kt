@@ -21,6 +21,7 @@ class TeacherNoteActivity : AppCompatActivity() {
     val binding:ActivityTeacherNoteBinding by lazy { ActivityTeacherNoteBinding.inflate(layoutInflater) }
     private val fragments = arrayOfNulls<Fragment>(3)
     var teacher:Member? = null
+    var position = -1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,6 +38,7 @@ class TeacherNoteActivity : AppCompatActivity() {
 
         binding.ivBackspace.setOnClickListener { finish() }
         teacher = Gson().fromJson(intent.getStringExtra("teacher"), Member::class.java)
+        position = intent.getIntExtra("position", -1)
 
         fragments[0] = TeacherNoteListFragment()
         fragments[1] = TeacherNoteWorkFragment()

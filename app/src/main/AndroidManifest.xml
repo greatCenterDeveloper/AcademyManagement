@@ -16,6 +16,12 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".activities.ClassNoteDetailActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.TeacherNoteDetailActivity"
+            android:exported="false" />
+        <activity
             android:name=".activities.CounselInputActivity"
             android:exported="false" />
         <activity

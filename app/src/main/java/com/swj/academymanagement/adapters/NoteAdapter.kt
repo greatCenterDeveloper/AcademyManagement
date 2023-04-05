@@ -11,9 +11,12 @@ import androidx.core.app.ActivityOptionsCompat
 import androidx.core.util.Pair
 import androidx.recyclerview.widget.RecyclerView.Adapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
+import com.google.gson.Gson
 import com.swj.academymanagement.R
-import com.swj.academymanagement.activities.CounselActivity
+import com.swj.academymanagement.activities.ClassNoteActivity
+import com.swj.academymanagement.activities.ClassNoteDetailActivity
 import com.swj.academymanagement.activities.TeacherNoteActivity
+import com.swj.academymanagement.activities.TeacherNoteDetailActivity
 import com.swj.academymanagement.databinding.RecyclerItemTeacherNoteBinding
 import com.swj.academymanagement.model.Note
 
@@ -41,14 +44,23 @@ class NoteAdapter(val context: Context, val noteArr:MutableList<Note>)
                 if(it.itemId == R.id.menu_note_update) {
                     // 수정 화면으로 이동
                     if(note.authority == "선생님") {
-                        //val intent = Intent(context, ::class.java)
+                        val intent = Intent(context, TeacherNoteDetailActivity::class.java)
+                        intent.putExtra("note", Gson().toJson(note))
+                        intent.putExtra("position", position)
                         val options: ActivityOptionsCompat =
                             ActivityOptionsCompat.makeSceneTransitionAnimation(
-                                context as CounselActivity, Pair(holder.binding.tvContent, "teacherNote")
+                                context as TeacherNoteActivity, Pair(holder.binding.tvContent, "note")
                             )
-                        //context.startActivity(intent, options.toBundle())
+                        context.startActivity(intent, options.toBundle())
                     } else if(note.authority == "학생") {
-
+                        val intent = Intent(context, ClassNoteDetailActivity::class.java)
+                        intent.putExtra("note", Gson().toJson(note))
+                        intent.putExtra("position", position)
+                        val options: ActivityOptionsCompat =
+                            ActivityOptionsCompat.makeSceneTransitionAnimation(
+                                context as ClassNoteActivity, Pair(holder.binding.tvContent, "note")
+                            )
+                        context.startActivity(intent, options.toBundle())
                     }
                 }else if(it.itemId == R.id.menu_note_delete) {
                     AlertDialog.Builder(context)
