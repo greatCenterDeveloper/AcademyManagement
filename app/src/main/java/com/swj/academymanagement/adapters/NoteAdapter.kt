@@ -17,15 +17,15 @@ import com.swj.academymanagement.activities.ClassNoteActivity
 import com.swj.academymanagement.activities.ClassNoteDetailActivity
 import com.swj.academymanagement.activities.TeacherNoteActivity
 import com.swj.academymanagement.activities.TeacherNoteDetailActivity
-import com.swj.academymanagement.databinding.RecyclerItemTeacherNoteBinding
+import com.swj.academymanagement.databinding.RecyclerItemNoteBinding
 import com.swj.academymanagement.model.Note
 
 class NoteAdapter(val context: Context, val noteArr:MutableList<Note>)
     :Adapter<NoteAdapter.VH>() {
-    inner class VH(val binding:RecyclerItemTeacherNoteBinding):ViewHolder(binding.root)
+    inner class VH(val binding:RecyclerItemNoteBinding):ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VH
-        = VH(RecyclerItemTeacherNoteBinding.inflate(LayoutInflater.from(context), parent, false))
+        = VH(RecyclerItemNoteBinding.inflate(LayoutInflater.from(context), parent, false))
 
     override fun getItemCount(): Int = noteArr.size
 

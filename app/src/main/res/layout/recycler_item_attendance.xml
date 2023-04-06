@@ -5,14 +5,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     app:cardCornerRadius="16dp"
     app:contentPadding="8dp"
+    app:cardElevation="8dp"
     android:layout_marginTop="4dp"
     android:layout_marginBottom="4dp"
-    app:cardBackgroundColor="#eeeeee">
+    app:cardBackgroundColor="#bbffffff">
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/icons8_attendance">
+        android:layout_height="wrap_content">
 
         <TextView
             android:id="@+id/tv_course"

@@ -1,91 +1,100 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginTop="4dp"
     android:layout_marginBottom="8dp"
-    android:background="@drawable/layout_border_recycler"
+    app:cardCornerRadius="16dp"
+    app:contentPadding="8dp"
+    app:cardElevation="8dp"
+    app:cardBackgroundColor="#bbffffff"
     android:padding="4dp">
 
-    <TextView
-        android:id="@+id/tv_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="홍길동"
-        android:textStyle="bold"
-        android:textColor="@color/black"
-        android:textSize="20sp"
-        android:fontFamily="@font/cookierunbold"
-        android:layout_marginLeft="16dp"/>
-
-    <TextView
-        android:id="@+id/tv_course"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="국어, 영어"
-        android:textStyle="bold"
-        android:textColor="@color/black"
-        android:textSize="20sp"
-        android:fontFamily="@font/cookierunbold"
-        android:layout_toRightOf="@id/tv_name"
-        android:layout_marginLeft="60dp"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="수강 중"
-        android:textStyle="bold"
-        android:textColor="@color/black"
-        android:textSize="20sp"
-        android:fontFamily="@font/cookierunbold"
-        android:layout_toRightOf="@id/tv_course"
-        android:layout_marginLeft="16dp"/>
-
-    <RadioGroup
-        android:id="@+id/rg_attendance_state"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_below="@id/tv_name"
-        android:layout_marginTop="16dp"
-        android:gravity="center_horizontal"
-        android:paddingLeft="16dp"
-        android:paddingRight="16dp">
+        android:layout_height="wrap_content">
 
-        <androidx.appcompat.widget.AppCompatRadioButton
-            android:id="@+id/rb_attendance"
+        <TextView
+            android:id="@+id/tv_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="출석"
+            android:text="홍길동"
             android:textStyle="bold"
             android:textColor="@color/black"
             android:textSize="20sp"
             android:fontFamily="@font/cookierunbold"
-            android:paddingLeft="8dp"/>
+            android:layout_marginLeft="16dp"/>
 
-        <androidx.appcompat.widget.AppCompatRadioButton
-            android:id="@+id/rb_absence"
+        <TextView
+            android:id="@+id/tv_course"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="결석"
+            android:text="국어, 영어"
             android:textStyle="bold"
             android:textColor="@color/black"
             android:textSize="20sp"
             android:fontFamily="@font/cookierunbold"
-            android:paddingLeft="8dp"/>
+            android:layout_toRightOf="@id/tv_name"
+            android:layout_marginLeft="60dp"/>
 
-        <androidx.appcompat.widget.AppCompatRadioButton
-            android:id="@+id/rb_lateness"
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="지각"
+            android:text="수강 중"
             android:textStyle="bold"
             android:textColor="@color/black"
             android:textSize="20sp"
             android:fontFamily="@font/cookierunbold"
-            android:paddingLeft="8dp"/>
-    </RadioGroup>
-</RelativeLayout>
+            android:layout_toRightOf="@id/tv_course"
+            android:layout_marginLeft="16dp"/>
+
+        <RadioGroup
+            android:id="@+id/rg_attendance_state"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_below="@id/tv_name"
+            android:layout_marginTop="16dp"
+            android:gravity="center_horizontal"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp">
+
+            <androidx.appcompat.widget.AppCompatRadioButton
+                android:id="@+id/rb_attendance"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="출석"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:fontFamily="@font/cookierunbold"
+                android:paddingLeft="8dp"/>
+
+            <androidx.appcompat.widget.AppCompatRadioButton
+                android:id="@+id/rb_absence"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="결석"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:fontFamily="@font/cookierunbold"
+                android:paddingLeft="8dp"/>
+
+            <androidx.appcompat.widget.AppCompatRadioButton
+                android:id="@+id/rb_lateness"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="지각"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:fontFamily="@font/cookierunbold"
+                android:paddingLeft="8dp"/>
+        </RadioGroup>
+    </RelativeLayout>
+</androidx.cardview.widget.CardView>

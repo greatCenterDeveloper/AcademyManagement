@@ -4,17 +4,16 @@
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     app:cardCornerRadius="16dp"
-    android:elevation="8dp"
+    app:cardElevation="8dp"
     android:layout_marginTop="4dp"
     android:layout_marginBottom="4dp"
-    app:cardBackgroundColor="#eeeeee">
+    app:cardBackgroundColor="#bbffffff">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingBottom="8dp"
-        android:paddingRight="16dp"
-        android:background="@drawable/icons8_note">
+        android:paddingRight="16dp">
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/civ_profile"

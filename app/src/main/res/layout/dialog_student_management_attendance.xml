@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_margin="32dp"
-    android:background="@drawable/layout_border">
+    android:background="@drawable/layout_border_dialog">
 
     <TextView
         android:id="@+id/tv_course"
@@ -55,8 +55,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/line"
-        android:background="@drawable/icons8_attendance_dialog">
+        android:layout_below="@id/line">
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler"
             android:layout_width="match_parent"
