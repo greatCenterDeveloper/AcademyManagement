@@ -13,7 +13,7 @@ import com.swj.academymanagement.activities.StudentDetailActivity
 import com.swj.academymanagement.databinding.RecyclerItemStudentManagementBinding
 import com.swj.academymanagement.model.Member
 
-class StudentManagementAdapter(val context:Context, val studentArr:MutableList<Member>) :Adapter<StudentManagementAdapter.VH>() {
+class StudentManagementAdapter(val context:Context, val studentArr:List<Member>) :Adapter<StudentManagementAdapter.VH>() {
     inner class VH(val binding: RecyclerItemStudentManagementBinding) : ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VH

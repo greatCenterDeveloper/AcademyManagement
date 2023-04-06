@@ -8,10 +8,16 @@ import android.view.WindowInsets
 import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
 import android.widget.ArrayAdapter
+import androidx.appcompat.app.AlertDialog
 import com.google.gson.Gson
 import com.swj.academymanagement.adapters.StudentManagementAdapter
 import com.swj.academymanagement.databinding.ActivityStudentManagementBinding
 import com.swj.academymanagement.model.Member
+import com.swj.academymanagement.network.RetrofitHelper
+import com.swj.academymanagement.network.RetrofitStudentManagementService
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class StudentManagementActivity : AppCompatActivity() {
     val binding:ActivityStudentManagementBinding by lazy { ActivityStudentManagementBinding.inflate(layoutInflater) }
@@ -30,18 +36,12 @@ class StudentManagementActivity : AppCompatActivity() {
 
         binding.ivBackspace.setOnClickListener { finish() }
 
-        /*lateinit var teacher: Member
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU)
-            teacher = intent.getSerializableExtra("teacher", Member::class.java)!!
-        else
-            teacher = intent.getSerializableExtra("teacher") as Member*/
-
         val teacher = Gson().fromJson(intent.getStringExtra("teacher"), Member::class.java)
 
         val courseAdapter:ArrayAdapter<String> = ArrayAdapter(this, android.R.layout.simple_list_item_1, teacher.courseArr)
         binding.acTvCourse.setAdapter(courseAdapter)
 
-        val courseArr = mutableListOf<String>()
+        /*val courseArr = mutableListOf<String>()
         courseArr.add("국어")
         courseArr.add("수학")
 
@@ -57,7 +57,24 @@ class StudentManagementActivity : AppCompatActivity() {
         studentArr.add(Member("학생", "", "yed@eee.com", "aaa", "song", courseArr, "010-2687-2585"))
         studentArr.add(Member("학생", "", "wqe@ddd.com", "aaa", "tom", courseArr, "010-4675-2655"))
 
-        binding.recycler.adapter = StudentManagementAdapter(this, studentArr)
+        binding.recycler.adapter = StudentManagementAdapter(this, studentArr)*/
+        RetrofitHelper.getRetrofitInstance().create(RetrofitStudentManagementService::class.java)
+            .studentManagementList(teacher.id).enqueue(object : Callback<List<Member>> {
+                override fun onResponse(
+                    call: Call<List<Member>>,
+                    response: Response<List<Member>>
+                ) {
+                    val studentArr = response.body()
+                    binding.recycler.adapter = StudentManagementAdapter(this@StudentManagementActivity, studentArr!!)
+                }
+
+                override fun onFailure(call: Call<List<Member>>, t: Throwable) {
+                    AlertDialog.Builder(this@StudentManagementActivity)
+                        .setMessage("error : ${t.message}")
+                        .setPositiveButton("OK", null).show()
+                }
+            })
+
     }
 
     override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {

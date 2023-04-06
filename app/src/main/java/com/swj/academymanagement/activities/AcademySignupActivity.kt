@@ -86,7 +86,7 @@ class AcademySignupActivity : AppCompatActivity() {
 
                         override fun onFailure(call: Call<String>, t: Throwable) {
                             AlertDialog.Builder(this@AcademySignupActivity)
-                                .setMessage("error : t.message")
+                                .setMessage("error : ${t.message}")
                                 .setPositiveButton("OK", null).show()
                         }
                     })

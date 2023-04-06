@@ -1,5 +1,6 @@
 package com.swj.academymanagement.activities
 
+import android.content.DialogInterface
 import android.content.Intent
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
@@ -16,6 +17,11 @@ import com.swj.academymanagement.databinding.ActivityAcademyLoginBinding
 import com.swj.academymanagement.databinding.DialogFindIdBinding
 import com.swj.academymanagement.databinding.DialogFindPasswordBinding
 import com.swj.academymanagement.model.Member
+import com.swj.academymanagement.network.RetrofitHelper
+import com.swj.academymanagement.network.RetrofitMemberService
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class AcademyLoginActivity : AppCompatActivity() {
 
@@ -77,23 +83,53 @@ class AcademyLoginActivity : AppCompatActivity() {
 
         // 로그인
         binding.btnLogin.setOnClickListener {
-            val emailId:String = binding.tilId.editText?.text.toString()
+            val id:String = binding.tilId.editText?.text.toString()
             val password:String = binding.tilPassword.editText?.text.toString()
+
+            /*RetrofitHelper.getRetrofitInstance().create(RetrofitMemberService::class.java)
+                .memberLogin(id, password).enqueue(object : Callback<Member> {
+                    override fun onResponse(call: Call<Member>, response: Response<Member>) {
+                        val result = response.body()
+                        when(result?.authority) {
+                            "teacher" -> {
+                                val intent = Intent(this@AcademyLoginActivity, MainActivity::class.java)
+                                intent.putExtra("teacher", Gson().toJson(result))
+                                startActivity(intent)
+                                finish()
+                            }
+                            "student" -> {
+                                val intent = Intent(this@AcademyLoginActivity, StudentActivity::class.java)
+                                intent.putExtra("student", Gson().toJson(result))
+                                startActivity(intent)
+                                finish()
+                            }
+                            else -> {
+                                AlertDialog.Builder(this@AcademyLoginActivity)
+                                    .setMessage("아이디나 비밀번호가 맞지 않습니다.")
+                                    .setPositiveButton("OK", null).show()
+                            }
+                        }
+                    }
+                    override fun onFailure(call: Call<Member>, t: Throwable) {
+                        AlertDialog.Builder(this@AcademyLoginActivity)
+                            .setMessage("error : ${t.message}")
+                            .setPositiveButton("OK", null).show()
+                    }
+                })*/
 
             var authority = "teacher"
             var profile = ""
-            var tempEmailId = "aaa"
+            var tempId = "aaa"
             var tempPassword = "aaa"
             var name = "sam"
             val courseArr:MutableList<String> = mutableListOf()
-            courseArr.add("국어")
-            courseArr.add("수학")
-            courseArr.add("영어")
-            var call = "010-1234-5678"
+            courseArr.add("kor")
+            courseArr.add("eng")
+            var call = "111-1111-1111"
 
             // 선생님 로그인
-            if(emailId.equals(tempEmailId) && password.equals(tempPassword)) {
-                val teacherMember = Member(authority, profile, emailId, password, name, courseArr, call)
+            if(id.equals(tempId) && password.equals(tempPassword)) {
+               val teacherMember = Member(authority, profile, id, password, name, courseArr, call)
                 val intent = Intent(this, MainActivity::class.java)
                 intent.putExtra("teacher", Gson().toJson(teacherMember))
                 startActivity(intent)
@@ -105,17 +141,17 @@ class AcademyLoginActivity : AppCompatActivity() {
 
             authority = "student"
             profile = ""
-            tempEmailId = "sss"
+            tempId = "sss"
             tempPassword = "sss"
             name = "robin"
             call = "010-1111-2222"
             courseArr.clear()
-            courseArr.add("국어")
-            courseArr.add("영어")
+            courseArr.add("kor")
+            courseArr.add("math")
 
             // 학생 로그인
-            if(emailId.equals(tempEmailId) && password.equals(tempPassword)) {
-                val studentMember = Member(authority, profile, emailId, password, name, courseArr, call)
+            if(id.equals(tempId) && password.equals(tempPassword)) {
+                val studentMember = Member(authority, profile, id, password, name, courseArr, call)
                 val intent = Intent(this, StudentActivity::class.java)
                 intent.putExtra("student", Gson().toJson(studentMember))
                 startActivity(intent)

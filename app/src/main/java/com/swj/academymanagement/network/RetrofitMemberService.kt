@@ -27,4 +27,8 @@ interface RetrofitMemberService {
     fun memberSignUp(@Body member:Member):Call<String>
 
     // 프로필 사진을 올렸을 경우 파이어베이스 서버에 업로드하기.. 결과 문자열 : ( "성공", "살패" )
+
+    @FormUrlEncoded
+    @POST("/member/memberLogin.php")
+    fun memberLogin(@Field("id") id:String, @Field("password") password:String):Call<Member>
 }
