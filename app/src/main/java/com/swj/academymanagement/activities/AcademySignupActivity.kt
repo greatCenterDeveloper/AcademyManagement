@@ -55,6 +55,8 @@ class AcademySignupActivity : AppCompatActivity() {
             )
         }
 
+        binding.btnBack.setOnClickListener { finish() }
+        //binding.btnCancel.setOnClickListener {  }
         binding.btnSighup.setOnClickListener { signUp() }
         binding.btnProfileSelect.setOnClickListener {
             val intent = Intent(Intent.ACTION_OPEN_DOCUMENT).setType("image/*")

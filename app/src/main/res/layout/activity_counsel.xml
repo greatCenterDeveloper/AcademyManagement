@@ -5,13 +5,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="16dp"
-    tools:context=".activities.CounselActivity">
+    tools:context=".activities.CounselActivity"
+    android:background="@drawable/icons8_bg_academy">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:theme="@style/appbar"
-        android:background="@color/white"
+        android:background="#00ffffff"
         app:elevation="0dp">
 
         <RelativeLayout

@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="16dp"
-    tools:context=".activities.LoginActivity">
+    tools:context=".activities.LoginActivity"
+    android:background="@drawable/icons8_bg_academy">
 
     <LinearLayout
         android:id="@+id/layout_title"
@@ -47,7 +48,8 @@
             android:textStyle="bold"
             android:textSize="20sp"
             android:fontFamily="@font/cookierunblack"
-            android:layout_marginTop="32dp"/>
+            android:layout_marginTop="32dp"
+            android:background="@drawable/button_click_color_long"/>
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_naver_account"
@@ -58,7 +60,8 @@
             android:textSize="20sp"
             android:fontFamily="@font/cookierunblack"
             android:layout_below="@id/btn_academy_account"
-            android:layout_marginTop="16dp"/>
+            android:layout_marginTop="16dp"
+            android:background="@drawable/button_click_color_long"/>
 
         <TextView
             android:id="@+id/tv_hello"
@@ -70,7 +73,8 @@
             android:textColor="@color/black"
             android:fontFamily="@font/cookierunbold"
             android:layout_below="@id/btn_naver_account"
-            android:layout_marginLeft="24dp"/>
+            android:layout_marginLeft="24dp"
+            android:background="@drawable/bg_color"/>
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_sign_up"
@@ -82,7 +86,8 @@
             android:fontFamily="@font/cookierunblack"
             android:layout_below="@id/btn_naver_account"
             android:layout_alignParentRight="true"
-            android:layout_marginRight="16dp"/>
+            android:layout_marginRight="16dp"
+            android:background="@drawable/button_click_color2"/>
     </RelativeLayout>
 
     <FrameLayout
@@ -103,7 +108,8 @@
                 android:textStyle="bold"
                 android:textSize="20sp"
                 android:fontFamily="@font/cookierunblack"
-                android:layout_marginTop="32dp"/>
+                android:layout_marginTop="32dp"
+                android:background="@drawable/button_click_color_long"/>
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btn_naver_account_signup"
@@ -114,7 +120,8 @@
                 android:textSize="20sp"
                 android:fontFamily="@font/cookierunblack"
                 android:layout_below="@id/btn_academy_account_signup"
-                android:layout_marginTop="16dp"/>
+                android:layout_marginTop="16dp"
+                android:background="@drawable/button_click_color_long"/>
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btn_login"
@@ -126,7 +133,8 @@
                 android:fontFamily="@font/cookierunblack"
                 android:layout_below="@id/btn_naver_account_signup"
                 android:layout_alignParentRight="true"
-                android:layout_marginRight="16dp"/>
+                android:layout_marginRight="16dp"
+                android:background="@drawable/button_click_color2"/>
         </RelativeLayout>
     </FrameLayout>
 
@@ -135,7 +143,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/baseline_call_24"
-        android:layout_alignParentBottom="true"/>
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/bg_color"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -147,7 +156,8 @@
         android:fontFamily="@font/cookierunbold"
         android:layout_alignParentBottom="true"
         android:layout_toRightOf="@id/iv_call"
-        android:layout_marginLeft="8dp"/>
+        android:layout_marginLeft="8dp"
+        android:background="@drawable/bg_color"/>
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btn_load_view"
@@ -159,5 +169,6 @@
         android:fontFamily="@font/cookierunbold"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:layout_marginRight="16dp"/>
+        android:layout_marginRight="16dp"
+        android:background="@drawable/button_click_color2"/>
 </RelativeLayout>

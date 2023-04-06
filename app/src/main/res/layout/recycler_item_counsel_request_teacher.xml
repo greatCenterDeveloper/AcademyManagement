@@ -11,7 +11,8 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="@drawable/icons8_counsel">
         <TextView
             android:id="@+id/tv_name"
             android:layout_width="wrap_content"
@@ -21,7 +22,9 @@
             android:textColor="@color/black"
             android:textSize="20sp"
             android:fontFamily="@font/cookierunbold"
-            android:layout_marginLeft="16dp"/>
+            android:layout_marginLeft="16dp"
+            android:background="@drawable/bg_color_recycler"
+            android:padding="4dp"/>
 
         <TextView
             android:id="@+id/tv_date_title"
@@ -33,7 +36,9 @@
             android:textSize="16sp"
             android:fontFamily="@font/cookierunbold"
             android:layout_toRightOf="@id/tv_name"
-            android:layout_marginLeft="50dp"/>
+            android:layout_marginLeft="50dp"
+            android:background="@drawable/bg_color_recycler"
+            android:padding="4dp"/>
 
         <TextView
             android:id="@+id/tv_date"
@@ -45,7 +50,9 @@
             android:textSize="16sp"
             android:fontFamily="@font/cookierunbold"
             android:layout_toRightOf="@id/tv_date_title"
-            android:layout_marginLeft="8dp"/>
+            android:layout_marginLeft="8dp"
+            android:background="@drawable/bg_color_recycler"
+            android:padding="4dp"/>
 
         <TextView
             android:id="@+id/tv_counsel_date_title"
@@ -58,7 +65,9 @@
             android:fontFamily="@font/cookierunbold"
             android:layout_below="@id/tv_name"
             android:layout_marginLeft="8dp"
-            android:layout_marginTop="8dp"/>
+            android:layout_marginTop="8dp"
+            android:background="@drawable/bg_color_recycler"
+            android:padding="4dp"/>
 
         <TextView
             android:id="@+id/tv_counsel_date"
@@ -72,7 +81,9 @@
             android:layout_below="@id/tv_name"
             android:layout_toRightOf="@id/tv_counsel_date_title"
             android:layout_marginLeft="8dp"
-            android:layout_marginTop="8dp"/>
+            android:layout_marginTop="8dp"
+            android:background="@drawable/bg_color_recycler"
+            android:padding="4dp"/>
 
         <TextView
             android:id="@+id/tv_counsel_time_title"
@@ -85,7 +96,9 @@
             android:fontFamily="@font/cookierunbold"
             android:layout_below="@id/tv_counsel_date_title"
             android:layout_marginLeft="8dp"
-            android:layout_marginTop="8dp"/>
+            android:layout_marginTop="8dp"
+            android:background="@drawable/bg_color_recycler"
+            android:padding="4dp"/>
 
         <TextView
             android:id="@+id/tv_counsel_start_time"
@@ -99,7 +112,9 @@
             android:layout_below="@id/tv_counsel_date_title"
             android:layout_toRightOf="@id/tv_counsel_time_title"
             android:layout_marginLeft="8dp"
-            android:layout_marginTop="8dp"/>
+            android:layout_marginTop="8dp"
+            android:background="@drawable/bg_color_recycler"
+            android:padding="4dp"/>
 
         <TextView
             android:id="@+id/tv_counsel_and_time"
@@ -113,7 +128,9 @@
             android:layout_below="@id/tv_counsel_date_title"
             android:layout_toRightOf="@id/tv_counsel_start_time"
             android:layout_marginLeft="8dp"
-            android:layout_marginTop="8dp"/>
+            android:layout_marginTop="8dp"
+            android:background="@drawable/bg_color_recycler"
+            android:padding="4dp"/>
 
         <TextView
             android:id="@+id/tv_counsel_end_time"
@@ -127,7 +144,9 @@
             android:layout_below="@id/tv_counsel_date_title"
             android:layout_toRightOf="@id/tv_counsel_and_time"
             android:layout_marginLeft="8dp"
-            android:layout_marginTop="8dp"/>
+            android:layout_marginTop="8dp"
+            android:background="@drawable/bg_color_recycler"
+            android:padding="4dp"/>
 
         <TextView
             android:id="@+id/tv_counsel_content_title"
@@ -140,7 +159,9 @@
             android:fontFamily="@font/cookierunbold"
             android:layout_below="@id/tv_counsel_time_title"
             android:layout_marginLeft="8dp"
-            android:layout_marginTop="8dp"/>
+            android:layout_marginTop="8dp"
+            android:background="@drawable/bg_color_recycler"
+            android:padding="4dp"/>
 
         <TextView
             android:id="@+id/tv_counsel_content"
@@ -154,7 +175,8 @@
             android:layout_below="@id/tv_counsel_content_title"
             android:layout_marginLeft="8dp"
             android:layout_marginTop="8dp"
-            android:background="@drawable/layout_border"
+            android:background="@drawable/layout_border_recycler"
+
             android:padding="8dp"/>
 
         <androidx.appcompat.widget.AppCompatButton
@@ -167,7 +189,8 @@
             android:fontFamily="@font/cookierunblack"
             android:layout_below="@id/tv_counsel_content"
             android:layout_marginTop="8dp"
-            android:layout_centerHorizontal="true"/>
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/button_click_color2"/>
     </RelativeLayout>
 
 </androidx.cardview.widget.CardView>

@@ -13,7 +13,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingBottom="8dp"
-        android:paddingRight="16dp">
+        android:paddingRight="16dp"
+        android:background="@drawable/icons8_note">
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/civ_profile"
@@ -35,7 +36,9 @@
             android:fontFamily="@font/cookierunblack"
             android:layout_toRightOf="@id/civ_profile"
             android:layout_marginLeft="16dp"
-            android:layout_marginTop="8dp"/>
+            android:layout_marginTop="8dp"
+            android:background="@drawable/bg_color_recycler"
+            android:padding="4dp"/>
 
         <TextView
             android:id="@+id/tv_course"
@@ -48,7 +51,9 @@
             android:fontFamily="@font/cookierunblack"
             android:layout_toRightOf="@id/tv_name"
             android:layout_alignTop="@id/tv_name"
-            android:layout_marginLeft="16dp" />
+            android:layout_marginLeft="16dp"
+            android:background="@drawable/bg_color_recycler"
+            android:padding="4dp"/>
 
         <TextView
             android:id="@+id/tv_call"
@@ -62,12 +67,14 @@
             android:layout_toRightOf="@id/civ_profile"
             android:layout_below="@id/tv_name"
             android:layout_marginLeft="32dp"
-            android:layout_marginTop="14dp"/>
+            android:layout_marginTop="14dp"
+            android:background="@drawable/bg_color_recycler"
+            android:padding="4dp"/>
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_phone_call"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="130dp"
+            android:layout_height="50dp"
             android:text="전화 걸기"
             android:textStyle="bold"
             android:textSize="13sp"
@@ -76,7 +83,8 @@
             android:layout_toRightOf="@id/tv_call"
             android:layout_alignParentRight="true"
             android:layout_marginLeft="16dp"
-            android:layout_marginTop="4dp"/>
+            android:layout_marginTop="4dp"
+            android:background="@drawable/button_click_color2"/>
     </RelativeLayout>
 
 </androidx.cardview.widget.CardView>

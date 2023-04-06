@@ -3,7 +3,9 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginTop="4dp"
-    android:layout_marginBottom="8dp">
+    android:layout_marginBottom="8dp"
+    android:background="@drawable/layout_border_recycler"
+    android:padding="4dp">
 
     <TextView
         android:id="@+id/tv_name"
@@ -86,11 +88,4 @@
             android:fontFamily="@font/cookierunbold"
             android:paddingLeft="8dp"/>
     </RadioGroup>
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="#666666"
-        android:layout_below="@id/rg_attendance_state"
-        android:layout_marginTop="16dp"/>
 </RelativeLayout>

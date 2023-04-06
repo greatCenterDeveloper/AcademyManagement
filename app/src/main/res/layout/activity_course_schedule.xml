@@ -5,13 +5,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="16dp"
-    tools:context=".activities.CourseScheduleActivity">
+    tools:context=".activities.CourseScheduleActivity"
+    android:background="@drawable/icons8_bg_academy">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:theme="@style/appbar"
-        android:background="@color/white"
+        android:background="#00ffffff"
         app:elevation="0dp">
 
         <RelativeLayout
@@ -67,7 +68,8 @@
                     android:layout_height="wrap_content"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
                     android:hint="강좌명"
-                    android:layout_weight="4">
+                    android:layout_weight="4"
+                    android:background="@drawable/bg_color">
 
                     <!--inputType : none → 키보드 입력창이 안 올라온다.-->
                     <!--dropDownHeight : 드롭다운창 높이 지정-->
@@ -92,7 +94,8 @@
                     android:layout_height="wrap_content"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
                     android:hint="강의실"
-                    android:layout_weight="4">
+                    android:layout_weight="4"
+                    android:background="@drawable/bg_color">
 
                     <!--inputType : none → 키보드 입력창이 안 올라온다.-->
                     <!--dropDownHeight : 드롭다운창 높이 지정-->

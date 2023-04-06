@@ -10,7 +10,8 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@drawable/icons8_note">
 
         <ImageView
             android:id="@+id/iv"
@@ -30,7 +31,8 @@
             android:layout_below="@id/iv"
             android:layout_marginTop="8dp"
             android:layout_marginLeft="12dp"
-            android:padding="8dp"/>
+            android:padding="8dp"
+            android:background="@drawable/bg_color_recycler"/>
 
         <TextView
             android:id="@+id/tv_low_price"
@@ -43,7 +45,8 @@
             android:textStyle="bold"
             android:fontFamily="@font/cookierunblack"
             android:layout_marginLeft="12dp"
-            android:padding="4dp" />
+            android:padding="4dp"
+            android:background="@drawable/bg_color_recycler"/>
 
         <TextView
             android:id="@+id/tv_mall"
@@ -56,7 +59,9 @@
             android:fontFamily="@font/cookierunblack"
             android:layout_below="@id/tv_low_price"
             android:layout_marginLeft="12dp"
-            android:layout_marginBottom="4dp"/>
+            android:layout_marginBottom="4dp"
+            android:background="@drawable/bg_color_recycler"
+            android:padding="4dp"/>
 
     </RelativeLayout>
 

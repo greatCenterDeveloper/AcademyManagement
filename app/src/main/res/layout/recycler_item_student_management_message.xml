@@ -12,7 +12,8 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="@drawable/icons8_counsel">
         <TextView
             android:id="@+id/tv_date"
             android:layout_width="wrap_content"
@@ -22,7 +23,9 @@
             android:textStyle="bold"
             android:textSize="16sp"
             android:fontFamily="@font/cookierunblack"
-            android:layout_marginLeft="16dp"/>
+            android:layout_marginLeft="16dp"
+            android:background="@drawable/bg_color_recycler"
+            android:padding="4dp"/>
 
         <TextView
             android:id="@+id/tv_message"
@@ -35,7 +38,9 @@
             android:fontFamily="@font/cookierunblack"
             android:layout_marginLeft="16dp"
             android:layout_marginTop="8dp"
-            android:layout_below="@id/tv_date" />
+            android:layout_below="@id/tv_date"
+            android:background="@drawable/bg_color_recycler"
+            android:padding="4dp"/>
 
     </RelativeLayout>
 

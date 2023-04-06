@@ -5,14 +5,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="16dp"
-    tools:context=".activities.ClassNoteActivity">
+    tools:context=".activities.ClassNoteActivity"
+    android:background="@drawable/icons8_bg_academy">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:theme="@style/appbar"
-        android:background="@color/white"
+        android:background="#00ffffff"
         app:elevation="0dp">
 
         <RelativeLayout
@@ -74,6 +75,7 @@
             android:theme="@style/Widget.BottomNavigationView"
             app:itemTextColor="@color/bnv_item_color"
             app:itemIconTint="@color/bnv_item_color"
-            app:labelVisibilityMode="selected"/>
+            app:labelVisibilityMode="selected"
+            android:background="@drawable/bg_color"/>
     </LinearLayout>
 </RelativeLayout>

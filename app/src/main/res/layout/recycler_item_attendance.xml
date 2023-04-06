@@ -11,7 +11,8 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="@drawable/icons8_attendance">
 
         <TextView
             android:id="@+id/tv_course"
@@ -23,7 +24,9 @@
             android:textSize="20sp"
             android:fontFamily="@font/cookierunbold"
             android:layout_marginTop="8dp"
-            android:layout_marginLeft="24dp"/>
+            android:layout_marginLeft="24dp"
+            android:background="@drawable/bg_color_recycler"
+            android:padding="4dp"/>
 
         <TextView
             android:id="@+id/tv_teacher"
@@ -36,7 +39,9 @@
             android:fontFamily="@font/cookierunbold"
             android:layout_alignTop="@id/tv_course"
             android:layout_toRightOf="@id/tv_course"
-            android:layout_marginLeft="50sp"/>
+            android:layout_marginLeft="50sp"
+            android:background="@drawable/bg_color_recycler"
+            android:padding="4dp"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -48,7 +53,9 @@
             android:fontFamily="@font/cookierunbold"
             android:layout_alignTop="@id/tv_course"
             android:layout_toRightOf="@id/tv_teacher"
-            android:layout_marginLeft="8sp"/>
+            android:layout_marginLeft="8sp"
+            android:background="@drawable/bg_color_recycler"
+            android:padding="4dp"/>
 
         <TextView
             android:id="@+id/tv_attendance_date"
@@ -61,8 +68,10 @@
             android:fontFamily="@font/cookierunbold"
             android:layout_below="@id/tv_course"
             android:layout_alignLeft="@id/tv_course"
-            android:layout_marginLeft="16sp"
-            android:layout_marginTop="8dp"/>
+            android:layout_marginLeft="8sp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/bg_color_recycler"
+            android:padding="4dp"/>
 
         <TextView
             android:id="@+id/tv_student"
@@ -75,7 +84,9 @@
             android:fontFamily="@font/cookierunbold"
             android:layout_below="@id/tv_attendance_date"
             android:layout_alignLeft="@id/tv_attendance_date"
-            android:layout_marginTop="8dp"/>
+            android:layout_marginTop="8dp"
+            android:background="@drawable/bg_color_recycler"
+            android:padding="4dp"/>
 
         <TextView
         android:id="@+id/tv01"
@@ -89,7 +100,9 @@
         android:layout_below="@id/tv_attendance_date"
         android:layout_toRightOf="@id/tv_student"
         android:layout_alignTop="@id/tv_student"
-        android:layout_marginLeft="30dp"/>
+        android:layout_marginLeft="30dp"
+            android:background="@drawable/bg_color_recycler"
+            android:padding="4dp"/>
 
         <TextView
             android:id="@+id/tv_attendance_time"
@@ -103,7 +116,9 @@
             android:layout_below="@id/tv_attendance_date"
             android:layout_toRightOf="@id/tv01"
             android:layout_alignTop="@id/tv_student"
-            android:layout_marginLeft="8dp"/>
+            android:layout_marginLeft="8dp"
+            android:background="@drawable/bg_color_recycler"
+            android:padding="4dp"/>
 
         <TextView
             android:id="@+id/tv_time_and"
@@ -117,7 +132,9 @@
             android:layout_below="@id/tv_attendance_date"
             android:layout_toRightOf="@id/tv_attendance_time"
             android:layout_alignTop="@id/tv_student"
-            android:layout_marginLeft="8dp"/>
+            android:layout_marginLeft="8dp"
+            android:background="@drawable/bg_color_recycler"
+            android:padding="4dp"/>
 
         <TextView
             android:id="@+id/tv02"
@@ -131,7 +148,9 @@
             android:layout_below="@id/tv_attendance_date"
             android:layout_toRightOf="@id/tv_time_and"
             android:layout_alignTop="@id/tv_student"
-            android:layout_marginLeft="8dp"/>
+            android:layout_marginLeft="8dp"
+            android:background="@drawable/bg_color_recycler"
+            android:padding="4dp"/>
 
         <TextView
             android:id="@+id/tv_gohome_time"
@@ -145,6 +164,8 @@
             android:layout_below="@id/tv_attendance_date"
             android:layout_toRightOf="@id/tv02"
             android:layout_alignTop="@id/tv_student"
-            android:layout_marginLeft="8dp"/>
+            android:layout_marginLeft="8dp"
+            android:background="@drawable/bg_color_recycler"
+            android:padding="4dp"/>
     </RelativeLayout>
 </androidx.cardview.widget.CardView>

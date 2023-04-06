@@ -42,23 +42,23 @@ class CourseScheduleActivity : AppCompatActivity() {
         else gson.fromJson(intent.getStringExtra("student"), Member::class.java)
 
 
-        if(member.authority == "선생님") {
+        if(member.authority == "teacher") {
             val courseArr = mutableListOf<String>()
             courseArr.add("국어")
             courseArr.add("수학")
 
             val studentArr:MutableList<Member> = mutableListOf()
             val studentZeroArr:MutableList<Member> = mutableListOf()
-            studentArr.add(Member("학생", "", "aaa@aaa.com", "aaa", "sam", courseArr, "010-1234-5678"))
-            studentArr.add(Member("학생", "", "bbb@bbb.com", "aaa", "robin", courseArr, "010-1111-2222"))
-            studentArr.add(Member("학생", "", "ccc@ccc.com", "aaa", "hong", courseArr, "010-5678-5678"))
-            studentArr.add(Member("학생", "", "fsd@ddf.com", "aaa", "kim", courseArr, "010-2234-4328"))
-            studentArr.add(Member("학생", "", "few@fes.com", "aaa", "rosa", courseArr, "010-6856-6578"))
-            studentArr.add(Member("학생", "", "gre@tff.com", "aaa", "wang", courseArr, "010-6205-5681"))
-            studentArr.add(Member("학생", "", "rgs@aaa.com", "aaa", "bin", courseArr, "010-5854-3564"))
-            studentArr.add(Member("학생", "", "hhg@eee.com", "aaa", "kong", courseArr, "010-1357-5987"))
-            studentArr.add(Member("학생", "", "yed@eee.com", "aaa", "song", courseArr, "010-2687-2585"))
-            studentArr.add(Member("학생", "", "wqe@ddd.com", "aaa", "tom", courseArr, "010-4675-2655"))
+            studentArr.add(Member("student", "", "aaa@aaa.com", "aaa", "sam", courseArr, "010-1234-5678"))
+            studentArr.add(Member("student", "", "bbb@bbb.com", "aaa", "robin", courseArr, "010-1111-2222"))
+            studentArr.add(Member("student", "", "ccc@ccc.com", "aaa", "hong", courseArr, "010-5678-5678"))
+            studentArr.add(Member("student", "", "fsd@ddf.com", "aaa", "kim", courseArr, "010-2234-4328"))
+            studentArr.add(Member("student", "", "few@fes.com", "aaa", "rosa", courseArr, "010-6856-6578"))
+            studentArr.add(Member("student", "", "gre@tff.com", "aaa", "wang", courseArr, "010-6205-5681"))
+            studentArr.add(Member("student", "", "rgs@aaa.com", "aaa", "bin", courseArr, "010-5854-3564"))
+            studentArr.add(Member("student", "", "hhg@eee.com", "aaa", "kong", courseArr, "010-1357-5987"))
+            studentArr.add(Member("student", "", "yed@eee.com", "aaa", "song", courseArr, "010-2687-2585"))
+            studentArr.add(Member("student", "", "wqe@ddd.com", "aaa", "tom", courseArr, "010-4675-2655"))
 
             val week:Week = WeekDay.getWeekDate()
 

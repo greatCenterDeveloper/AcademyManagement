@@ -14,7 +14,8 @@
         android:textColor="@color/black"
         android:textSize="24sp"
         android:fontFamily="@font/cookierunblack"
-        android:layout_marginLeft="8dp"/>
+        android:layout_marginLeft="8dp"
+        android:background="@drawable/bg_color"/>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/til_title"
@@ -27,7 +28,8 @@
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginTop="4dp"
-        android:layout_marginBottom="4dp">
+        android:layout_marginBottom="4dp"
+        android:background="@drawable/bg_color">
 
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
@@ -62,7 +64,8 @@
         android:layout_above="@id/btn_save"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
-        android:layout_marginBottom="8dp">
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/bg_color">
 
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"

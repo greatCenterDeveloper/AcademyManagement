@@ -5,14 +5,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="16dp"
-    tools:context=".activities.SmsSendActivity">
+    tools:context=".activities.SmsSendActivity"
+    android:background="@drawable/icons8_bg_academy">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:theme="@style/appbar"
-        android:background="@color/white"
+        android:background="#00ffffff"
         app:elevation="0dp">
 
         <RelativeLayout
@@ -68,7 +69,8 @@
                     android:layout_height="wrap_content"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
                     android:hint="학생명"
-                    android:layout_weight="13">
+                    android:layout_weight="13"
+                    android:background="@drawable/bg_color">
 
                     <!--inputType : none → 키보드 입력창이 안 올라온다.-->
                     <!--dropDownHeight : 드롭다운창 높이 지정-->
@@ -94,7 +96,8 @@
                     android:fontFamily="@font/cookierunbold"
                     android:gravity="center"
                     style="@style/Widget.Material3.AutoCompleteTextView.OutlinedBox"
-                    android:layout_marginLeft="8dp"/>
+                    android:layout_marginLeft="8dp"
+                    android:background="@drawable/bg_color"/>
             </LinearLayout>
         </androidx.appcompat.widget.Toolbar>
     </com.google.android.material.appbar.AppBarLayout>
@@ -109,7 +112,8 @@
         android:fontFamily="@font/cookierunblack"
         android:layout_alignParentBottom="true"
         android:layout_marginTop="16dp"
-        android:layout_marginLeft="16dp"/>
+        android:layout_marginLeft="16dp"
+        android:background="@drawable/button_click_color2"/>
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btn_send_message"
@@ -121,7 +125,8 @@
         android:fontFamily="@font/cookierunblack"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:layout_marginRight="16dp"/>
+        android:layout_marginRight="16dp"
+        android:background="@drawable/button_click_color2"/>
 
     <LinearLayout
         android:id="@+id/layout_image"
@@ -159,7 +164,8 @@
             android:fontFamily="@font/cookierunblack"
             android:gravity="center"
             android:layout_gravity="bottom"
-            android:layout_marginLeft="16dp"/>
+            android:layout_marginLeft="16dp"
+            android:background="@drawable/button_click_color"/>
     </LinearLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -173,7 +179,8 @@
         android:nestedScrollingEnabled="true"
         android:layout_below="@id/appbar"
         android:layout_above="@id/layout_image"
-        android:layout_marginBottom="16dp">
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/bg_color">
 
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"

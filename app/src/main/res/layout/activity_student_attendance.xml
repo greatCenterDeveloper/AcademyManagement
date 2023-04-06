@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="16dp"
-    tools:context=".activities.StudentAttendanceActivity">
+    tools:context=".activities.StudentAttendanceActivity"
+    android:background="@drawable/icons8_bg_academy">
 
     <RelativeLayout
         android:id="@+id/layout_title"
@@ -72,8 +73,8 @@
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btn_attendance"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="300dp"
+        android:layout_height="80dp"
         android:text="등  원"
         android:textStyle="bold"
         android:textSize="40sp"
@@ -82,12 +83,13 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="40dp"
         android:paddingLeft="60dp"
-        android:paddingRight="60dp"/>
+        android:paddingRight="60dp"
+        android:background="@drawable/button_click_color2"/>
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btn_gohome"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="300dp"
+        android:layout_height="80dp"
         android:text="하  원"
         android:textStyle="bold"
         android:textSize="40sp"
@@ -96,6 +98,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="32dp"
         android:paddingLeft="60dp"
-        android:paddingRight="60dp"/>
+        android:paddingRight="60dp"
+        android:background="@drawable/button_click_color2"/>
 
 </RelativeLayout>
