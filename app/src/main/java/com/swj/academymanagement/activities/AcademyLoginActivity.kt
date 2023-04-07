@@ -86,10 +86,14 @@ class AcademyLoginActivity : AppCompatActivity() {
             val id:String = binding.tilId.editText?.text.toString()
             val password:String = binding.tilPassword.editText?.text.toString()
 
-            /*RetrofitHelper.getRetrofitInstance().create(RetrofitMemberService::class.java)
+            RetrofitHelper.getRetrofitInstance().create(RetrofitMemberService::class.java)
                 .memberLogin(id, password).enqueue(object : Callback<Member> {
                     override fun onResponse(call: Call<Member>, response: Response<Member>) {
                         val result = response.body()
+                        // 디버깅용 코드
+                        /*AlertDialog.Builder(this@AcademyLoginActivity)
+                            .setMessage("message : ${result?.authority}")
+                            .setPositiveButton("OK", null).show()*/
                         when(result?.authority) {
                             "teacher" -> {
                                 val intent = Intent(this@AcademyLoginActivity, MainActivity::class.java)
@@ -115,9 +119,9 @@ class AcademyLoginActivity : AppCompatActivity() {
                             .setMessage("error : ${t.message}")
                             .setPositiveButton("OK", null).show()
                     }
-                })*/
+                })
 
-            var authority = "teacher"
+            /*var authority = "teacher"
             var profile = ""
             var tempId = "aaa"
             var tempPassword = "aaa"
@@ -159,7 +163,7 @@ class AcademyLoginActivity : AppCompatActivity() {
             } else { // 로그인 실패
                 binding.tilId.editText?.requestFocus()
                 binding.tilId.editText?.selectAll()
-            }
+            }*/
         }
     }
 

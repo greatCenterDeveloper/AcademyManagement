@@ -13,7 +13,8 @@ import com.swj.academymanagement.activities.StudentDetailActivity
 import com.swj.academymanagement.databinding.RecyclerItemStudentManagementBinding
 import com.swj.academymanagement.model.Member
 
-class StudentManagementAdapter(val context:Context, val studentArr:List<Member>) :Adapter<StudentManagementAdapter.VH>() {
+class StudentManagementAdapter(val context:Context, val studentArr:List<Member>, val teacherId:String)
+    :Adapter<StudentManagementAdapter.VH>() {
     inner class VH(val binding: RecyclerItemStudentManagementBinding) : ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VH
@@ -31,9 +32,9 @@ class StudentManagementAdapter(val context:Context, val studentArr:List<Member>)
 
         val courses = StringBuffer()
         for(course in student.courseArr) {
-            if(course == "국어") courses.append("국어, ")
-            if(course == "영어") courses.append("영어, ")
-            if(course == "수학") courses.append("수학")
+            if(course == "kor") courses.append("국어, ")
+            if(course == "eng") courses.append("영어, ")
+            if(course == "math") courses.append("수학")
         }
 
         var courseTemp:String = courses.toString()
@@ -47,19 +48,20 @@ class StudentManagementAdapter(val context:Context, val studentArr:List<Member>)
         if(last == ", ") course = course.substring(0, course.length-2)
 
         holder.binding.tvCourse.text = course
-        holder.binding.tvCall.text = student.call
+        holder.binding.tvCall.text = student.call_number
         student.course = course
 
         holder.binding.btnPhoneCall.setOnClickListener {
             val intent = Intent()
             intent.action = Intent.ACTION_DIAL
-            intent.data = Uri.parse("tel:${student.call}")
+            intent.data = Uri.parse("tel:${student.call_number}")
             context.startActivity(intent)
         }
 
         holder.binding.root.setOnClickListener {
             val intent:Intent = Intent(context, StudentDetailActivity::class.java)
             intent.putExtra("student", Gson().toJson(student))
+            intent.putExtra("teacherId", teacherId)
             context.startActivity(intent)
         }
     }

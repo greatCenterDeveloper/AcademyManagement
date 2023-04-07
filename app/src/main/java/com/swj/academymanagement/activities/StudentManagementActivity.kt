@@ -4,6 +4,7 @@ import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MotionEvent
+import android.view.View
 import android.view.WindowInsets
 import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
@@ -21,6 +22,7 @@ import retrofit2.Response
 
 class StudentManagementActivity : AppCompatActivity() {
     val binding:ActivityStudentManagementBinding by lazy { ActivityStudentManagementBinding.inflate(layoutInflater) }
+    val studentArr:MutableList<Member>? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
@@ -59,22 +61,23 @@ class StudentManagementActivity : AppCompatActivity() {
 
         binding.recycler.adapter = StudentManagementAdapter(this, studentArr)*/
         RetrofitHelper.getRetrofitInstance().create(RetrofitStudentManagementService::class.java)
-            .studentManagementList(teacher.id).enqueue(object : Callback<List<Member>> {
+            .studentManagementList(teacher.id).enqueue(object : Callback<MutableList<Member>> {
                 override fun onResponse(
-                    call: Call<List<Member>>,
-                    response: Response<List<Member>>
+                    call: Call<MutableList<Member>>,
+                    response: Response<MutableList<Member>>
                 ) {
                     val studentArr = response.body()
-                    binding.recycler.adapter = StudentManagementAdapter(this@StudentManagementActivity, studentArr!!)
+
+                    if(studentArr != null)
+                        binding.recycler.adapter = StudentManagementAdapter(this@StudentManagementActivity, studentArr, teacher.id)
                 }
 
-                override fun onFailure(call: Call<List<Member>>, t: Throwable) {
+                override fun onFailure(call: Call<MutableList<Member>>, t: Throwable) {
                     AlertDialog.Builder(this@StudentManagementActivity)
                         .setMessage("error : ${t.message}")
                         .setPositiveButton("OK", null).show()
                 }
             })
-
     }
 
     override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {

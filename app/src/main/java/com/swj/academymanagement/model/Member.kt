@@ -7,7 +7,7 @@ class Member (
     val password:String,
     val name:String,
     val courseArr:MutableList<String>,
-    val call:String
+    val call_number:String
 ) {
     var course:String = ""
 }

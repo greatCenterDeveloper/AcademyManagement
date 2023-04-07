@@ -3,8 +3,10 @@ package com.swj.academymanagement.activities
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.WindowInsets
 import android.view.WindowManager
+import androidx.appcompat.app.AlertDialog
 import com.bumptech.glide.Glide
 import com.google.gson.Gson
 import com.swj.academymanagement.adapters.StudentManagementCounselAdapter
@@ -15,6 +17,11 @@ import com.swj.academymanagement.model.Member
 import com.swj.academymanagement.model.StudentManagementCounsel
 import com.swj.academymanagement.model.StudentManagementCourse
 import com.swj.academymanagement.model.StudentManagementMessage
+import com.swj.academymanagement.network.RetrofitHelper
+import com.swj.academymanagement.network.RetrofitStudentManagementService
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class StudentDetailActivity : AppCompatActivity() {
 
@@ -37,21 +44,43 @@ class StudentDetailActivity : AppCompatActivity() {
 
 
         val student:Member = Gson().fromJson(intent.getStringExtra("student"), Member::class.java)
+        val teacherId:String = intent.getStringExtra("teacherId") ?: ""
 
         if(!student.profile.equals(""))
             Glide.with(this).load(student.profile).into(binding.ivProfile)
 
         binding.tvName.text = student.name
         binding.tvCourse.text = student.course
-        binding.tvCall.text = student.call
+        binding.tvCall.text = student.call_number
 
-        val requestCourseArr:MutableList<StudentManagementCourse> = mutableListOf()
+        /*val requestCourseArr:MutableList<StudentManagementCourse> = mutableListOf()
         for(course in student.courseArr) {
             var i = 1
             requestCourseArr.add(StudentManagementCourse(course, "", "강사${i}", "10", "0", student.id))
         }
 
-        binding.recyclerCourse.adapter = StudentManagementCourseAdapter(this, requestCourseArr)
+        binding.recyclerCourse.adapter = StudentManagementCourseAdapter(this, requestCourseArr)*/
+
+        RetrofitHelper.getRetrofitInstance().create(RetrofitStudentManagementService::class.java)
+            .studentManagementCourseList(teacherId).enqueue(object : Callback<MutableList<StudentManagementCourse>> {
+                override fun onResponse(
+                    call: Call<MutableList<StudentManagementCourse>>,
+                    response: Response<MutableList<StudentManagementCourse>>
+                ) {
+                    val requestCourseArr = response.body()
+                    if(requestCourseArr != null)
+                        binding.recyclerCourse.adapter = StudentManagementCourseAdapter(this@StudentDetailActivity, requestCourseArr)
+                }
+
+                override fun onFailure(
+                    call: Call<MutableList<StudentManagementCourse>>,
+                    t: Throwable
+                ) {
+                    AlertDialog.Builder(this@StudentDetailActivity)
+                        .setMessage("error : ${t.message}")
+                        .setPositiveButton("OK", null).show()
+                }
+            })
 
         val counselArr:MutableList<StudentManagementCounsel> = mutableListOf()
         counselArr.add(StudentManagementCounsel("2023-01-02", student.name, "상담 상담 상담 상담"))
