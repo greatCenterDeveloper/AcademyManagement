@@ -239,6 +239,18 @@
                     android:background="#666666"
                     android:layout_marginTop="4dp"/>
 
+                <TextView
+                    android:id="@+id/tv_no_counsel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="상담 내역이 없습니다."
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    android:textSize="20sp"
+                    android:fontFamily="@font/cookierunblack"
+                    android:layout_centerInParent="true"
+                    android:visibility="gone"/>
+
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recycler_counsel"
                     android:layout_width="match_parent"
@@ -277,6 +289,18 @@
                     android:layout_below="@id/tv_message_title"
                     android:background="#666666"
                     android:layout_marginTop="4dp"/>
+
+                <TextView
+                    android:id="@+id/tv_no_message"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="문자 내역이 없습니다."
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    android:textSize="20sp"
+                    android:fontFamily="@font/cookierunblack"
+                    android:layout_centerInParent="true"
+                    android:visibility="gone"/>
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recycler_message"

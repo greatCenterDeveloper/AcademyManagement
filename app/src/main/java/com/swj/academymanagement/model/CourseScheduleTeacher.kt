@@ -6,5 +6,5 @@ data class CourseScheduleTeacher(
     val course:String,
     val period:String,
     val room:String,
-    val students:MutableList<Member>
+    var students:MutableList<Member> = mutableListOf()
 )

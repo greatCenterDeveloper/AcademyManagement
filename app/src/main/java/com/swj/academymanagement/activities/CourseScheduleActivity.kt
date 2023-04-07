@@ -3,8 +3,10 @@ package com.swj.academymanagement.activities
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.WindowInsets
 import android.view.WindowManager
+import androidx.appcompat.app.AlertDialog
 import com.google.gson.Gson
 import com.swj.academymanagement.adapters.CourseScheduleAdapter
 import com.swj.academymanagement.adapters.CourseScheduleStudentAdapter
@@ -14,6 +16,12 @@ import com.swj.academymanagement.model.CourseScheduleTeacher
 import com.swj.academymanagement.model.Member
 import com.swj.academymanagement.model.Week
 import com.swj.academymanagement.model.WeekDay
+import com.swj.academymanagement.network.RetrofitCourseScheduleService
+import com.swj.academymanagement.network.RetrofitHelper
+import org.json.JSONArray
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class CourseScheduleActivity : AppCompatActivity() {
 
@@ -43,7 +51,7 @@ class CourseScheduleActivity : AppCompatActivity() {
 
 
         if(member.authority == "teacher") {
-            val courseArr = mutableListOf<String>()
+            /*val courseArr = mutableListOf<String>()
             courseArr.add("국어")
             courseArr.add("수학")
 
@@ -81,7 +89,79 @@ class CourseScheduleActivity : AppCompatActivity() {
             courseScheduleArr.add(CourseScheduleTeacher(week.thursday.date, week.thursday.day, "영어", "3", "103호", studentArr))
             courseScheduleArr.add(CourseScheduleTeacher(week.friday.date, week.friday.day, "국어", "3", "101호", studentArr))
 
-            binding.recycler.adapter = CourseScheduleAdapter(this, courseScheduleArr)
+            binding.recycler.adapter = CourseScheduleAdapter(this, courseScheduleArr)*/
+
+            RetrofitHelper.getRetrofitInstance().create(RetrofitCourseScheduleService::class.java)
+                .courseScheduleList().enqueue(object : Callback<String> {
+                    override fun onResponse(
+                        call: Call<String>,
+                        response: Response<String>
+                    ) {
+                        val courseScheduleJsonArr = response.body()
+                        val courseScheduleArr:MutableList<CourseScheduleTeacher> = mutableListOf()
+
+                        val jsonArray:JSONArray = JSONArray(courseScheduleJsonArr)
+
+                        //Log.i("dateeeeeeeeeeeeeeeeeeeeeeeee", jsonArray.getJSONObject(0).getString("date"))
+
+
+                        for(i in 0 until jsonArray.length()) {
+                            val jo = jsonArray.getJSONObject(i)
+                            val cst:CourseScheduleTeacher = CourseScheduleTeacher(
+                                jo.getString("date"),
+                                jo.getString("day"),
+                                jo.getString("course"),
+                                jo.getString("period"),
+                                jo.getString("room")
+                            )
+
+
+                            Log.i("studenttttttttttttttttttttttttt", jo.getJSONArray("studentArr").toString())
+
+                            val studentJsonArray:JSONArray = JSONArray(jo.getJSONArray("studentArr"))
+                            val students:MutableList<Member> = mutableListOf()
+                            for(j in 0 until studentJsonArray.length()) {
+                                val studentJo = studentJsonArray.getJSONObject(j)
+
+                                val student:Member = Member(
+                                    authority= studentJo.getString("authority"),
+                                    profile= studentJo.getString("profile"),
+                                    id= studentJo.getString("id"),
+                                    password= studentJo.getString("password"),
+                                    name= studentJo.getString("name"),
+                                    call_number= studentJo.getString("call_number")
+                                )
+
+                                val courseJsonArray:JSONArray = JSONArray(studentJo.getJSONArray("courseArr"))
+                                val courseArr:MutableList<String> = mutableListOf()
+                                for(k in 0 until courseJsonArray.length()) {
+                                    val courseJo = courseJsonArray.getJSONObject(k)
+                                    courseArr.add(courseJo.toString())
+                                }
+                                student.courseArr = courseArr
+                                students.add(student)
+                            }
+                            cst.students = students
+                            courseScheduleArr.add(cst)
+                        }
+
+                        /*AlertDialog.Builder(this@CourseScheduleActivity)
+                            .setMessage("message : ${jsonArray[0]}")
+                            .setPositiveButton("OK", null).show()*/
+
+                        if(courseScheduleArr != null)
+                            binding.recycler.adapter = CourseScheduleAdapter(this@CourseScheduleActivity, courseScheduleArr)
+                    }
+
+                    override fun onFailure(
+                        call: Call<String>,
+                        t: Throwable
+                    ) {
+                        AlertDialog.Builder(this@CourseScheduleActivity)
+                            .setMessage("error : ${t.message}")
+                            .setPositiveButton("OK", null).show()
+                    }
+                })
         } else {
             val week:Week = WeekDay.getWeekDate()
             val courseScheduleArr:MutableList<CourseSchedule> = mutableListOf()

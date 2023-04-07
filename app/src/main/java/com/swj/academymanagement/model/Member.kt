@@ -6,7 +6,7 @@ class Member (
     val id:String,
     val password:String,
     val name:String,
-    val courseArr:MutableList<String>,
+    var courseArr:MutableList<String> = mutableListOf(),
     val call_number:String
 ) {
     var course:String = ""

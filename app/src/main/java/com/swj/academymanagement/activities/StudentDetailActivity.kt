@@ -4,6 +4,7 @@ import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.view.WindowInsets
 import android.view.WindowManager
 import androidx.appcompat.app.AlertDialog
@@ -53,23 +54,16 @@ class StudentDetailActivity : AppCompatActivity() {
         binding.tvCourse.text = student.course
         binding.tvCall.text = student.call_number
 
-        /*val requestCourseArr:MutableList<StudentManagementCourse> = mutableListOf()
-        for(course in student.courseArr) {
-            var i = 1
-            requestCourseArr.add(StudentManagementCourse(course, "", "강사${i}", "10", "0", student.id))
-        }
-
-        binding.recyclerCourse.adapter = StudentManagementCourseAdapter(this, requestCourseArr)*/
-
         RetrofitHelper.getRetrofitInstance().create(RetrofitStudentManagementService::class.java)
-            .studentManagementCourseList(teacherId).enqueue(object : Callback<MutableList<StudentManagementCourse>> {
+            .studentManagementCourseList(student.id, teacherId).enqueue(object : Callback<MutableList<StudentManagementCourse>> {
                 override fun onResponse(
                     call: Call<MutableList<StudentManagementCourse>>,
                     response: Response<MutableList<StudentManagementCourse>>
                 ) {
                     val requestCourseArr = response.body()
                     if(requestCourseArr != null)
-                        binding.recyclerCourse.adapter = StudentManagementCourseAdapter(this@StudentDetailActivity, requestCourseArr)
+                        binding.recyclerCourse.adapter =
+                            StudentManagementCourseAdapter(this@StudentDetailActivity, requestCourseArr)
                 }
 
                 override fun onFailure(
@@ -91,13 +85,31 @@ class StudentDetailActivity : AppCompatActivity() {
 
         binding.recyclerCounsel.adapter = StudentManagementCounselAdapter(this, counselArr)
 
-        val messageArr:MutableList<StudentManagementMessage> = mutableListOf()
-        messageArr.add(StudentManagementMessage("2023-01-19", "어디니?"))
-        messageArr.add(StudentManagementMessage("2023-01-21", "출발했니?"))
-        messageArr.add(StudentManagementMessage("2023-02-08", "왜 안오니?"))
-        messageArr.add(StudentManagementMessage("2023-02-19", "상담 좀 하자."))
-        messageArr.add(StudentManagementMessage("2023-03-29", "오늘 수업 때 문제집 꼭 가져와요."))
 
-        binding.recyclerMessage.adapter = StudentManagementMessageAdapter(this, messageArr)
+        RetrofitHelper.getRetrofitInstance().create(RetrofitStudentManagementService::class.java)
+            .studentManagementMessageList(student.id, teacherId).enqueue(object : Callback<MutableList<StudentManagementMessage>>{
+                override fun onResponse(
+                    call: Call<MutableList<StudentManagementMessage>>,
+                    response: Response<MutableList<StudentManagementMessage>>
+                ) {
+                    val messageArr = response.body()
+                    if(messageArr != null)
+                        binding.recyclerMessage.adapter =
+                            StudentManagementMessageAdapter(this@StudentDetailActivity, messageArr)
+                    else {
+                        binding.tvNoMessage.visibility = View.VISIBLE
+                        binding.recyclerMessage.visibility = View.GONE
+                    }
+                }
+
+                override fun onFailure(
+                    call: Call<MutableList<StudentManagementMessage>>,
+                    t: Throwable
+                ) {
+                    AlertDialog.Builder(this@StudentDetailActivity)
+                        .setMessage("error : ${t.message}")
+                        .setPositiveButton("OK", null).show()
+                }
+            })
     }
 }
