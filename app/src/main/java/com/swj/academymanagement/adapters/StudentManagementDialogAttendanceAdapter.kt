@@ -19,10 +19,9 @@ class StudentManagementDialogAttendanceAdapter(val context:Context, val attendan
 
     override fun onBindViewHolder(holder: VH, position: Int) {
         val smda = attendanceArr[position]
-        holder.binding.tvDate.text = smda.date
+        holder.binding.tvDay.text = "${smda.day}요일"
+        holder.binding.tvPeriod.text = "${smda.period} 교시"
         holder.binding.tvAttendanceTime.text = smda.attendanceTime
         holder.binding.tvAttendanceState.text = smda.attendanceState
-        holder.binding.tvGohomeTime.text = smda.gohomeTime
-        holder.binding.tvGohomeState.text = smda.gohomeState
     }
 }

@@ -111,7 +111,7 @@ class StudentActivity : AppCompatActivity() {
         }
 
         val student = Gson().fromJson(intent.getStringExtra("student"), Member::class.java)
-        student.courseArr.add(0,"선택안함")
+        student.courseArr.add(0, "선택안함")
         binding.tvStudentName.text = "${student.name} 학생 오늘도 열심히 공부!"
 
         // 출결 인증

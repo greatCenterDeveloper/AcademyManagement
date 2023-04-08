@@ -3,7 +3,6 @@ package com.swj.academymanagement.activities
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.WindowInsets
 import android.view.WindowManager
 import androidx.appcompat.app.AlertDialog
@@ -99,11 +98,7 @@ class CourseScheduleActivity : AppCompatActivity() {
                     ) {
                         val courseScheduleJsonArr = response.body()
                         val courseScheduleArr:MutableList<CourseScheduleTeacher> = mutableListOf()
-
                         val jsonArray:JSONArray = JSONArray(courseScheduleJsonArr)
-
-                        //Log.i("dateeeeeeeeeeeeeeeeeeeeeeeee", jsonArray.getJSONObject(0).getString("date"))
-
 
                         for(i in 0 until jsonArray.length()) {
                             val jo = jsonArray.getJSONObject(i)
@@ -115,10 +110,7 @@ class CourseScheduleActivity : AppCompatActivity() {
                                 jo.getString("room")
                             )
 
-
-                            Log.i("studenttttttttttttttttttttttttt", jo.getJSONArray("studentArr").toString())
-
-                            val studentJsonArray:JSONArray = JSONArray(jo.getJSONArray("studentArr"))
+                            val studentJsonArray = JSONArray(jo.optJSONArray("studentArr"))
                             val students:MutableList<Member> = mutableListOf()
                             for(j in 0 until studentJsonArray.length()) {
                                 val studentJo = studentJsonArray.getJSONObject(j)

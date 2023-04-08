@@ -32,9 +32,9 @@ class StudentManagementAdapter(val context:Context, val studentArr:List<Member>,
 
         val courses = StringBuffer()
         for(course in student.courseArr) {
-            if(course == "kor") courses.append("국어, ")
-            if(course == "eng") courses.append("영어, ")
-            if(course == "math") courses.append("수학")
+            if(course == "국어") courses.append("국어, ")
+            if(course == "영어") courses.append("영어, ")
+            if(course == "수학") courses.append("수학")
         }
 
         var courseTemp:String = courses.toString()
@@ -65,6 +65,4 @@ class StudentManagementAdapter(val context:Context, val studentArr:List<Member>,
             context.startActivity(intent)
         }
     }
-
-
 }

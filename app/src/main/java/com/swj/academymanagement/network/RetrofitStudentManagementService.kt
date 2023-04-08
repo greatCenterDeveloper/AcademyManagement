@@ -2,6 +2,7 @@ package com.swj.academymanagement.network
 
 import com.swj.academymanagement.model.Member
 import com.swj.academymanagement.model.StudentManagementCourse
+import com.swj.academymanagement.model.StudentManagementDialogAttendance
 import com.swj.academymanagement.model.StudentManagementMessage
 import retrofit2.Call
 import retrofit2.http.Field
@@ -24,5 +25,8 @@ interface RetrofitStudentManagementService {
     fun studentManagementMessageList(@Field("studentId") studentId:String,
                                      @Field("teacherId") teacherId:String):Call<MutableList<StudentManagementMessage>>
 
-
+    @GET("/studentManagement/studentCourseAttendanceList.php")
+    fun studentCourseAttendanceList(@Query("courseCode") courseCode:String,
+                                    @Query("StudentId") studentId:String,
+                                    @Query("teacherId") teacherId:String):Call<MutableList<StudentManagementDialogAttendance>>
 }

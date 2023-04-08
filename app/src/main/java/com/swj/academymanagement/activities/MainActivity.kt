@@ -7,7 +7,6 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import android.view.View
 import android.view.WindowInsets
 import android.view.WindowManager
 import android.widget.Toast
@@ -120,7 +119,7 @@ class MainActivity : AppCompatActivity() {
         else
             teacher = intent.getSerializableExtra("teacher") as Member*/
 
-        teacher.courseArr.add(0,"선택안함")
+        teacher.courseArr.add(0, "선택안함")
         binding.tvTeacherName.text = "${teacher.name} 선생님 어서오세요."
 
         // 학생 관리

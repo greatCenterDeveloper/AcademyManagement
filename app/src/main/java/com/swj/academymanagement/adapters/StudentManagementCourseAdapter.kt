@@ -1,16 +1,25 @@
 package com.swj.academymanagement.adapters
 
 import android.content.Context
+import android.content.Intent
+import android.util.Log
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.RecyclerView.Adapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.bumptech.glide.Glide
+import com.swj.academymanagement.activities.StudentAttendanceListActivity
 import com.swj.academymanagement.databinding.DialogStudentManagementAttendanceBinding
 import com.swj.academymanagement.databinding.RecyclerItemStudentManagementCourseBinding
 import com.swj.academymanagement.model.StudentManagementCourse
 import com.swj.academymanagement.model.StudentManagementDialogAttendance
+import com.swj.academymanagement.network.RetrofitHelper
+import com.swj.academymanagement.network.RetrofitStudentManagementService
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class StudentManagementCourseAdapter(val context:Context, val courseArr:MutableList<StudentManagementCourse>)
     : Adapter<StudentManagementCourseAdapter.VH>() {
@@ -24,7 +33,11 @@ class StudentManagementCourseAdapter(val context:Context, val courseArr:MutableL
 
     override fun onBindViewHolder(holder: VH, position: Int) {
         val smc = courseArr[position]
-        holder.binding.tvCourse.text = smc.course
+        when(smc.course) {
+            "kor"  -> holder.binding.tvCourse.text = "국어"
+            "eng"  -> holder.binding.tvCourse.text = "영어"
+            "math" -> holder.binding.tvCourse.text = "수학"
+        }
 
         if(!smc.profile.equals(""))
             Glide.with(context).load(smc.profile).into(holder.binding.civProfile)
@@ -34,16 +47,56 @@ class StudentManagementCourseAdapter(val context:Context, val courseArr:MutableL
         holder.binding.tvAbsence.text = smc.absence
 
         holder.binding.btnAttendance.setOnClickListener {
-            val dialogBinding = DialogStudentManagementAttendanceBinding.inflate(LayoutInflater.from(context))
+            val intent = Intent(context, StudentAttendanceListActivity::class.java)
+            intent.putExtra("course", smc.course)
+            intent.putExtra("studentId", smc.studentId)
+            intent.putExtra("teacher", smc.teacher)
+            context.startActivity(intent)
+
+
+            /*val dialogBinding = DialogStudentManagementAttendanceBinding.inflate(LayoutInflater.from(context))
             val dialog:AlertDialog = AlertDialog.Builder(context)
                                     .setView(dialogBinding.root)
                                     .create()
-            //dialog.setContentView(dialogBinding.root)
 
-            dialogBinding.tvCourse.text = smc.course
+            when(smc.course) {
+                "kor"  -> dialogBinding.tvCourse.text = "국어"
+                "eng"  -> dialogBinding.tvCourse.text = "영어"
+                "math" -> dialogBinding.tvCourse.text = "수학"
+            }
             dialogBinding.ivClose.setOnClickListener { dialog.dismiss() }
 
-            val attendanceArr:MutableList<StudentManagementDialogAttendance> = mutableListOf()
+            RetrofitHelper.getRetrofitInstance().create(RetrofitStudentManagementService::class.java)
+                .studentCourseAttendanceList(smc.course, smc.studentId, smc.teacher)
+                .enqueue(object : Callback<MutableList<StudentManagementDialogAttendance>> {
+                    override fun onResponse(
+                        call: Call<MutableList<StudentManagementDialogAttendance>>,
+                        response: Response<MutableList<StudentManagementDialogAttendance>>
+                    ) {
+                        val attendanceArr = response.body()
+
+                        Log.i("atteeeeeeeeeeeeeeeeeeeeeeeeeee", attendanceArr?.size.toString() ?: "")
+
+                        if(attendanceArr != null)
+                            dialogBinding.recycler.adapter = StudentManagementDialogAttendanceAdapter(context, attendanceArr)
+                        else {
+                            dialogBinding.recycler.visibility = View.GONE
+                            dialogBinding.tvNoAttendance.visibility = View.VISIBLE
+                        }
+                    }
+
+                    override fun onFailure(
+                        call: Call<MutableList<StudentManagementDialogAttendance>>,
+                        t: Throwable
+                    ) {
+                        AlertDialog.Builder(context)
+                            .setMessage("error : ${t.message}")
+                            .setPositiveButton("OK", null).show()
+                    }
+                })
+            dialog.show()*/
+
+            /*val attendanceArr:MutableList<StudentManagementDialogAttendance> = mutableListOf()
             attendanceArr.add(StudentManagementDialogAttendance(
                 "2023-01-02",
                 "11:37", "등원",
@@ -59,8 +112,7 @@ class StudentManagementCourseAdapter(val context:Context, val courseArr:MutableL
                 "11:27", "등원",
                 "15:16", "하원"))
 
-            dialogBinding.recycler.adapter = StudentManagementDialogAttendanceAdapter(context, attendanceArr)
-            dialog.show()
+            dialogBinding.recycler.adapter = StudentManagementDialogAttendanceAdapter(context, attendanceArr)*/
         }
     }
 }

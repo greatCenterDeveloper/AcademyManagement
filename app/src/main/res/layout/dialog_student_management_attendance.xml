@@ -56,6 +56,20 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/line">
+
+        <TextView
+            android:id="@+id/tv_no_attendance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="출석 내역이 없습니다.."
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:textSize="24sp"
+            android:fontFamily="@font/cookierunblack"
+            android:layout_marginLeft="8dp"
+            android:layout_centerInParent="true"
+            android:visibility="gone"/>
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler"
             android:layout_width="match_parent"
