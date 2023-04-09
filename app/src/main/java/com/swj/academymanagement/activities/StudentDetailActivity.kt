@@ -93,12 +93,14 @@ class StudentDetailActivity : AppCompatActivity() {
                     response: Response<MutableList<StudentManagementMessage>>
                 ) {
                     val messageArr = response.body()
-                    if(messageArr != null)
-                        binding.recyclerMessage.adapter =
-                            StudentManagementMessageAdapter(this@StudentDetailActivity, messageArr)
-                    else {
-                        binding.tvNoMessage.visibility = View.VISIBLE
-                        binding.recyclerMessage.visibility = View.GONE
+                    if(messageArr != null) {
+                        if(messageArr.size > 0) {
+                            binding.recyclerMessage.adapter =
+                                StudentManagementMessageAdapter(this@StudentDetailActivity, messageArr)
+                        } else {
+                            binding.tvNoMessage.visibility = View.VISIBLE
+                            binding.recyclerMessage.visibility = View.GONE
+                        }
                     }
                 }
 
