@@ -248,7 +248,8 @@
                     android:textStyle="bold"
                     android:textSize="20sp"
                     android:fontFamily="@font/cookierunblack"
-                    android:layout_centerInParent="true"
+                    android:layout_below="@id/counsel_line"
+                    android:background="@drawable/bg_color"
                     android:visibility="gone"/>
 
                 <androidx.recyclerview.widget.RecyclerView
@@ -299,7 +300,8 @@
                     android:textStyle="bold"
                     android:textSize="20sp"
                     android:fontFamily="@font/cookierunblack"
-                    android:layout_centerInParent="true"
+                    android:layout_below="@id/message_line"
+                    android:background="@drawable/bg_color"
                     android:visibility="gone"/>
 
                 <androidx.recyclerview.widget.RecyclerView

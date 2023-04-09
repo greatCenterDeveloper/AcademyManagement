@@ -107,14 +107,14 @@
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/tli_start_time"
-                    android:layout_width="100dp"
+                    android:layout_width="120dp"
                     android:layout_height="wrap_content"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
                     android:hint="선택"
                     android:layout_weight="13"
                     android:layout_below="@id/tv_counsel_date_title"
                     android:layout_toRightOf="@id/tv_counsel_time_title"
-                    android:layout_marginLeft="8dp"
+                    android:layout_marginLeft="4dp"
                     android:background="@drawable/bg_color">
 
                     <AutoCompleteTextView
@@ -140,19 +140,19 @@
                     android:layout_alignBottom="@id/tli_start_time"
                     android:layout_toRightOf="@id/tli_start_time"
                     android:gravity="center"
-                    android:layout_marginLeft="8dp"
+                    android:layout_marginLeft="4dp"
                     android:layout_marginTop="8dp"/>
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/tli_end_time"
-                    android:layout_width="100dp"
+                    android:layout_width="120dp"
                     android:layout_height="wrap_content"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
                     android:hint="선택"
                     android:layout_weight="13"
                     android:layout_below="@id/tv_counsel_date_title"
                     android:layout_toRightOf="@id/tv_counsel_and_time"
-                    android:layout_marginLeft="8dp"
+                    android:layout_marginLeft="4dp"
                     android:background="@drawable/bg_color">
 
                     <AutoCompleteTextView

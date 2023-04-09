@@ -22,7 +22,6 @@ class CounselRequestAdapter(val context: Context, val counselRequestArr:MutableL
         holder.binding.tvCounselDate.text = counselRequest.date
         holder.binding.tvCounselStartTime.text = counselRequest.startTime
         holder.binding.tvCounselEndTime.text = counselRequest.endTime
-        holder.binding.tvTeacher.text = "${counselRequest.teacher} 선생님"
         holder.binding.tvCounselContent.text = counselRequest.content
     }
 

@@ -7,9 +7,17 @@ import android.os.Bundle
 import android.view.View
 import android.view.WindowInsets
 import android.view.WindowManager
+import androidx.appcompat.app.AlertDialog
+import com.google.gson.Gson
 import com.swj.academymanagement.adapters.CounselRequestAdapter
 import com.swj.academymanagement.databinding.ActivityCounselRequestBinding
 import com.swj.academymanagement.model.CounselRequest
+import com.swj.academymanagement.model.Member
+import com.swj.academymanagement.network.RetrofitCounselStudentService
+import com.swj.academymanagement.network.RetrofitHelper
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class CounselRequestActivity : AppCompatActivity() {
 
@@ -35,22 +43,46 @@ class CounselRequestActivity : AppCompatActivity() {
             startActivity(Intent(this, CounselInputActivity::class.java))
         }
 
-        val counselRequestArr:MutableList<CounselRequest> = mutableListOf()
+        val student = Gson().fromJson(intent.getStringExtra("student"), Member::class.java)
+
+        /*val counselRequestArr:MutableList<CounselRequest> = mutableListOf()
         counselRequestArr.add(CounselRequest(
-            "2023/03/01", "16:00", "16:30", "가강사", "상담이 필요합니다.")
+            "2023/03/01", "16:00", "16:30", "상담이 필요합니다.")
         )
         counselRequestArr.add(CounselRequest(
-            "2023/03/05", "16:10", "16:40", "나강사", "상담이 필요하오.")
+            "2023/03/05", "16:10", "16:40", "상담이 필요하오.")
         )
         counselRequestArr.add(CounselRequest(
-            "2023/03/10", "15:00", "15:30", "다강사", "상담이 필요하옵니다.")
+            "2023/03/10", "15:00", "15:30", "상담이 필요하옵니다.")
         )
 
         if(counselRequestArr.size == 0) {
             binding.tvNoCounselRequest.visibility = View.VISIBLE
             binding.recycler.visibility = View.GONE
         }
-        else binding.recycler.adapter = CounselRequestAdapter(this, counselRequestArr)
+        else binding.recycler.adapter = CounselRequestAdapter(this, counselRequestArr)*/
 
+        RetrofitHelper.getRetrofitInstance().create(RetrofitCounselStudentService::class.java)
+            .counselRequestList(student.id).enqueue(object :Callback<MutableList<CounselRequest>> {
+                override fun onResponse(
+                    call: Call<MutableList<CounselRequest>>,
+                    response: Response<MutableList<CounselRequest>>
+                ) {
+                    val counselRequestArr = response.body()
+                    if(counselRequestArr != null) {
+                        if(counselRequestArr.size == 0) {
+                            binding.tvNoCounselRequest.visibility = View.VISIBLE
+                            binding.recycler.visibility = View.GONE
+                        } else binding.recycler.adapter =
+                            CounselRequestAdapter(this@CounselRequestActivity, counselRequestArr)
+                    }
+                }
+
+                override fun onFailure(call: Call<MutableList<CounselRequest>>, t: Throwable) {
+                    AlertDialog.Builder(this@CounselRequestActivity)
+                        .setMessage("error : ${t.message}")
+                        .setPositiveButton("OK", null).show()
+                }
+            })
     }
 }
