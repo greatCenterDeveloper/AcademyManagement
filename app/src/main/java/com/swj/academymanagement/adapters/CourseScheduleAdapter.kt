@@ -22,7 +22,12 @@ class CourseScheduleAdapter(val context: Context, val scheduleArr:MutableList<Co
 
     override fun onBindViewHolder(holder: VH, position: Int) {
         val cs = scheduleArr[position]
-        holder.binding.tvCourse.text = "${cs.course} 강좌"
+
+        when(cs.course) {
+            "kor"  -> holder.binding.tvCourse.text = "국어 강좌"
+            "eng"  -> holder.binding.tvCourse.text = "영어 강좌"
+            "math" -> holder.binding.tvCourse.text = "수학 강좌"
+        }
         holder.binding.tvRoom.text = "(${cs.room})"
 
         holder.binding.root.setOnClickListener {

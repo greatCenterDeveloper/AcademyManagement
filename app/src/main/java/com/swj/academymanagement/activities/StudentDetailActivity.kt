@@ -55,7 +55,7 @@ class StudentDetailActivity : AppCompatActivity() {
         binding.tvCall.text = student.call_number
 
         RetrofitHelper.getRetrofitInstance().create(RetrofitStudentManagementService::class.java)
-            .studentManagementCourseList(student.id, teacherId).enqueue(object : Callback<MutableList<StudentManagementCourse>> {
+            .studentCourseList(student.id, teacherId).enqueue(object : Callback<MutableList<StudentManagementCourse>> {
                 override fun onResponse(
                     call: Call<MutableList<StudentManagementCourse>>,
                     response: Response<MutableList<StudentManagementCourse>>
@@ -87,7 +87,7 @@ class StudentDetailActivity : AppCompatActivity() {
 
 
         RetrofitHelper.getRetrofitInstance().create(RetrofitStudentManagementService::class.java)
-            .studentManagementMessageList(student.id, teacherId).enqueue(object : Callback<MutableList<StudentManagementMessage>>{
+            .studentMessageList(student.id, teacherId).enqueue(object : Callback<MutableList<StudentManagementMessage>>{
                 override fun onResponse(
                     call: Call<MutableList<StudentManagementMessage>>,
                     response: Response<MutableList<StudentManagementMessage>>

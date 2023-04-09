@@ -8,5 +8,5 @@ import retrofit2.http.POST
 interface RetrofitCourseScheduleService {
 
     @GET("/courseSchedule/courseScheduleTotalList.php")
-    fun courseScheduleList():Call<String>
+    fun courseScheduleList():Call<MutableList<CourseScheduleTeacher>>
 }

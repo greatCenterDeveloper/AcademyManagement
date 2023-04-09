@@ -3,6 +3,7 @@ package com.swj.academymanagement.activities
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.WindowInsets
 import android.view.WindowManager
 import androidx.appcompat.app.AlertDialog
@@ -17,7 +18,6 @@ import com.swj.academymanagement.model.Week
 import com.swj.academymanagement.model.WeekDay
 import com.swj.academymanagement.network.RetrofitCourseScheduleService
 import com.swj.academymanagement.network.RetrofitHelper
-import org.json.JSONArray
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -91,13 +91,15 @@ class CourseScheduleActivity : AppCompatActivity() {
             binding.recycler.adapter = CourseScheduleAdapter(this, courseScheduleArr)*/
 
             RetrofitHelper.getRetrofitInstance().create(RetrofitCourseScheduleService::class.java)
-                .courseScheduleList().enqueue(object : Callback<String> {
+                .courseScheduleList().enqueue(object : Callback<MutableList<CourseScheduleTeacher>> {
                     override fun onResponse(
-                        call: Call<String>,
-                        response: Response<String>
+                        call: Call<MutableList<CourseScheduleTeacher>>,
+                        response: Response<MutableList<CourseScheduleTeacher>>
                     ) {
-                        val courseScheduleJsonArr = response.body()
-                        val courseScheduleArr:MutableList<CourseScheduleTeacher> = mutableListOf()
+                        val courseScheduleArr = response.body()
+                        Log.i("studentssssssss", "studentsSize : ${courseScheduleArr?.get(0)?.students?.size}")
+
+                        /*val courseScheduleArr:MutableList<CourseScheduleTeacher> = mutableListOf()
                         val jsonArray:JSONArray = JSONArray(courseScheduleJsonArr)
 
                         for(i in 0 until jsonArray.length()) {
@@ -135,18 +137,14 @@ class CourseScheduleActivity : AppCompatActivity() {
                             }
                             cst.students = students
                             courseScheduleArr.add(cst)
-                        }
-
-                        /*AlertDialog.Builder(this@CourseScheduleActivity)
-                            .setMessage("message : ${jsonArray[0]}")
-                            .setPositiveButton("OK", null).show()*/
+                        }*/
 
                         if(courseScheduleArr != null)
                             binding.recycler.adapter = CourseScheduleAdapter(this@CourseScheduleActivity, courseScheduleArr)
                     }
 
                     override fun onFailure(
-                        call: Call<String>,
+                        call: Call<MutableList<CourseScheduleTeacher>>,
                         t: Throwable
                     ) {
                         AlertDialog.Builder(this@CourseScheduleActivity)

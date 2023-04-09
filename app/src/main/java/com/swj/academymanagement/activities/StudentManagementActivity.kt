@@ -8,7 +8,10 @@ import android.view.View
 import android.view.WindowInsets
 import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
+import android.widget.AdapterView
+import android.widget.AdapterView.OnItemSelectedListener
 import android.widget.ArrayAdapter
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import com.google.gson.Gson
 import com.swj.academymanagement.adapters.StudentManagementAdapter
@@ -43,6 +46,51 @@ class StudentManagementActivity : AppCompatActivity() {
         val courseAdapter:ArrayAdapter<String> = ArrayAdapter(this, android.R.layout.simple_list_item_1, teacher.courseArr)
         binding.acTvCourse.setAdapter(courseAdapter)
 
+        binding.btnSearch.setOnClickListener {
+            val name = binding.tilName.editText?.text.toString()
+            RetrofitHelper.getRetrofitInstance().create(RetrofitStudentManagementService::class.java)
+                .studentNameSearch(teacher.id, name).enqueue(object : Callback<MutableList<Member>> {
+                    override fun onResponse(
+                        call: Call<MutableList<Member>>,
+                        response: Response<MutableList<Member>>
+                    ) {
+                        val studentArr = response.body()
+                        if(studentArr != null)
+                            binding.recycler.adapter =
+                                StudentManagementAdapter(this@StudentManagementActivity, studentArr, teacher.id)
+                    }
+
+                    override fun onFailure(call: Call<MutableList<Member>>, t: Throwable) {
+                        AlertDialog.Builder(this@StudentManagementActivity)
+                            .setMessage("error : ${t.message}")
+                            .setPositiveButton("OK", null).show()
+                    }
+                })
+
+            binding.tilName.editText?.setText("")
+        }
+
+        binding.acTvCourse.setOnItemClickListener { _, _, i, _ ->
+            RetrofitHelper.getRetrofitInstance().create(RetrofitStudentManagementService::class.java)
+                .studentCourseSearch(teacher.id, teacher.courseArr[i]).enqueue(object :Callback<MutableList<Member>> {
+                    override fun onResponse(
+                        call: Call<MutableList<Member>>,
+                        response: Response<MutableList<Member>>
+                    ) {
+                        val studentArr = response.body()
+                        if(studentArr != null)
+                            binding.recycler.adapter =
+                                StudentManagementAdapter(this@StudentManagementActivity, studentArr, teacher.id)
+                    }
+
+                    override fun onFailure(call: Call<MutableList<Member>>, t: Throwable) {
+                        AlertDialog.Builder(this@StudentManagementActivity)
+                            .setMessage("error : ${t.message}")
+                            .setPositiveButton("OK", null).show()
+                    }
+                })
+        }
+
         /*val courseArr = mutableListOf<String>()
         courseArr.add("국어")
         courseArr.add("수학")
@@ -61,15 +109,15 @@ class StudentManagementActivity : AppCompatActivity() {
 
         binding.recycler.adapter = StudentManagementAdapter(this, studentArr)*/
         RetrofitHelper.getRetrofitInstance().create(RetrofitStudentManagementService::class.java)
-            .studentManagementList(teacher.id).enqueue(object : Callback<MutableList<Member>> {
+            .studentList(teacher.id).enqueue(object : Callback<MutableList<Member>> {
                 override fun onResponse(
                     call: Call<MutableList<Member>>,
                     response: Response<MutableList<Member>>
                 ) {
                     val studentArr = response.body()
-
                     if(studentArr != null)
-                        binding.recycler.adapter = StudentManagementAdapter(this@StudentManagementActivity, studentArr, teacher.id)
+                        binding.recycler.adapter =
+                            StudentManagementAdapter(this@StudentManagementActivity, studentArr, teacher.id)
                 }
 
                 override fun onFailure(call: Call<MutableList<Member>>, t: Throwable) {

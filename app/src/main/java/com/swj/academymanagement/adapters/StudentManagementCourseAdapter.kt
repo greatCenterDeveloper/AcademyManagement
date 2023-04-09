@@ -1,8 +1,6 @@
 package com.swj.academymanagement.adapters
 
 import android.content.Context
-import android.content.Intent
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,7 +8,6 @@ import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.RecyclerView.Adapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.bumptech.glide.Glide
-import com.swj.academymanagement.activities.StudentAttendanceListActivity
 import com.swj.academymanagement.databinding.DialogStudentManagementAttendanceBinding
 import com.swj.academymanagement.databinding.RecyclerItemStudentManagementCourseBinding
 import com.swj.academymanagement.model.StudentManagementCourse
@@ -47,14 +44,7 @@ class StudentManagementCourseAdapter(val context:Context, val courseArr:MutableL
         holder.binding.tvAbsence.text = smc.absence
 
         holder.binding.btnAttendance.setOnClickListener {
-            val intent = Intent(context, StudentAttendanceListActivity::class.java)
-            intent.putExtra("course", smc.course)
-            intent.putExtra("studentId", smc.studentId)
-            intent.putExtra("teacher", smc.teacher)
-            context.startActivity(intent)
-
-
-            /*val dialogBinding = DialogStudentManagementAttendanceBinding.inflate(LayoutInflater.from(context))
+            val dialogBinding = DialogStudentManagementAttendanceBinding.inflate(LayoutInflater.from(context))
             val dialog:AlertDialog = AlertDialog.Builder(context)
                                     .setView(dialogBinding.root)
                                     .create()
@@ -75,8 +65,6 @@ class StudentManagementCourseAdapter(val context:Context, val courseArr:MutableL
                     ) {
                         val attendanceArr = response.body()
 
-                        Log.i("atteeeeeeeeeeeeeeeeeeeeeeeeeee", attendanceArr?.size.toString() ?: "")
-
                         if(attendanceArr != null)
                             dialogBinding.recycler.adapter = StudentManagementDialogAttendanceAdapter(context, attendanceArr)
                         else {
@@ -94,7 +82,7 @@ class StudentManagementCourseAdapter(val context:Context, val courseArr:MutableL
                             .setPositiveButton("OK", null).show()
                     }
                 })
-            dialog.show()*/
+            dialog.show()
 
             /*val attendanceArr:MutableList<StudentManagementDialogAttendance> = mutableListOf()
             attendanceArr.add(StudentManagementDialogAttendance(

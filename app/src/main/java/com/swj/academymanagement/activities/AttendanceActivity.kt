@@ -1,5 +1,6 @@
 package com.swj.academymanagement.activities
 
+import android.app.DatePickerDialog
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -7,11 +8,18 @@ import android.view.MotionEvent
 import android.view.WindowInsets
 import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
+import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import com.google.gson.Gson
 import com.swj.academymanagement.adapters.AttendanceAdapter
 import com.swj.academymanagement.databinding.ActivityAttendanceBinding
 import com.swj.academymanagement.model.Member
 import com.swj.academymanagement.model.StudentAttendance
+import com.swj.academymanagement.network.RetrofitHelper
+import com.swj.academymanagement.network.RetrofitStudentManagementService
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class AttendanceActivity : AppCompatActivity() {
 
@@ -32,28 +40,119 @@ class AttendanceActivity : AppCompatActivity() {
 
         val teacher = Gson().fromJson(intent.getStringExtra("teacher"), Member::class.java)
 
-        /*binding.ivHome.setOnClickListener {
-            val intent = Intent(this, MainActivity::class.java)
-            intent.putExtra("teacher", Gson().toJson(teacher))
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-            startActivity(intent)
-        }*/
-
         binding.ivBackspace.setOnClickListener { finish() }
 
-        val saa:MutableList<StudentAttendance> = mutableListOf()
-        saa.add(StudentAttendance("국어", "가강사", "2023/02/11", "로빈", "10:30", "15:47"))
-        saa.add(StudentAttendance("영어", "나강사", "2023/02/15", "로빈", "10:19", "15:31"))
-        saa.add(StudentAttendance("국어", "가강사", "2023/02/19", "홍길동", "12:51", "15:57"))
-        saa.add(StudentAttendance("영어", "나강사", "2023/02/21", "홍길동", "12:33", "15:49"))
-        saa.add(StudentAttendance("수학", "다강사", "2023/02/25", "홍길동", "13:01", "15:52"))
-        saa.add(StudentAttendance("국어", "가강사", "2023/02/26", "해밍턴", "12:48", "15:48"))
-        saa.add(StudentAttendance("영어", "나강사", "2023/02/28", "해밍턴", "12:25", "15:51"))
-        saa.add(StudentAttendance("수학", "다강사", "2023/03/11", "로빈", "13:11", "15:43"))
-        saa.add(StudentAttendance("수학", "다강사", "2023/03/27", "해밍턴", "12:59", "15:57"))
+        // 시작 날짜 선택
+        binding.tietStartDate.setOnClickListener {
+            val dialog = DatePickerDialog(this)
+            dialog.setOnDateSetListener { datePicker, i, i2, i3 ->
+                val month = if(i2 < 10) "0${i2+1}" else (i2+1).toString()
+                val day = if(i3 < 10) "0${i3}" else i3.toString()
+                val date = "${i}-${month}-${day}"
+                binding.tietStartDate.setText(date)
 
-        binding.recycler.adapter = AttendanceAdapter(this, saa)
+                RetrofitHelper.getRetrofitInstance().create(RetrofitStudentManagementService::class.java)
+                    .studentAttendanceStartDateList(teacher.id, binding.tietStartDate.text.toString())
+                    .enqueue(object :Callback<MutableList<StudentAttendance>> {
+                        override fun onResponse(
+                            call: Call<MutableList<StudentAttendance>>,
+                            response: Response<MutableList<StudentAttendance>>
+                        ) {
+                            val saa = response.body()
+                            if(saa != null) binding.recycler.adapter = AttendanceAdapter(this@AttendanceActivity, saa)
+                        }
+
+                        override fun onFailure(
+                            call: Call<MutableList<StudentAttendance>>,
+                            t: Throwable
+                        ) {
+                            AlertDialog.Builder(this@AttendanceActivity)
+                                .setMessage("error : ${t.message}")
+                                .setPositiveButton("OK", null).show()
+                        }
+                    })
+            }
+            dialog.show()
+        }
+
+        // 마지막 날짜 선택
+        binding.tietEndDate.setOnClickListener {
+            val dialog = DatePickerDialog(this)
+            dialog.setOnDateSetListener { datePicker, i, i2, i3 ->
+                val month = if(i2 < 10) "0${i2+1}" else (i2+1).toString()
+                val day = if(i3 < 10) "0${i3}" else i3.toString()
+                val date = "${i}-${month}-${day}"
+                binding.tietEndDate.setText(date)
+
+                RetrofitHelper.getRetrofitInstance().create(RetrofitStudentManagementService::class.java)
+                    .studentAttendanceEndDateList(
+                            teacher.id,
+                            binding.tietStartDate.text.toString(),
+                            binding.tietEndDate.text.toString())
+                    .enqueue(object :Callback<MutableList<StudentAttendance>> {
+                        override fun onResponse(
+                            call: Call<MutableList<StudentAttendance>>,
+                            response: Response<MutableList<StudentAttendance>>
+                        ) {
+                            val saa = response.body()
+                            if(saa != null) binding.recycler.adapter = AttendanceAdapter(this@AttendanceActivity, saa)
+                        }
+
+                        override fun onFailure(
+                            call: Call<MutableList<StudentAttendance>>,
+                            t: Throwable
+                        ) {
+                            AlertDialog.Builder(this@AttendanceActivity)
+                                .setMessage("error : ${t.message}")
+                                .setPositiveButton("OK", null).show()
+                        }
+                    })
+            }
+            dialog.show()
+        }
+
+        binding.btnSearch.setOnClickListener {
+            val name = binding.tilName.editText?.text.toString()
+            RetrofitHelper.getRetrofitInstance().create(RetrofitStudentManagementService::class.java)
+                .studentAttendanceNameSearch(teacher.id, name)
+                .enqueue(object :Callback<MutableList<StudentAttendance>> {
+                    override fun onResponse(
+                        call: Call<MutableList<StudentAttendance>>,
+                        response: Response<MutableList<StudentAttendance>>
+                    ) {
+                        val saa = response.body()
+                        if(saa != null) binding.recycler.adapter = AttendanceAdapter(this@AttendanceActivity, saa)
+                    }
+
+                    override fun onFailure(
+                        call: Call<MutableList<StudentAttendance>>,
+                        t: Throwable
+                    ) {
+                        AlertDialog.Builder(this@AttendanceActivity)
+                            .setMessage("error : ${t.message}")
+                            .setPositiveButton("OK", null).show()
+                    }
+                })
+            binding.tilName.editText?.setText("")
+        }
+
+
+        RetrofitHelper.getRetrofitInstance().create(RetrofitStudentManagementService::class.java)
+            .studentAttendanceList(teacher.id).enqueue(object : Callback<MutableList<StudentAttendance>>{
+                override fun onResponse(
+                    call: Call<MutableList<StudentAttendance>>,
+                    response: Response<MutableList<StudentAttendance>>
+                ) {
+                    val saa = response.body()
+                    if(saa != null) binding.recycler.adapter = AttendanceAdapter(this@AttendanceActivity, saa)
+                }
+
+                override fun onFailure(call: Call<MutableList<StudentAttendance>>, t: Throwable) {
+                    AlertDialog.Builder(this@AttendanceActivity)
+                        .setMessage("error : ${t.message}")
+                        .setPositiveButton("OK", null).show()
+                }
+            })
     }
 
     override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {

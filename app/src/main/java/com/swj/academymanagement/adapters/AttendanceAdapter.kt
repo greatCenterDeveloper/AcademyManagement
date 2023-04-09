@@ -19,8 +19,6 @@ class AttendanceAdapter(val context: Context, val attendanceArr:MutableList<Stud
 
     override fun onBindViewHolder(holder: VH, position: Int) {
         val att = attendanceArr[position]
-        holder.binding.tvCourse.text = att.course
-        holder.binding.tvTeacher.text = att.teacher
         holder.binding.tvAttendanceDate.text = att.attendanceDate
         holder.binding.tvStudent.text = att.student
         holder.binding.tvAttendanceTime.text = att.attendanceTime
