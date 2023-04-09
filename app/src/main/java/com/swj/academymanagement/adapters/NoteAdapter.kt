@@ -2,6 +2,7 @@ package com.swj.academymanagement.adapters
 
 import android.content.Context
 import android.content.Intent
+import android.database.sqlite.SQLiteDatabase
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Toast
@@ -12,6 +13,7 @@ import androidx.core.util.Pair
 import androidx.recyclerview.widget.RecyclerView.Adapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.google.gson.Gson
+import com.swj.academymanagement.G
 import com.swj.academymanagement.R
 import com.swj.academymanagement.activities.ClassNoteActivity
 import com.swj.academymanagement.activities.ClassNoteDetailActivity
@@ -20,7 +22,7 @@ import com.swj.academymanagement.activities.TeacherNoteDetailActivity
 import com.swj.academymanagement.databinding.RecyclerItemNoteBinding
 import com.swj.academymanagement.model.Note
 
-class NoteAdapter(val context: Context, val noteArr:MutableList<Note>)
+class NoteAdapter(val context: Context, val db:SQLiteDatabase, val noteArr:MutableList<Note>)
     :Adapter<NoteAdapter.VH>() {
     inner class VH(val binding:RecyclerItemNoteBinding):ViewHolder(binding.root)
 
@@ -35,6 +37,8 @@ class NoteAdapter(val context: Context, val noteArr:MutableList<Note>)
         holder.binding.tvTitle.text = note.title
         holder.binding.tvDate.text = note.date
         holder.binding.tvContent.text = note.content
+
+        G.noteRemove = false
 
         holder.binding.root.setOnClickListener {
             val popMenu = PopupMenu(context, holder.binding.root)
@@ -66,10 +70,17 @@ class NoteAdapter(val context: Context, val noteArr:MutableList<Note>)
                     AlertDialog.Builder(context)
                         .setMessage("삭제하시겠습니까?")
                         .setPositiveButton("OK") { dialogInterface, i ->
-                            Toast.makeText(context, "${note.authority} 권한에서 실행", Toast.LENGTH_SHORT).show()
+                            //Toast.makeText(context, "${note.authority} 권한에서 실행", Toast.LENGTH_SHORT).show()
                             // SQLite delete.. 권한에 따라 학생의 노트 테이블에서 삭제할지, 선생님의 노트 테이블에서 삭제할지.
-                            //noteArr.remove(note)
-                            //this.notifyItemRemoved(position)
+
+                            if(note.authority == "teacher")
+                                db.execSQL("DELETE FROM teacher_note WHERE num=?", arrayOf(note.num))
+                            else if(note.authority == "student")
+                                db.execSQL("DELETE FROM student_note WHERE num=?", arrayOf(note.num))
+
+                            noteArr.remove(note)
+                            G.noteRemove = true
+                            G.position = position
                         }
                         .setNegativeButton("NO", null)
                         .show()

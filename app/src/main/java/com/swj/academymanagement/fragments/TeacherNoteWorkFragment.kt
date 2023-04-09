@@ -30,17 +30,19 @@ class TeacherNoteWorkFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val teacher: Member = (activity as TeacherNoteActivity).teacher!!
+        val tna = activity as TeacherNoteActivity
 
         binding.btnSave.setOnClickListener {
-            val kind:String = "노트"
+            val kind:String = "할일"
             val title:String = binding.tilTitle.editText!!.text.toString()
             val content:String = binding.tilContent.editText!!.text.toString()
             val sdf = SimpleDateFormat("yyyy/MM/dd")
             sdf.timeZone = TimeZone.getTimeZone("Asia/Seoul")
-
             val date = sdf.format(Date())
-            val note = Note(kind, title, date, content, teacher.authority)
-            Toast.makeText(requireActivity(), "${date}", Toast.LENGTH_SHORT).show()
+
+            tna.db.execSQL("INSERT INTO teacher_note(kind, title, content, registration) " +
+                    "VALUES (?,?,?,?)", arrayOf(kind, title, content, date))
+            tna.changeFragmentList()
         }
     }
 }

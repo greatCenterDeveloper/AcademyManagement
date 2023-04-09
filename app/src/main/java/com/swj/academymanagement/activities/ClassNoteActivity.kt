@@ -1,5 +1,6 @@
 package com.swj.academymanagement.activities
 
+import android.database.sqlite.SQLiteDatabase
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -21,7 +22,7 @@ class ClassNoteActivity : AppCompatActivity() {
     val binding:ActivityClassNoteBinding by lazy { ActivityClassNoteBinding.inflate(layoutInflater) }
     private val fragments = arrayOfNulls<Fragment>(3)
     var student:Member? = null
-    var position = -1
+    val db: SQLiteDatabase by lazy { openOrCreateDatabase("note.db", MODE_PRIVATE, null) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,7 +40,12 @@ class ClassNoteActivity : AppCompatActivity() {
         binding.ivBackspace.setOnClickListener { finish() }
 
         student = Gson().fromJson(intent.getStringExtra("student"), Member::class.java)
-        position = intent.getIntExtra("position", -1)
+
+        db.execSQL("CREATE TABLE IF NOT EXISTS student_note(num INTEGER PRIMARY KEY AUTOINCREMENT," +
+                "kind VARCHAR(20) NOT NULL, " +
+                "title VARCHAR(200) NOT NULL, " +
+                "content TEXT NOT NULL, " +
+                "registration DATE NOT NULL)")
 
         fragments[0] = ClassNoteListFragment()
         fragments[1] = ClassNoteWorkFragment()
@@ -69,6 +75,14 @@ class ClassNoteActivity : AppCompatActivity() {
             }
             true
         }
+    }
+
+    fun changeFragmentList() {
+        supportFragmentManager
+            .beginTransaction()
+            .replace(R.id.container_fragment, fragments[0]!!)
+            .commit()
+        binding.bnv.selectedItemId = R.id.bnv_list
     }
 
     override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
