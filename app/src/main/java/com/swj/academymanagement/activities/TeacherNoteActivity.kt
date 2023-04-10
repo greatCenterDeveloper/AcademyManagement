@@ -1,6 +1,5 @@
 package com.swj.academymanagement.activities
 
-import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
@@ -10,14 +9,11 @@ import android.view.WindowInsets
 import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
 import androidx.fragment.app.Fragment
-import com.google.gson.Gson
-import com.swj.academymanagement.G
 import com.swj.academymanagement.R
 import com.swj.academymanagement.databinding.ActivityTeacherNoteBinding
 import com.swj.academymanagement.fragments.TeacherNoteFragment
 import com.swj.academymanagement.fragments.TeacherNoteListFragment
 import com.swj.academymanagement.fragments.TeacherNoteWorkFragment
-import com.swj.academymanagement.model.Member
 
 class TeacherNoteActivity : AppCompatActivity() {
 

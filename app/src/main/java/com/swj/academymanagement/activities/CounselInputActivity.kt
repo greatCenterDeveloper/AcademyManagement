@@ -1,6 +1,5 @@
 package com.swj.academymanagement.activities
 
-import android.app.TimePickerDialog
 import android.content.DialogInterface
 import android.content.Intent
 import android.os.Build
@@ -11,14 +10,11 @@ import android.view.WindowInsets
 import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
 import android.widget.ArrayAdapter
-import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
-import com.google.gson.Gson
 import com.swj.academymanagement.G
 import com.swj.academymanagement.R
 import com.swj.academymanagement.databinding.ActivityCounselInputBinding
 import com.swj.academymanagement.model.CounselRequest
-import com.swj.academymanagement.model.Member
 import com.swj.academymanagement.network.RetrofitCounselStudentService
 import com.swj.academymanagement.network.RetrofitHelper
 import retrofit2.Call

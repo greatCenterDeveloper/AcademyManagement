@@ -10,7 +10,6 @@ import com.swj.academymanagement.G
 import com.swj.academymanagement.activities.ClassNoteActivity
 import com.swj.academymanagement.adapters.NoteAdapter
 import com.swj.academymanagement.databinding.FragmentClassNoteListBinding
-import com.swj.academymanagement.model.Member
 import com.swj.academymanagement.model.Note
 
 class ClassNoteListFragment : Fragment() {

@@ -15,7 +15,6 @@ import com.google.gson.Gson
 import com.swj.academymanagement.R
 import com.swj.academymanagement.databinding.ActivityCounselRequestUpdateBinding
 import com.swj.academymanagement.model.CounselRequest
-import com.swj.academymanagement.model.Member
 import com.swj.academymanagement.network.RetrofitCounselStudentService
 import com.swj.academymanagement.network.RetrofitHelper
 import retrofit2.Call

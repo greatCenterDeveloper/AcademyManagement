@@ -8,12 +8,10 @@ import android.view.View
 import android.view.WindowInsets
 import android.view.WindowManager
 import androidx.appcompat.app.AlertDialog
-import com.google.gson.Gson
 import com.swj.academymanagement.G
 import com.swj.academymanagement.adapters.CounselRequestAdapter
 import com.swj.academymanagement.databinding.ActivityCounselRequestBinding
 import com.swj.academymanagement.model.CounselRequest
-import com.swj.academymanagement.model.Member
 import com.swj.academymanagement.network.RetrofitCounselStudentService
 import com.swj.academymanagement.network.RetrofitHelper
 import retrofit2.Call

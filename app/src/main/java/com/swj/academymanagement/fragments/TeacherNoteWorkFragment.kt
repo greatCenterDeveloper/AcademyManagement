@@ -4,12 +4,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.swj.academymanagement.activities.TeacherNoteActivity
 import com.swj.academymanagement.databinding.FragmentTeacherNoteWorkBinding
-import com.swj.academymanagement.model.Member
-import com.swj.academymanagement.model.Note
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.TimeZone

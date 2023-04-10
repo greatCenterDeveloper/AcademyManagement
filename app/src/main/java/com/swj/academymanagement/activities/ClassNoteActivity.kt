@@ -9,13 +9,11 @@ import android.view.WindowInsets
 import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
 import androidx.fragment.app.Fragment
-import com.google.gson.Gson
 import com.swj.academymanagement.R
 import com.swj.academymanagement.databinding.ActivityClassNoteBinding
 import com.swj.academymanagement.fragments.ClassNoteFragment
 import com.swj.academymanagement.fragments.ClassNoteListFragment
 import com.swj.academymanagement.fragments.ClassNoteWorkFragment
-import com.swj.academymanagement.model.Member
 
 class ClassNoteActivity : AppCompatActivity() {
 

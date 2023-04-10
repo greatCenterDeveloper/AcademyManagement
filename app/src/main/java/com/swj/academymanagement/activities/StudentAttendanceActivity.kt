@@ -6,9 +6,7 @@ import android.os.Bundle
 import android.view.WindowInsets
 import android.view.WindowManager
 import android.widget.Toast
-import com.google.gson.Gson
 import com.swj.academymanagement.databinding.ActivityStudentAttendanceBinding
-import com.swj.academymanagement.model.Member
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.TimeZone

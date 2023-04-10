@@ -5,13 +5,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.database.getStringOrNull
 import androidx.fragment.app.Fragment
 import com.swj.academymanagement.G
 import com.swj.academymanagement.activities.TeacherNoteActivity
 import com.swj.academymanagement.adapters.NoteAdapter
 import com.swj.academymanagement.databinding.FragmentTeacherNoteListBinding
-import com.swj.academymanagement.model.Member
 import com.swj.academymanagement.model.Note
 
 class TeacherNoteListFragment : Fragment() {

@@ -7,14 +7,12 @@ import android.util.Log
 import android.view.WindowInsets
 import android.view.WindowManager
 import androidx.appcompat.app.AlertDialog
-import com.google.gson.Gson
 import com.swj.academymanagement.G
 import com.swj.academymanagement.adapters.CourseScheduleAdapter
 import com.swj.academymanagement.adapters.CourseScheduleStudentAdapter
 import com.swj.academymanagement.databinding.ActivityCourseScheduleBinding
 import com.swj.academymanagement.model.CourseSchedule
 import com.swj.academymanagement.model.CourseScheduleTeacher
-import com.swj.academymanagement.model.Member
 import com.swj.academymanagement.model.Week
 import com.swj.academymanagement.model.WeekDay
 import com.swj.academymanagement.network.RetrofitCourseScheduleService
