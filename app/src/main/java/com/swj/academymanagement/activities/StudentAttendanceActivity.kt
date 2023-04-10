@@ -34,8 +34,8 @@ class StudentAttendanceActivity : AppCompatActivity() {
 
         binding.ivBackspace.setOnClickListener { finish() }
 
-        val student = Gson().fromJson(intent.getStringExtra("student"), Member::class.java)
-        val studentId = student.id
+        //val student = Gson().fromJson(intent.getStringExtra("student"), Member::class.java)
+        //val studentId = student.id
 
         var sdf = SimpleDateFormat("yyyy-MM-dd")
         sdf.timeZone = TimeZone.getTimeZone("Asia/Seoul")

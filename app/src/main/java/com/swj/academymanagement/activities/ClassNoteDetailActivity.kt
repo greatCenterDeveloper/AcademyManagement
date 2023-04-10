@@ -36,7 +36,7 @@ class ClassNoteDetailActivity : AppCompatActivity() {
         binding.ivBackspace.setOnClickListener { finish() }
 
         val note = Gson().fromJson(intent.getStringExtra("note"), Note::class.java)
-        binding.tilContent.editText?.transitionName = "note"
+        binding.tilContent.editText?.transitionName = "studentNote"
 
         binding.tvKind.text = "${note.kind} 내용 작성"
         binding.tilTitle.editText?.setText(note.title)

@@ -21,7 +21,7 @@ class ClassNoteActivity : AppCompatActivity() {
 
     val binding:ActivityClassNoteBinding by lazy { ActivityClassNoteBinding.inflate(layoutInflater) }
     private val fragments = arrayOfNulls<Fragment>(3)
-    var student:Member? = null
+    //var student:Member? = null
     val db: SQLiteDatabase by lazy { openOrCreateDatabase("note.db", MODE_PRIVATE, null) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -39,7 +39,7 @@ class ClassNoteActivity : AppCompatActivity() {
 
         binding.ivBackspace.setOnClickListener { finish() }
 
-        student = Gson().fromJson(intent.getStringExtra("student"), Member::class.java)
+        //student = Gson().fromJson(intent.getStringExtra("student"), Member::class.java)
 
         db.execSQL("CREATE TABLE IF NOT EXISTS student_note(num INTEGER PRIMARY KEY AUTOINCREMENT," +
                 "kind VARCHAR(20) NOT NULL, " +

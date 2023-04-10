@@ -3,10 +3,8 @@ package com.swj.academymanagement.adapters
 import android.content.Context
 import android.content.Intent
 import android.database.sqlite.SQLiteDatabase
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.PopupMenu
 import androidx.core.app.ActivityOptionsCompat
@@ -14,7 +12,6 @@ import androidx.core.util.Pair
 import androidx.recyclerview.widget.RecyclerView.Adapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.google.gson.Gson
-import com.swj.academymanagement.G
 import com.swj.academymanagement.R
 import com.swj.academymanagement.activities.ClassNoteActivity
 import com.swj.academymanagement.activities.ClassNoteDetailActivity
@@ -41,10 +38,10 @@ class NoteAdapter(val context: Context, val db:SQLiteDatabase, val noteArr:Mutab
 
         holder.binding.root.setOnClickListener {
             val popMenu = PopupMenu(context, holder.binding.root)
-            popMenu.menuInflater.inflate(R.menu.note_menu, popMenu.menu)
+            popMenu.menuInflater.inflate(R.menu.menu_options, popMenu.menu)
             popMenu.show()
             popMenu.setOnMenuItemClickListener {
-                if(it.itemId == R.id.menu_note_update) {
+                if(it.itemId == R.id.menu_update) {
                     // 수정 화면으로 이동
                     if(note.authority == "teacher") {
                         val intent = Intent(context, TeacherNoteDetailActivity::class.java)
@@ -52,7 +49,7 @@ class NoteAdapter(val context: Context, val db:SQLiteDatabase, val noteArr:Mutab
                         intent.putExtra("position", position)
                         val options: ActivityOptionsCompat =
                             ActivityOptionsCompat.makeSceneTransitionAnimation(
-                                context as TeacherNoteActivity, Pair(holder.binding.tvContent, "note")
+                                context as TeacherNoteActivity, Pair(holder.binding.tvContent, "teacherNote")
                             )
                         context.startActivity(intent, options.toBundle())
                     } else if(note.authority == "student") {
@@ -61,11 +58,11 @@ class NoteAdapter(val context: Context, val db:SQLiteDatabase, val noteArr:Mutab
                         intent.putExtra("position", position)
                         val options: ActivityOptionsCompat =
                             ActivityOptionsCompat.makeSceneTransitionAnimation(
-                                context as ClassNoteActivity, Pair(holder.binding.tvContent, "note")
+                                context as ClassNoteActivity, Pair(holder.binding.tvContent, "studentNote")
                             )
                         context.startActivity(intent, options.toBundle())
                     }
-                }else if(it.itemId == R.id.menu_note_delete) {
+                }else if(it.itemId == R.id.menu_delete) {
                     AlertDialog.Builder(context)
                         .setMessage("삭제하시겠습니까?")
                         .setPositiveButton("OK") { dialogInterface, i ->

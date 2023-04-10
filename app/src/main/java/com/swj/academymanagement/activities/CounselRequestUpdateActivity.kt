@@ -1,6 +1,5 @@
 package com.swj.academymanagement.activities
 
-import android.app.TimePickerDialog
 import android.content.DialogInterface
 import android.content.Intent
 import android.os.Build
@@ -11,12 +10,10 @@ import android.view.WindowInsets
 import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
 import android.widget.ArrayAdapter
-import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import com.google.gson.Gson
-import com.swj.academymanagement.G
 import com.swj.academymanagement.R
-import com.swj.academymanagement.databinding.ActivityCounselInputBinding
+import com.swj.academymanagement.databinding.ActivityCounselRequestUpdateBinding
 import com.swj.academymanagement.model.CounselRequest
 import com.swj.academymanagement.model.Member
 import com.swj.academymanagement.network.RetrofitCounselStudentService
@@ -28,11 +25,12 @@ import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.TimeZone
 
-class CounselInputActivity : AppCompatActivity() {
+class CounselRequestUpdateActivity : AppCompatActivity() {
 
-    val binding:ActivityCounselInputBinding by lazy {
-        ActivityCounselInputBinding.inflate(layoutInflater)
+    val binding:ActivityCounselRequestUpdateBinding by lazy {
+        ActivityCounselRequestUpdateBinding.inflate(layoutInflater)
     }
+
     var startTime:String = ""
     var endTime:String = ""
 
@@ -49,16 +47,13 @@ class CounselInputActivity : AppCompatActivity() {
             )
         }
 
+        val counselRequest = Gson().fromJson(intent.getStringExtra("counselRequest"), CounselRequest::class.java)
+
         binding.ivBackspace.setOnClickListener { finish() }
 
-        //val student = Gson().fromJson(intent.getStringExtra("student"), Member::class.java)
-
-        val sdf = SimpleDateFormat("yyyy-MM-dd")
-        sdf.timeZone = TimeZone.getTimeZone("Asia/Seoul")
-        binding.tvCounselDate.text = sdf.format(Date())
 
         val timeList = resources.getStringArray(R.array.time_list)
-        val timeAdapter:ArrayAdapter<String> = ArrayAdapter(this, android.R.layout.simple_list_item_1, timeList)
+        val timeAdapter: ArrayAdapter<String> = ArrayAdapter(this, android.R.layout.simple_list_item_1, timeList)
         binding.acTvStartTime.setAdapter(timeAdapter)
         binding.acTvEndTime.setAdapter(timeAdapter)
 
@@ -71,32 +66,45 @@ class CounselInputActivity : AppCompatActivity() {
             endTime = timeList[i]
         }
 
+        binding.tilCounselContent.editText?.transitionName = "counselUpdate"
+
+        val sdf = SimpleDateFormat("yyyy-MM-dd")
+        sdf.timeZone = TimeZone.getTimeZone("Asia/Seoul")
+        binding.tvCounselDate.text = sdf.format(Date())
+
+        // 입력된 데이터 가져오기
+        //binding.acTvStartTime.
+        //binding.acTvEndTime.setText(counselRequest.endTime)
+        binding.tilCounselContent.editText?.setText(counselRequest.content)
+
+
         binding.btnCounselRequest.setOnClickListener {
             val date = binding.tvCounselDate.text.toString()
             val counselContent = binding.tilCounselContent.editText?.text.toString()
-            val counselRequest = CounselRequest(date, startTime, endTime, counselContent, G.member.id)
+            val counselRequestUpdate =
+                CounselRequest(date, startTime, endTime, counselContent, counselRequest.studentId, counselRequest.counselRequestCode)
 
             if(startTime == "" && endTime == "") {
-                AlertDialog.Builder(this@CounselInputActivity)
+                AlertDialog.Builder(this@CounselRequestUpdateActivity)
                     .setMessage("상담 시간을 선택하세요.")
                     .setPositiveButton("OK", null).show()
             } else {
                 RetrofitHelper.getRetrofitInstance().create(RetrofitCounselStudentService::class.java)
-                    .counselRequestInsert(counselRequest).enqueue(object :Callback<String> {
+                    .counselRequestUpdate(counselRequestUpdate).enqueue(object : Callback<String> {
                         override fun onResponse(call: Call<String>, response: Response<String>) {
                             val message = response.body()
-                            AlertDialog.Builder(this@CounselInputActivity)
+                            AlertDialog.Builder(this@CounselRequestUpdateActivity)
                                 .setMessage(message)
                                 .setPositiveButton("OK", DialogInterface.OnClickListener { _, _ ->
                                     if(message?.contains("완료") ?: false) {
-                                        startActivity(Intent(this@CounselInputActivity, CounselRequestActivity::class.java))
+                                        startActivity(Intent(this@CounselRequestUpdateActivity, CounselRequestActivity::class.java))
                                         finish()
                                     }
                                 }).show()
                         }
 
                         override fun onFailure(call: Call<String>, t: Throwable) {
-                            AlertDialog.Builder(this@CounselInputActivity)
+                            AlertDialog.Builder(this@CounselRequestUpdateActivity)
                                 .setMessage("error : ${t.message}")
                                 .setPositiveButton("OK", null).show()
                         }

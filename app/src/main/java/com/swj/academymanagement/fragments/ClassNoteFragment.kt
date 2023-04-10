@@ -29,7 +29,7 @@ class ClassNoteFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val student: Member = (activity as ClassNoteActivity).student!!
+        //val student: Member = (activity as ClassNoteActivity).student!!
         val cna = activity as ClassNoteActivity
 
         binding.btnSave.setOnClickListener {

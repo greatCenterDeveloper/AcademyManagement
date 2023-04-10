@@ -10,6 +10,7 @@ import android.view.WindowManager
 import androidx.appcompat.app.AlertDialog
 import com.bumptech.glide.Glide
 import com.google.gson.Gson
+import com.swj.academymanagement.G
 import com.swj.academymanagement.adapters.StudentManagementCounselAdapter
 import com.swj.academymanagement.adapters.StudentManagementCourseAdapter
 import com.swj.academymanagement.adapters.StudentManagementMessageAdapter
@@ -45,7 +46,7 @@ class StudentDetailActivity : AppCompatActivity() {
 
 
         val student:Member = Gson().fromJson(intent.getStringExtra("student"), Member::class.java)
-        val teacherId:String = intent.getStringExtra("teacherId") ?: ""
+        //val teacherId:String = intent.getStringExtra("teacherId") ?: ""
 
         if(!student.profile.equals(""))
             Glide.with(this).load(student.profile).into(binding.ivProfile)
@@ -55,7 +56,7 @@ class StudentDetailActivity : AppCompatActivity() {
         binding.tvCall.text = student.call_number
 
         RetrofitHelper.getRetrofitInstance().create(RetrofitStudentManagementService::class.java)
-            .studentCourseList(student.id, teacherId).enqueue(object : Callback<MutableList<StudentManagementCourse>> {
+            .studentCourseList(student.id, G.member.id).enqueue(object : Callback<MutableList<StudentManagementCourse>> {
                 override fun onResponse(
                     call: Call<MutableList<StudentManagementCourse>>,
                     response: Response<MutableList<StudentManagementCourse>>
@@ -87,7 +88,7 @@ class StudentDetailActivity : AppCompatActivity() {
 
 
         RetrofitHelper.getRetrofitInstance().create(RetrofitStudentManagementService::class.java)
-            .studentMessageList(student.id, teacherId).enqueue(object : Callback<MutableList<StudentManagementMessage>>{
+            .studentMessageList(student.id, G.member.id).enqueue(object : Callback<MutableList<StudentManagementMessage>>{
                 override fun onResponse(
                     call: Call<MutableList<StudentManagementMessage>>,
                     response: Response<MutableList<StudentManagementMessage>>

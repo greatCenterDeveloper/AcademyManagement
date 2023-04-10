@@ -11,6 +11,7 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import com.google.gson.Gson
+import com.swj.academymanagement.G
 import com.swj.academymanagement.R
 import com.swj.academymanagement.databinding.ActivityAcademyLoginBinding
 import com.swj.academymanagement.databinding.DialogFindIdBinding
@@ -95,15 +96,19 @@ class AcademyLoginActivity : AppCompatActivity() {
                             .setPositiveButton("OK", null).show()*/
                         when(result?.authority) {
                             "teacher" -> {
-                                val intent = Intent(this@AcademyLoginActivity, MainActivity::class.java)
-                                intent.putExtra("teacher", Gson().toJson(result))
-                                startActivity(intent)
+                                //val intent = Intent(this@AcademyLoginActivity, MainActivity::class.java)
+                                //intent.putExtra("teacher", Gson().toJson(result))
+                                G.member = result
+                                G.member.courseArr.add(0, "선택안함")
+                                startActivity(Intent(this@AcademyLoginActivity, MainActivity::class.java))
                                 finish()
                             }
                             "student" -> {
-                                val intent = Intent(this@AcademyLoginActivity, StudentActivity::class.java)
-                                intent.putExtra("student", Gson().toJson(result))
-                                startActivity(intent)
+                                //val intent = Intent(this@AcademyLoginActivity, StudentActivity::class.java)
+                                //intent.putExtra("student", Gson().toJson(result))
+                                G.member = result
+                                G.member.courseArr.add(0, "선택안함")
+                                startActivity(Intent(this@AcademyLoginActivity, StudentActivity::class.java))
                                 finish()
                             }
                             else -> {

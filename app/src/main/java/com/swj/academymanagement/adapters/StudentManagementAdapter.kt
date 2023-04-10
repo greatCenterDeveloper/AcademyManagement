@@ -61,7 +61,7 @@ class StudentManagementAdapter(val context:Context, val studentArr:List<Member>,
         holder.binding.root.setOnClickListener {
             val intent:Intent = Intent(context, StudentDetailActivity::class.java)
             intent.putExtra("student", Gson().toJson(student))
-            intent.putExtra("teacherId", teacherId)
+            //intent.putExtra("teacherId", teacherId)
             context.startActivity(intent)
         }
     }

@@ -60,13 +60,13 @@ class SmsSendActivity : AppCompatActivity() {
         binding.dotsIndicator.attachTo(binding.pager)
         binding.btnSelectImage.setOnClickListener { selectImage() }
 
-        val teacher = Gson().fromJson(intent.getStringExtra("teacher"), Member::class.java)
+        //val teacher = Gson().fromJson(intent.getStringExtra("teacher"), Member::class.java)
 
         var str:MutableList<Member> = mutableListOf()
         var nameList:MutableList<String> = mutableListOf()
 
         RetrofitHelper.getRetrofitInstance().create(RetrofitStudentManagementService::class.java)
-            .studentList(teacher.id).enqueue(object : Callback<MutableList<Member>> {
+            .studentList(G.member.id).enqueue(object : Callback<MutableList<Member>> {
                 override fun onResponse(
                     call: Call<MutableList<Member>>,
                     response: Response<MutableList<Member>>
@@ -74,7 +74,6 @@ class SmsSendActivity : AppCompatActivity() {
                     val studentArr = response.body()
                     if(studentArr != null) {
                         str = studentArr
-
                         for(i in 0 until str.size) {
                             nameList.add(str[i].name)
                         }
@@ -113,7 +112,7 @@ class SmsSendActivity : AppCompatActivity() {
                 imgRef.putFile(images[i]).addOnSuccessListener {
                     imgRef.downloadUrl.addOnSuccessListener {
                         RetrofitHelper.getRetrofitInstance().create(RetrofitSendMessageService::class.java)
-                            .sendMessage(str[choiceStudentIndex].id, teacher.id, message, it.toString(), (i+1), images.size)
+                            .sendMessage(str[choiceStudentIndex].id, G.member.id, message, it.toString(), (i+1), images.size)
                             .enqueue(object :Callback<String> {
                                 override fun onResponse(call: Call<String>, response: Response<String>) {
                                     val message = response.body()

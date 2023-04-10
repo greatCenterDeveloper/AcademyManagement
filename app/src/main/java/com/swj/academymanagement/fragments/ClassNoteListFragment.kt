@@ -29,7 +29,7 @@ class ClassNoteListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val student: Member = (activity as ClassNoteActivity).student!!
+        //val student: Member = (activity as ClassNoteActivity).student!!
 
         /*val noteArr:MutableList<Note> = mutableListOf()
         noteArr.add(Note("할일", "검색", "2023/03/24", "구글 국어 검색", student.authority))
@@ -53,7 +53,7 @@ class ClassNoteListFragment : Fragment() {
                 val title = cursor.getString(2)
                 val content = cursor.getString(3)
                 val registration = cursor.getString(4)
-                val authority = cna.student?.authority ?: "teacher"
+                val authority = G.member.authority
                 noteArr.add(Note(num, kind, title, registration, content, authority))
                 cursor.moveToNext()
             }

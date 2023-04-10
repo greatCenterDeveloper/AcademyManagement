@@ -17,6 +17,7 @@ import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AlertDialog
 import com.bumptech.glide.Glide
 import com.google.gson.Gson
+import com.swj.academymanagement.G
 import com.swj.academymanagement.R
 import com.swj.academymanagement.databinding.ActivityStudentBinding
 import com.swj.academymanagement.databinding.DialogMyInfoUpdateBinding
@@ -110,46 +111,51 @@ class StudentActivity : AppCompatActivity() {
             imagePickResultLauncher.launch(intent)
         }
 
-        val student = Gson().fromJson(intent.getStringExtra("student"), Member::class.java)
-        student.courseArr.add(0, "선택안함")
-        binding.tvStudentName.text = "${student.name} 학생 오늘도 열심히 공부!"
+        //val student = Gson().fromJson(intent.getStringExtra("student"), Member::class.java)
+        //G.member.courseArr.add(0, "선택안함")
+        binding.tvStudentName.text = "${G.member.name} 학생 오늘도 열심히 공부!"
 
         // 출결 인증
         binding.btnAttendanceConfirm.setOnClickListener {
-            val intent = Intent(this, StudentAttendanceActivity::class.java)
-            intent.putExtra("student", Gson().toJson(student))
-            startActivity(intent)
+            //val intent = Intent(this, StudentAttendanceActivity::class.java)
+            //intent.putExtra("student", Gson().toJson(G.student))
+            //startActivity(intent)
+            startActivity(Intent(this, StudentAttendanceActivity::class.java))
         }
 
         // 수업 목록
         binding.btnClassDayList.setOnClickListener {
-            val intent = Intent(this, CourseScheduleActivity::class.java)
+            //val intent = Intent(this, CourseScheduleActivity::class.java)
             // 권한이 선생이면 모든 강좌 시간표 보기
             // 권한이 학생이면 수강 중인 강좌의 시간표 보기
             // 권한(선생, 학생)을 보고 권한에 맞는 수업 목록 상세 화면 이동
-            intent.putExtra("student", Gson().toJson(student))
-            startActivity(intent)
+            //intent.putExtra("student", Gson().toJson(G.student))
+            //startActivity(intent)
+            startActivity(Intent(this, CourseScheduleActivity::class.java))
         }
 
         // 상담 신청
         binding.btnCounselRequest.setOnClickListener {
-            val intent = Intent(this, CounselRequestActivity::class.java)
-            intent.putExtra("student", Gson().toJson(student))
-            startActivity(intent)
+            //val intent = Intent(this, CounselRequestActivity::class.java)
+            //intent.putExtra("student", Gson().toJson(student))
+            //startActivity(intent)
+            startActivity(Intent(this, CounselRequestActivity::class.java))
         }
 
         // 수업 노트
         binding.btnClassNote.setOnClickListener {
-            val intent = Intent(this, ClassNoteActivity::class.java)
-            intent.putExtra("student", Gson().toJson(student))
-            startActivity(intent)
+            //val intent = Intent(this, ClassNoteActivity::class.java)
+            //intent.putExtra("student", Gson().toJson(G.student))
+            //startActivity(intent)
+            startActivity(Intent(this, ClassNoteActivity::class.java))
         }
 
         // 교재 검색
         binding.btnTeachingBook.setOnClickListener {
-            val intent = Intent(this, TeachingBookActivity::class.java)
-            intent.putExtra("student", Gson().toJson(student))
-            startActivity(intent)
+            //val intent = Intent(this, TeachingBookActivity::class.java)
+            //intent.putExtra("student", Gson().toJson(G.student))
+            //startActivity(intent)
+            startActivity(Intent(this, TeachingBookActivity::class.java))
         }
     }
 
@@ -178,6 +184,8 @@ class StudentActivity : AppCompatActivity() {
             AlertDialog.Builder(this)
                 .setMessage("로그아웃 하시겠습니까?")
                 .setPositiveButton("OK", DialogInterface.OnClickListener { dialogInterface, i ->
+                    G.member = Member("","","","","", call_number = "")
+
                     val intent = Intent(this, LoginActivity::class.java)
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)

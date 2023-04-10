@@ -9,6 +9,7 @@ import android.view.WindowInsets
 import android.view.WindowManager
 import androidx.appcompat.app.AlertDialog
 import com.google.gson.Gson
+import com.swj.academymanagement.G
 import com.swj.academymanagement.adapters.CounselRequestAdapter
 import com.swj.academymanagement.databinding.ActivityCounselRequestBinding
 import com.swj.academymanagement.model.CounselRequest
@@ -24,6 +25,7 @@ class CounselRequestActivity : AppCompatActivity() {
     val binding:ActivityCounselRequestBinding by lazy {
         ActivityCounselRequestBinding.inflate(layoutInflater)
     }
+    //lateinit var student:Member
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,12 +40,17 @@ class CounselRequestActivity : AppCompatActivity() {
             )
         }
 
+        //student = Gson().fromJson(intent.getStringExtra("student"), Member::class.java)
+
         binding.ivBackspace.setOnClickListener { finish() }
         binding.fab.setOnClickListener {
+            //val intent = Intent(this, CounselInputActivity::class.java)
+            //intent.putExtra("student", Gson().toJson(G.member))
+            //startActivity(intent)
             startActivity(Intent(this, CounselInputActivity::class.java))
         }
 
-        val student = Gson().fromJson(intent.getStringExtra("student"), Member::class.java)
+
 
         /*val counselRequestArr:MutableList<CounselRequest> = mutableListOf()
         counselRequestArr.add(CounselRequest(
@@ -62,8 +69,17 @@ class CounselRequestActivity : AppCompatActivity() {
         }
         else binding.recycler.adapter = CounselRequestAdapter(this, counselRequestArr)*/
 
+        retrofitCounselRequestList()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        retrofitCounselRequestList()
+    }
+
+    private fun retrofitCounselRequestList() {
         RetrofitHelper.getRetrofitInstance().create(RetrofitCounselStudentService::class.java)
-            .counselRequestList(student.id).enqueue(object :Callback<MutableList<CounselRequest>> {
+            .counselRequestList(G.member.id).enqueue(object :Callback<MutableList<CounselRequest>> {
                 override fun onResponse(
                     call: Call<MutableList<CounselRequest>>,
                     response: Response<MutableList<CounselRequest>>

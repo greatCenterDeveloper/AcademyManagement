@@ -14,6 +14,7 @@ import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import com.google.gson.Gson
+import com.swj.academymanagement.G
 import com.swj.academymanagement.adapters.StudentManagementAdapter
 import com.swj.academymanagement.databinding.ActivityStudentManagementBinding
 import com.swj.academymanagement.model.Member
@@ -25,7 +26,7 @@ import retrofit2.Response
 
 class StudentManagementActivity : AppCompatActivity() {
     val binding:ActivityStudentManagementBinding by lazy { ActivityStudentManagementBinding.inflate(layoutInflater) }
-    val studentArr:MutableList<Member>? = null
+    //val studentArr:MutableList<Member>? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
@@ -41,15 +42,15 @@ class StudentManagementActivity : AppCompatActivity() {
 
         binding.ivBackspace.setOnClickListener { finish() }
 
-        val teacher = Gson().fromJson(intent.getStringExtra("teacher"), Member::class.java)
+        //val teacher = Gson().fromJson(intent.getStringExtra("teacher"), Member::class.java)
 
-        val courseAdapter:ArrayAdapter<String> = ArrayAdapter(this, android.R.layout.simple_list_item_1, teacher.courseArr)
+        val courseAdapter:ArrayAdapter<String> = ArrayAdapter(this, android.R.layout.simple_list_item_1, G.member.courseArr)
         binding.acTvCourse.setAdapter(courseAdapter)
 
         binding.btnSearch.setOnClickListener {
             val name = binding.tilName.editText?.text.toString()
             RetrofitHelper.getRetrofitInstance().create(RetrofitStudentManagementService::class.java)
-                .studentNameSearch(teacher.id, name).enqueue(object : Callback<MutableList<Member>> {
+                .studentNameSearch(G.member.id, name).enqueue(object : Callback<MutableList<Member>> {
                     override fun onResponse(
                         call: Call<MutableList<Member>>,
                         response: Response<MutableList<Member>>
@@ -57,7 +58,7 @@ class StudentManagementActivity : AppCompatActivity() {
                         val studentArr = response.body()
                         if(studentArr != null)
                             binding.recycler.adapter =
-                                StudentManagementAdapter(this@StudentManagementActivity, studentArr, teacher.id)
+                                StudentManagementAdapter(this@StudentManagementActivity, studentArr, G.member.id)
                     }
 
                     override fun onFailure(call: Call<MutableList<Member>>, t: Throwable) {
@@ -72,7 +73,7 @@ class StudentManagementActivity : AppCompatActivity() {
 
         binding.acTvCourse.setOnItemClickListener { _, _, i, _ ->
             RetrofitHelper.getRetrofitInstance().create(RetrofitStudentManagementService::class.java)
-                .studentCourseSearch(teacher.id, teacher.courseArr[i]).enqueue(object :Callback<MutableList<Member>> {
+                .studentCourseSearch(G.member.id, G.member.courseArr[i]).enqueue(object :Callback<MutableList<Member>> {
                     override fun onResponse(
                         call: Call<MutableList<Member>>,
                         response: Response<MutableList<Member>>
@@ -80,7 +81,7 @@ class StudentManagementActivity : AppCompatActivity() {
                         val studentArr = response.body()
                         if(studentArr != null)
                             binding.recycler.adapter =
-                                StudentManagementAdapter(this@StudentManagementActivity, studentArr, teacher.id)
+                                StudentManagementAdapter(this@StudentManagementActivity, studentArr, G.member.id)
                     }
 
                     override fun onFailure(call: Call<MutableList<Member>>, t: Throwable) {
@@ -109,7 +110,7 @@ class StudentManagementActivity : AppCompatActivity() {
 
         binding.recycler.adapter = StudentManagementAdapter(this, studentArr)*/
         RetrofitHelper.getRetrofitInstance().create(RetrofitStudentManagementService::class.java)
-            .studentList(teacher.id).enqueue(object : Callback<MutableList<Member>> {
+            .studentList(G.member.id).enqueue(object : Callback<MutableList<Member>> {
                 override fun onResponse(
                     call: Call<MutableList<Member>>,
                     response: Response<MutableList<Member>>
@@ -117,7 +118,7 @@ class StudentManagementActivity : AppCompatActivity() {
                     val studentArr = response.body()
                     if(studentArr != null)
                         binding.recycler.adapter =
-                            StudentManagementAdapter(this@StudentManagementActivity, studentArr, teacher.id)
+                            StudentManagementAdapter(this@StudentManagementActivity, studentArr, G.member.id)
                 }
 
                 override fun onFailure(call: Call<MutableList<Member>>, t: Throwable) {

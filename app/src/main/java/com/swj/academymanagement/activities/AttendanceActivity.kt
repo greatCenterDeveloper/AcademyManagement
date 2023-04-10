@@ -11,6 +11,7 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import com.google.gson.Gson
+import com.swj.academymanagement.G
 import com.swj.academymanagement.adapters.AttendanceAdapter
 import com.swj.academymanagement.databinding.ActivityAttendanceBinding
 import com.swj.academymanagement.model.Member
@@ -38,7 +39,7 @@ class AttendanceActivity : AppCompatActivity() {
             )
         }
 
-        val teacher = Gson().fromJson(intent.getStringExtra("teacher"), Member::class.java)
+        //val teacher = Gson().fromJson(intent.getStringExtra("teacher"), Member::class.java)
 
         binding.ivBackspace.setOnClickListener { finish() }
 
@@ -52,7 +53,7 @@ class AttendanceActivity : AppCompatActivity() {
                 binding.tietStartDate.setText(date)
 
                 RetrofitHelper.getRetrofitInstance().create(RetrofitStudentManagementService::class.java)
-                    .studentAttendanceStartDateList(teacher.id, binding.tietStartDate.text.toString())
+                    .studentAttendanceStartDateList(G.member.id, binding.tietStartDate.text.toString())
                     .enqueue(object :Callback<MutableList<StudentAttendance>> {
                         override fun onResponse(
                             call: Call<MutableList<StudentAttendance>>,
@@ -86,7 +87,7 @@ class AttendanceActivity : AppCompatActivity() {
 
                 RetrofitHelper.getRetrofitInstance().create(RetrofitStudentManagementService::class.java)
                     .studentAttendanceEndDateList(
-                            teacher.id,
+                            G.member.id,
                             binding.tietStartDate.text.toString(),
                             binding.tietEndDate.text.toString())
                     .enqueue(object :Callback<MutableList<StudentAttendance>> {
@@ -114,7 +115,7 @@ class AttendanceActivity : AppCompatActivity() {
         binding.btnSearch.setOnClickListener {
             val name = binding.tilName.editText?.text.toString()
             RetrofitHelper.getRetrofitInstance().create(RetrofitStudentManagementService::class.java)
-                .studentAttendanceNameSearch(teacher.id, name)
+                .studentAttendanceNameSearch(G.member.id, name)
                 .enqueue(object :Callback<MutableList<StudentAttendance>> {
                     override fun onResponse(
                         call: Call<MutableList<StudentAttendance>>,
@@ -138,7 +139,7 @@ class AttendanceActivity : AppCompatActivity() {
 
 
         RetrofitHelper.getRetrofitInstance().create(RetrofitStudentManagementService::class.java)
-            .studentAttendanceList(teacher.id).enqueue(object : Callback<MutableList<StudentAttendance>>{
+            .studentAttendanceList(G.member.id).enqueue(object : Callback<MutableList<StudentAttendance>>{
                 override fun onResponse(
                     call: Call<MutableList<StudentAttendance>>,
                     response: Response<MutableList<StudentAttendance>>
