@@ -112,32 +112,26 @@ class SmsSendActivity : AppCompatActivity() {
                 val imgRef:StorageReference = storage.getReference("profileImage/${name}${i+1}")
                 imgRef.putFile(images[i]).addOnSuccessListener {
                     imgRef.downloadUrl.addOnSuccessListener {
-                        G.imageStringUri.add(it.toString())
+                        RetrofitHelper.getRetrofitInstance().create(RetrofitSendMessageService::class.java)
+                            .sendMessage(str[choiceStudentIndex].id, teacher.id, message, it.toString(), (i+1), images.size)
+                            .enqueue(object :Callback<String> {
+                                override fun onResponse(call: Call<String>, response: Response<String>) {
+                                    val message = response.body()
+                                    if(!message.isNullOrEmpty())
+                                        AlertDialog.Builder(this@SmsSendActivity)
+                                            .setMessage("$message")
+                                            .setPositiveButton("OK", null).show()
+                                }
+
+                                override fun onFailure(call: Call<String>, t: Throwable) {
+                                    AlertDialog.Builder(this@SmsSendActivity)
+                                        .setMessage("error : ${t.message}")
+                                        .setPositiveButton("OK", null).show()
+                                }
+                            })
                     }
                 }
             }
-
-            AlertDialog.Builder(this@SmsSendActivity)
-                .setMessage("${G.imageStringUri.size}")
-                .setPositiveButton("OK", null).show()
-
-            RetrofitHelper.getRetrofitInstance().create(RetrofitSendMessageService::class.java)
-                .sendMessage(str[choiceStudentIndex].id, teacher.id, message, G.imageStringUri)
-                .enqueue(object :Callback<String> {
-                    override fun onResponse(call: Call<String>, response: Response<String>) {
-                        val message = response.body()
-                        AlertDialog.Builder(this@SmsSendActivity)
-                            .setMessage("$message")
-                            .setPositiveButton("OK", null).show()
-                        G.imageStringUri.clear()
-                    }
-
-                    override fun onFailure(call: Call<String>, t: Throwable) {
-                        AlertDialog.Builder(this@SmsSendActivity)
-                            .setMessage("error : ${t.message}")
-                            .setPositiveButton("OK", null).show()
-                    }
-                })
         }
     }
 

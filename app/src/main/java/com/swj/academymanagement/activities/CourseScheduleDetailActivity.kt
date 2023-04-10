@@ -54,8 +54,8 @@ class CourseScheduleDetailActivity : AppCompatActivity() {
             }
         }
 
-        if(cst.students.size > 0)
-            binding.recycler.adapter = CourseScheduleStudentListAdapter(this, cst.students)
+        if(cst.studentArr.size > 0)
+            binding.recycler.adapter = CourseScheduleStudentListAdapter(this, cst.studentArr)
         else {
             binding.recycler.visibility = View.GONE
             binding.btnSave.visibility = View.GONE

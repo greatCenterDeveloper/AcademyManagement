@@ -61,8 +61,6 @@ class TeacherNoteListFragment : Fragment() {
 
             noteArr.reverse()
             binding.recycler.adapter = NoteAdapter(tna, tna.db, noteArr)
-
-            if(G.noteRemove) binding.recycler.adapter?.notifyItemRemoved(G.position)
         }
     }
 }

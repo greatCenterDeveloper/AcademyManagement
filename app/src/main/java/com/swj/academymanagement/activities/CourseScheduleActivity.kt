@@ -97,7 +97,8 @@ class CourseScheduleActivity : AppCompatActivity() {
                         response: Response<MutableList<CourseScheduleTeacher>>
                     ) {
                         val courseScheduleArr = response.body()
-                        Log.i("studentssssssss", "studentsSize : ${courseScheduleArr?.get(0)?.students?.size}")
+                        Log.i("studentssssssss", "studentsSize : ${courseScheduleArr?.size}")
+                        Log.i("studentssssssss", "studentsSize : ${courseScheduleArr?.get(0)?.studentArr?.size}")
 
                         /*val courseScheduleArr:MutableList<CourseScheduleTeacher> = mutableListOf()
                         val jsonArray:JSONArray = JSONArray(courseScheduleJsonArr)

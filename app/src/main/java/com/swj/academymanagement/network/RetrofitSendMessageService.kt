@@ -13,5 +13,7 @@ interface RetrofitSendMessageService {
     fun sendMessage(@Field("studentId") studentId:String,
                     @Field("teacherId") teacherId:String,
                     @Field("message") message:String,
-                    @Field("imageArr") imageArr:MutableList<String>):Call<String>
+                    @Field("image") image:String,
+                    @Field("index") index:Int,
+                    @Field("size") size:Int):Call<String>
 }

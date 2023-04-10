@@ -3,6 +3,7 @@ package com.swj.academymanagement.adapters
 import android.content.Context
 import android.content.Intent
 import android.database.sqlite.SQLiteDatabase
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Toast
@@ -37,8 +38,6 @@ class NoteAdapter(val context: Context, val db:SQLiteDatabase, val noteArr:Mutab
         holder.binding.tvTitle.text = note.title
         holder.binding.tvDate.text = note.date
         holder.binding.tvContent.text = note.content
-
-        G.noteRemove = false
 
         holder.binding.root.setOnClickListener {
             val popMenu = PopupMenu(context, holder.binding.root)
@@ -79,8 +78,7 @@ class NoteAdapter(val context: Context, val db:SQLiteDatabase, val noteArr:Mutab
                                 db.execSQL("DELETE FROM student_note WHERE num=?", arrayOf(note.num))
 
                             noteArr.remove(note)
-                            G.noteRemove = true
-                            G.position = position
+                            this.notifyItemRemoved(position)
                         }
                         .setNegativeButton("NO", null)
                         .show()

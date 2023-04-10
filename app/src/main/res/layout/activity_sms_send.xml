@@ -65,11 +65,11 @@
                 android:layout_below="@id/toolbar">
 
                 <com.google.android.material.textfield.TextInputLayout
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
                     android:hint="학생명"
-                    android:layout_weight="13"
+                    android:layout_weight="14"
                     android:background="@drawable/bg_color">
 
                     <!--inputType : none → 키보드 입력창이 안 올라온다.-->
@@ -86,10 +86,10 @@
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/tv_call_number"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="6"
-                    android:text="010-1234-5678"
+                    android:layout_weight="16"
+                    android:text="학생을 선택하세요!"
                     android:textStyle="bold"
                     android:textColor="@color/black"
                     android:textSize="16sp"
@@ -97,6 +97,7 @@
                     android:gravity="center"
                     style="@style/Widget.Material3.AutoCompleteTextView.OutlinedBox"
                     android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
                     android:background="@drawable/bg_color"/>
             </LinearLayout>
         </androidx.appcompat.widget.Toolbar>
@@ -137,13 +138,13 @@
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="7">
+            android:layout_weight="1">
 
             <androidx.viewpager2.widget.ViewPager2
                 android:id="@+id/pager"
                 android:layout_width="match_parent"
-                android:layout_height="120dp"
-                android:background="#dddddd"/>
+                android:layout_height="130dp"
+                android:background="#aadddddd"/>
 
             <com.tbuonomo.viewpagerdotsindicator.WormDotsIndicator
                 android:id="@+id/dots_indicator"
@@ -158,7 +159,7 @@
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_select_image"
-            android:layout_width="110dp"
+            android:layout_width="160dp"
             android:layout_height="wrap_content"
             android:text="사진 선택"
             android:textStyle="bold"
