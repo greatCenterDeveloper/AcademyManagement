@@ -39,8 +39,7 @@ class CounselRequestFragment : Fragment() {
         RetrofitHelper.getRetrofitInstance().create(RetrofitCounselService::class.java)
             .counselRequestStudentList(
                 G.member.id     // 선생님 아이디
-            )
-            .enqueue(object :Callback<MutableList<CounselRequestTeacher>> {
+            ).enqueue(object :Callback<MutableList<CounselRequestTeacher>> {
                 override fun onResponse(
                     call: Call<MutableList<CounselRequestTeacher>>,
                     response: Response<MutableList<CounselRequestTeacher>>
