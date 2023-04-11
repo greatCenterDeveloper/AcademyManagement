@@ -49,6 +49,9 @@ class CounselDetailActivity : AppCompatActivity() {
         // 학생이 신청한 상담 신청 내용
         binding.tilCounselRequestContent.editText!!.setText(crt.counselContent)
 
+        // 상담 내용 입력에 포커스 주기
+        binding.tilCounselContent.editText?.requestFocus()
+
         // 작성한 상담 내용 저장 버튼
         binding.ivSave.setOnClickListener {
             // 상담 내용

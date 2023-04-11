@@ -84,9 +84,11 @@ class CounselRequestActivity : AppCompatActivity() {
                 }
 
                 override fun onFailure(call: Call<MutableList<CounselRequest>>, t: Throwable) {
-                    AlertDialog.Builder(this@CounselRequestActivity)
-                        .setMessage("error : ${t.message}")
-                        .setPositiveButton("OK", null).show()
+                    if(!(this@CounselRequestActivity).isFinishing) {
+                        AlertDialog.Builder(this@CounselRequestActivity)
+                            .setMessage("error : ${t.message}")
+                            .setPositiveButton("OK", null).show()
+                    }
                 }
             })
     }

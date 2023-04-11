@@ -69,7 +69,7 @@ class CounselRequestAdapter(val context: Context, val counselRequestArr:MutableL
                         )
                     context.startActivity(intent, options.toBundle())
                 } else if(it.itemId == R.id.menu_delete) {  // 상담 신청 삭제
-                    G.counselRequestDeletePosition = position
+                    G.counselRequestDeletePosition = holder.adapterPosition
 
                     AlertDialog.Builder(context)
                         .setMessage("삭제하시겠습니까?")
