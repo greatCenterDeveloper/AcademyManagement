@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.swj.academymanagement.databinding.RecyclerItemStudentManagementMessageBinding
 import com.swj.academymanagement.model.StudentManagementMessage
 
+// 선생님 권한 학생 상세 페이지에서 학생에게 보낸 문자 메세지 RecyclerView 어댑터
 class StudentManagementMessageAdapter(val context:Context, val messageArr:MutableList<StudentManagementMessage>)
     :Adapter<StudentManagementMessageAdapter.VH>() {
 
@@ -20,9 +21,10 @@ class StudentManagementMessageAdapter(val context:Context, val messageArr:Mutabl
 
     override fun onBindViewHolder(holder: VH, position: Int) {
         val message = messageArr[position]
+        // 문자 보낸 날짜
         holder.binding.tvDate.text = message.date
+
+        // 문자 메세지 내용
         holder.binding.tvMessage.text = message.message
     }
-
-
 }

@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.swj.academymanagement.databinding.RecyclerItemCounselCurrentBinding
 import com.swj.academymanagement.model.CounselCurrent
 
+// 선생님 권한 상담 현황 RecyclerView 어댑터
 class CounselCurrentAdapter(val context: Context, val counselCurrentArr:MutableList<CounselCurrent>)
     :Adapter<CounselCurrentAdapter.VH>(){
     inner class VH(val binding:RecyclerItemCounselCurrentBinding):ViewHolder(binding.root)
@@ -19,9 +20,17 @@ class CounselCurrentAdapter(val context: Context, val counselCurrentArr:MutableL
 
     override fun onBindViewHolder(holder: VH, position: Int) {
         val cca = counselCurrentArr[position]
-        holder.binding.tvTeacher.text = cca.teacher
+
+        // 상담 선생님 이름
+        holder.binding.tvTeacher.text = cca.teacherName
+
+        // 상담 일자
         holder.binding.tvDate.text = cca.date
-        holder.binding.tvStudent.text = cca.student
+
+        // 상담 학생 이름
+        holder.binding.tvStudent.text = cca.studentName
+
+        // 상담 내용
         holder.binding.tvCounselContent.text = cca.counselContent
     }
 }

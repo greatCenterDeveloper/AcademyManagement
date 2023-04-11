@@ -24,17 +24,25 @@ import com.swj.academymanagement.databinding.DialogPasswordUpdateBinding
 import com.swj.academymanagement.model.Member
 import de.hdodenhof.circleimageview.CircleImageView
 
+// 학생 권한 로그인 시 보여줄 초기 화면
 class StudentActivity : AppCompatActivity() {
 
     val binding:ActivityStudentBinding by lazy { ActivityStudentBinding.inflate(layoutInflater) }
+
+    // 내 정보 수정 좌측 드로우어 메뉴 토글
     lateinit var drawerToggle:ActionBarDrawerToggle
+
+    // 내 정보 수정 좌측 드로우어 메뉴에서 프로필 이미지 변경 시 가져올 이미지 주소
     var profile:String = ""
+
+    // 내 정보 수정 좌측 드로우어 메뉴의 프로필 이미지
     lateinit var civ:CircleImageView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
+        // 화면 전체 다 먹기
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             window.insetsController?.hide(WindowInsets.Type.statusBars())
         } else {
@@ -46,6 +54,7 @@ class StudentActivity : AppCompatActivity() {
         setSupportActionBar(binding.toolbar)
         supportActionBar?.setDisplayShowTitleEnabled(false)
 
+        // 내 정보 수정 좌측 드로우어 메뉴
         drawerToggle = ActionBarDrawerToggle(this,
             binding.drawerLayout, binding.toolbar, R.string.open, R.string.close)
 
@@ -53,8 +62,9 @@ class StudentActivity : AppCompatActivity() {
         drawerToggle.syncState()
         binding.drawerLayout.addDrawerListener(drawerToggle)
 
+        // 내 정보 수정 좌측 드로우어 메뉴에서 아이템 선택 시..
         binding.nav.setNavigationItemSelectedListener {
-            if(it.itemId == R.id.menu_my_info_update) {
+            if(it.itemId == R.id.menu_my_info_update) { // NavigationView 메뉴 내 정보 수정
                 val dialogBinding = DialogMyInfoUpdateBinding.inflate(layoutInflater)
                 val dialog: AlertDialog = AlertDialog.Builder(this)
                     .setView(dialogBinding.root)
@@ -63,6 +73,7 @@ class StudentActivity : AppCompatActivity() {
                 dialogBinding.ivClose.setOnClickListener { dialog.dismiss() }
                 dialog.show()
 
+                // 내 정보 수정 버튼
                 dialogBinding.btnUpdate.setOnClickListener {
                     val name = dialogBinding.tilName.editText?.text.toString()
                     val call1 = dialogBinding.tilCall1.editText?.text.toString()
@@ -78,7 +89,7 @@ class StudentActivity : AppCompatActivity() {
                         dialog.dismiss()
                     }
                 }
-            } else if(it.itemId == R.id.menu_password_update) {
+            } else if(it.itemId == R.id.menu_password_update) { // NavigationView 메뉴 비밀번호 수정
                 val dialogBinding = DialogPasswordUpdateBinding.inflate(layoutInflater)
                 val dialog: AlertDialog = AlertDialog.Builder(this)
                     .setView(dialogBinding.root)
@@ -87,6 +98,7 @@ class StudentActivity : AppCompatActivity() {
                 dialogBinding.ivClose.setOnClickListener { dialog.dismiss() }
                 dialog.show()
 
+                // 비밀번호 수정 버튼
                 dialogBinding.btnUpdate.setOnClickListener {
                     val prevPassword = dialogBinding.tilPrevPassword.editText?.text.toString()
                     val password = dialogBinding.tilPassword.editText?.text.toString()
@@ -103,6 +115,7 @@ class StudentActivity : AppCompatActivity() {
             false
         }
 
+        // 프로필 이미지 변경
         val headerView = binding.nav.getHeaderView(0)
         civ = headerView.findViewById(R.id.civ_profile)
         civ.setOnClickListener {
@@ -110,54 +123,38 @@ class StudentActivity : AppCompatActivity() {
             imagePickResultLauncher.launch(intent)
         }
 
-        //val student = Gson().fromJson(intent.getStringExtra("student"), Member::class.java)
-        //G.member.courseArr.add(0, "선택안함")
         binding.tvStudentName.text = "${G.member.name} 학생 오늘도 열심히 공부!"
 
         // 출결 인증
         binding.btnAttendanceConfirm.setOnClickListener {
-            //val intent = Intent(this, StudentAttendanceActivity::class.java)
-            //intent.putExtra("student", Gson().toJson(G.student))
-            //startActivity(intent)
             startActivity(Intent(this, StudentAttendanceActivity::class.java))
         }
 
         // 수업 목록
         binding.btnClassDayList.setOnClickListener {
-            //val intent = Intent(this, CourseScheduleActivity::class.java)
             // 권한이 선생이면 모든 강좌 시간표 보기
             // 권한이 학생이면 수강 중인 강좌의 시간표 보기
             // 권한(선생, 학생)을 보고 권한에 맞는 수업 목록 상세 화면 이동
-            //intent.putExtra("student", Gson().toJson(G.student))
-            //startActivity(intent)
             startActivity(Intent(this, CourseScheduleActivity::class.java))
         }
 
         // 상담 신청
         binding.btnCounselRequest.setOnClickListener {
-            //val intent = Intent(this, CounselRequestActivity::class.java)
-            //intent.putExtra("student", Gson().toJson(student))
-            //startActivity(intent)
             startActivity(Intent(this, CounselRequestActivity::class.java))
         }
 
         // 수업 노트
         binding.btnClassNote.setOnClickListener {
-            //val intent = Intent(this, ClassNoteActivity::class.java)
-            //intent.putExtra("student", Gson().toJson(G.student))
-            //startActivity(intent)
             startActivity(Intent(this, ClassNoteActivity::class.java))
         }
 
         // 교재 검색
         binding.btnTeachingBook.setOnClickListener {
-            //val intent = Intent(this, TeachingBookActivity::class.java)
-            //intent.putExtra("student", Gson().toJson(G.student))
-            //startActivity(intent)
             startActivity(Intent(this, TeachingBookActivity::class.java))
         }
     }
 
+    // 내 정보 수정 좌측 드로우어 메뉴에서 프로필 이미지 선택 객체
     private val imagePickResultLauncher: ActivityResultLauncher<Intent> =
         registerForActivityResult(
             ActivityResultContracts.StartActivityForResult(),
@@ -173,13 +170,14 @@ class StudentActivity : AppCompatActivity() {
             }
         )
 
+    // 우측 상단에 로그아웃 메뉴 버튼 보이기
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.option, menu)
         return super.onCreateOptionsMenu(menu)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if(item.itemId == R.id.menu_logout) {
+        if(item.itemId == R.id.menu_logout) {   // 로그아웃
             AlertDialog.Builder(this)
                 .setMessage("로그아웃 하시겠습니까?")
                 .setPositiveButton("OK", DialogInterface.OnClickListener { dialogInterface, i ->

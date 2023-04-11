@@ -24,18 +24,24 @@ import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.TimeZone
 
-class CounselInputActivity : AppCompatActivity() {
+// 학생 권한 상담 신청 내용 작성 화면
+class CounselRequestInsertActivity : AppCompatActivity() {
 
     val binding:ActivityCounselInputBinding by lazy {
         ActivityCounselInputBinding.inflate(layoutInflater)
     }
-    var startTime:String = ""
-    var endTime:String = ""
+
+    // 상담 시작 시간
+    private var startTime:String = ""
+
+    // 상담 마지막 시간
+    private var endTime:String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
+        // 화면 전체 다 먹기
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             window.insetsController?.hide(WindowInsets.Type.statusBars())
         } else {
@@ -45,14 +51,17 @@ class CounselInputActivity : AppCompatActivity() {
             )
         }
 
+        // 뒤로 가기
         binding.ivBackspace.setOnClickListener { finish() }
 
-        //val student = Gson().fromJson(intent.getStringExtra("student"), Member::class.java)
-
+        // 현재 날짜 가져오기
         val sdf = SimpleDateFormat("yyyy-MM-dd")
         sdf.timeZone = TimeZone.getTimeZone("Asia/Seoul")
+
+        // 상담 신청일
         binding.tvCounselDate.text = sdf.format(Date())
 
+        // 상담 시작 시간 / 상담 마지막 시간 리스트를 시간 드롭다운 어댑터에 넣기
         val timeList = resources.getStringArray(R.array.time_list)
         val timeAdapter:ArrayAdapter<String> = ArrayAdapter(this, android.R.layout.simple_list_item_1, timeList)
         binding.acTvStartTime.setAdapter(timeAdapter)
@@ -67,32 +76,40 @@ class CounselInputActivity : AppCompatActivity() {
             endTime = timeList[i]
         }
 
+        // 상담 신청 저장
         binding.btnCounselRequest.setOnClickListener {
+            // 상담 신청일
             val date = binding.tvCounselDate.text.toString()
+
+            // 상담 신청 내용
             val counselContent = binding.tilCounselContent.editText?.text.toString()
+
+            // 상담 신청 내용 상담 신청 객체에 저장
             val counselRequest = CounselRequest(date, startTime, endTime, counselContent, G.member.id)
 
+            // 상담 시작 시간 및 마지막 시간 입력을 하지 않았을 시..
             if(startTime == "" && endTime == "") {
-                AlertDialog.Builder(this@CounselInputActivity)
+                AlertDialog.Builder(this@CounselRequestInsertActivity)
                     .setMessage("상담 시간을 선택하세요.")
                     .setPositiveButton("OK", null).show()
             } else {
+                // 전부 입력했다면 상담 신청 내용 저장
                 RetrofitHelper.getRetrofitInstance().create(RetrofitCounselStudentService::class.java)
                     .counselRequestInsert(counselRequest).enqueue(object :Callback<String> {
                         override fun onResponse(call: Call<String>, response: Response<String>) {
                             val message = response.body()
-                            AlertDialog.Builder(this@CounselInputActivity)
+                            AlertDialog.Builder(this@CounselRequestInsertActivity)
                                 .setMessage(message)
                                 .setPositiveButton("OK", DialogInterface.OnClickListener { _, _ ->
-                                    if(message?.contains("완료") ?: false) {
-                                        startActivity(Intent(this@CounselInputActivity, CounselRequestActivity::class.java))
+                                    if(message?.contains("완료") ?: false) {  // 넘어오는 문자열 : 상담 신청 완료 이므로..
+                                        startActivity(Intent(this@CounselRequestInsertActivity, CounselRequestActivity::class.java))
                                         finish()
                                     }
                                 }).show()
                         }
 
                         override fun onFailure(call: Call<String>, t: Throwable) {
-                            AlertDialog.Builder(this@CounselInputActivity)
+                            AlertDialog.Builder(this@CounselRequestInsertActivity)
                                 .setMessage("error : ${t.message}")
                                 .setPositiveButton("OK", null).show()
                         }
@@ -101,6 +118,7 @@ class CounselInputActivity : AppCompatActivity() {
         }
     }
 
+    // 바깥 화면 터치 시 소프트 키보드 숨기기
     override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
         val imm: InputMethodManager = getSystemService(InputMethodManager::class.java)
         imm.hideSoftInputFromWindow(currentFocus?.windowToken, 0)

@@ -11,6 +11,7 @@ import com.swj.academymanagement.adapters.TeachingBookAdapter
 import com.swj.academymanagement.databinding.ActivityTeachingBookBinding
 import com.swj.academymanagement.model.ShoppingItem
 
+// 선생님 / 학생 권한 네이버 오픈 API로 도서 리스트 조회 화면
 class TeachingBookActivity : AppCompatActivity() {
 
     val binding:ActivityTeachingBookBinding by lazy { ActivityTeachingBookBinding.inflate(layoutInflater) }
@@ -19,6 +20,7 @@ class TeachingBookActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
+        // 화면 전체 다 먹기
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             window.insetsController?.hide(WindowInsets.Type.statusBars())
         } else {
@@ -28,6 +30,7 @@ class TeachingBookActivity : AppCompatActivity() {
             )
         }
 
+        // 뒤로 가기
         binding.ivBackspace.setOnClickListener { finish() }
 
         val teachingBookArr:MutableList<ShoppingItem> = mutableListOf()
@@ -45,6 +48,7 @@ class TeachingBookActivity : AppCompatActivity() {
         binding.recycler.adapter = TeachingBookAdapter(this, teachingBookArr)
     }
 
+    // 바깥 화면 터치 시 소프트 키보드 숨기기
     override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
         val imm: InputMethodManager = getSystemService(InputMethodManager::class.java)
         imm.hideSoftInputFromWindow(currentFocus?.windowToken, 0)

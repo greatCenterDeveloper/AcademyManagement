@@ -19,6 +19,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
+// 선생님 권한 선생님의 강좌에 수강 중인 학생들의 학원 등원 하원 리스트 조회 화면
 class AttendanceActivity : AppCompatActivity() {
 
     val binding:ActivityAttendanceBinding by lazy { ActivityAttendanceBinding.inflate(layoutInflater) }
@@ -27,6 +28,7 @@ class AttendanceActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
+        // 화면 전체 다 먹기
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             window.insetsController?.hide(WindowInsets.Type.statusBars())
         } else {
@@ -36,22 +38,31 @@ class AttendanceActivity : AppCompatActivity() {
             )
         }
 
-        //val teacher = Gson().fromJson(intent.getStringExtra("teacher"), Member::class.java)
-
+        // 뒤로 가기
         binding.ivBackspace.setOnClickListener { finish() }
 
         // 시작 날짜 선택
         binding.tietStartDate.setOnClickListener {
             val dialog = DatePickerDialog(this)
             dialog.setOnDateSetListener { datePicker, i, i2, i3 ->
+                // 월 -> 월이 1글자일 경우 앞에 0 붙임
                 val month = if(i2 < 10) "0${i2+1}" else (i2+1).toString()
+
+                // 일 -> 일이 1글자일 경우 앞에 0 붙임
                 val day = if(i3 < 10) "0${i3}" else i3.toString()
+
+                // 연도 문자열 ( ex.2023-04-09 )
                 val date = "${i}-${month}-${day}"
+
+                // 완성된 시작 날짜 문자열 넣기
                 binding.tietStartDate.setText(date)
 
+                // 시작 날짜부터 학원에 등원한 학생 리스트 보여주기
                 RetrofitHelper.getRetrofitInstance().create(RetrofitStudentManagementService::class.java)
-                    .studentAttendanceStartDateList(G.member.id, binding.tietStartDate.text.toString())
-                    .enqueue(object :Callback<MutableList<StudentAttendance>> {
+                    .studentAttendanceStartDateList(
+                        G.member.id,                            // 선생님 아이디
+                        binding.tietStartDate.text.toString()   // 시작 날짜
+                    ).enqueue(object :Callback<MutableList<StudentAttendance>> {
                         override fun onResponse(
                             call: Call<MutableList<StudentAttendance>>,
                             response: Response<MutableList<StudentAttendance>>
@@ -77,17 +88,25 @@ class AttendanceActivity : AppCompatActivity() {
         binding.tietEndDate.setOnClickListener {
             val dialog = DatePickerDialog(this)
             dialog.setOnDateSetListener { datePicker, i, i2, i3 ->
+                // 월 -> 월이 1글자일 경우 앞에 0 붙임
                 val month = if(i2 < 10) "0${i2+1}" else (i2+1).toString()
+
+                // 일 -> 일이 1글자일 경우 앞에 0 붙임
                 val day = if(i3 < 10) "0${i3}" else i3.toString()
+
+                // 연도 문자열 ( ex.2023-04-09 )
                 val date = "${i}-${month}-${day}"
+
+                // 완성된 마지막 날짜 문자열 넣기
                 binding.tietEndDate.setText(date)
 
+                // 마지막 날짜까지 학원에 등원한 학생 리스트 보여주기
                 RetrofitHelper.getRetrofitInstance().create(RetrofitStudentManagementService::class.java)
                     .studentAttendanceEndDateList(
-                            G.member.id,
-                            binding.tietStartDate.text.toString(),
-                            binding.tietEndDate.text.toString())
-                    .enqueue(object :Callback<MutableList<StudentAttendance>> {
+                            G.member.id,                            // 선생님 아이디
+                            binding.tietStartDate.text.toString(),  // 시작 날짜
+                            binding.tietEndDate.text.toString()     // 마지막 날짜
+                    ).enqueue(object :Callback<MutableList<StudentAttendance>> {
                         override fun onResponse(
                             call: Call<MutableList<StudentAttendance>>,
                             response: Response<MutableList<StudentAttendance>>
@@ -109,11 +128,14 @@ class AttendanceActivity : AppCompatActivity() {
             dialog.show()
         }
 
+        // 학생 이름 검색 ( 입력한 이름이 포함된 모든 학생 리스트 )
         binding.btnSearch.setOnClickListener {
             val name = binding.tilName.editText?.text.toString()
             RetrofitHelper.getRetrofitInstance().create(RetrofitStudentManagementService::class.java)
-                .studentAttendanceNameSearch(G.member.id, name)
-                .enqueue(object :Callback<MutableList<StudentAttendance>> {
+                .studentAttendanceNameSearch(
+                    G.member.id,    // 선생님 아이디
+                    name            // 검색할 학생 이름
+                ).enqueue(object :Callback<MutableList<StudentAttendance>> {
                     override fun onResponse(
                         call: Call<MutableList<StudentAttendance>>,
                         response: Response<MutableList<StudentAttendance>>
@@ -134,9 +156,11 @@ class AttendanceActivity : AppCompatActivity() {
             binding.tilName.editText?.setText("")
         }
 
-
+        // 내 강좌에 수강 중인 학생들의 학원 등원 하원 리스트
         RetrofitHelper.getRetrofitInstance().create(RetrofitStudentManagementService::class.java)
-            .studentAttendanceList(G.member.id).enqueue(object : Callback<MutableList<StudentAttendance>>{
+            .studentAttendanceList(
+                G.member.id     // 선생님 이름
+            ).enqueue(object : Callback<MutableList<StudentAttendance>>{
                 override fun onResponse(
                     call: Call<MutableList<StudentAttendance>>,
                     response: Response<MutableList<StudentAttendance>>
@@ -153,6 +177,7 @@ class AttendanceActivity : AppCompatActivity() {
             })
     }
 
+    // 바깥 화면 터치 시 소프트 키보드 숨기기
     override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
         val imm: InputMethodManager = getSystemService(InputMethodManager::class.java)
         imm.hideSoftInputFromWindow(currentFocus?.windowToken, 0)

@@ -9,6 +9,7 @@ import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.Query
 
+// 선생님 / 학생 회원 정보 Retrofit
 interface RetrofitMemberService {
     // 아이디 중복 검사.. 결과 문자열 : ( "사용", "중복" )
     @GET("/member/memberIdCheck.php")
@@ -23,8 +24,7 @@ interface RetrofitMemberService {
     @POST("/member/memberSignup.php")
     fun memberSignUp(@Body member:Member):Call<String>
 
-    // 프로필 사진을 올렸을 경우 파이어베이스 서버에 업로드하기.. 결과 문자열 : ( "성공", "살패" )
-
+    // 회원 로그인
     @FormUrlEncoded
     @POST("/member/memberLogin.php")
     fun memberLogin(@Field("id") id:String, @Field("password") password:String):Call<Member>

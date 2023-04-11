@@ -25,7 +25,7 @@
             android:name=".activities.TeacherNoteDetailActivity"
             android:exported="false" />
         <activity
-            android:name=".activities.CounselInputActivity"
+            android:name=".activities.CounselRequestInsertActivity"
             android:exported="false" />
         <activity
             android:name=".activities.CounselRequestActivity"

@@ -24,6 +24,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
+// 선생님 권한 학생 관리 리스트에서 특정 학생 상세 정보 화면으로 이동한 화면
 class StudentDetailActivity : AppCompatActivity() {
 
     val binding:ActivityStudentDetailBinding by lazy { ActivityStudentDetailBinding.inflate(layoutInflater) }
@@ -32,6 +33,7 @@ class StudentDetailActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
+        // 화면 전체 다 먹기
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             window.insetsController?.hide(WindowInsets.Type.statusBars())
         } else {
@@ -41,21 +43,31 @@ class StudentDetailActivity : AppCompatActivity() {
             )
         }
 
+        // 뒤로 가기
         binding.ivBackspace.setOnClickListener { finish() }
 
-
+        // 학생 관리 리스트에서 학생 상세 정보 화면으로 오기 위해 학생 상세 정보 가져오기
         val student:Member = Gson().fromJson(intent.getStringExtra("student"), Member::class.java)
-        //val teacherId:String = intent.getStringExtra("teacherId") ?: ""
 
+        // 학생 프로필 이미지
         if(!student.profile.equals(""))
             Glide.with(this).load(student.profile).into(binding.ivProfile)
 
+        // 학생 이름
         binding.tvName.text = student.name
+
+        // 학생이 수강 중인 강좌들
         binding.tvCourse.text = student.course
+
+        // 학생 휴대폰 번호
         binding.tvCall.text = student.call_number
 
+        // 이 학생이 수강 중인 강좌 리스트 조회
         RetrofitHelper.getRetrofitInstance().create(RetrofitStudentManagementService::class.java)
-            .studentCourseList(student.id, G.member.id).enqueue(object : Callback<MutableList<StudentManagementCourse>> {
+            .studentCourseList(
+                student.id,     // 학생 아이디
+                G.member.id     // 선생 아이디
+            ).enqueue(object : Callback<MutableList<StudentManagementCourse>> {
                 override fun onResponse(
                     call: Call<MutableList<StudentManagementCourse>>,
                     response: Response<MutableList<StudentManagementCourse>>
@@ -85,9 +97,12 @@ class StudentDetailActivity : AppCompatActivity() {
 
         binding.recyclerCounsel.adapter = StudentManagementCounselAdapter(this, counselArr)
 
-
+        // 학생에게 보낸 문자 리스트 조회
         RetrofitHelper.getRetrofitInstance().create(RetrofitStudentManagementService::class.java)
-            .studentMessageList(student.id, G.member.id).enqueue(object : Callback<MutableList<StudentManagementMessage>>{
+            .studentMessageList(
+                student.id,     // 학생 아이디
+                G.member.id     // 선생 아이디
+            ).enqueue(object : Callback<MutableList<StudentManagementMessage>>{
                 override fun onResponse(
                     call: Call<MutableList<StudentManagementMessage>>,
                     response: Response<MutableList<StudentManagementMessage>>

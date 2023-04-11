@@ -22,6 +22,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
+// 학원 계정 로그인 화면
 class AcademyLoginActivity : AppCompatActivity() {
 
     val binding:ActivityAcademyLoginBinding by lazy { ActivityAcademyLoginBinding.inflate(layoutInflater) }
@@ -30,6 +31,7 @@ class AcademyLoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
+        // 화면 전체 다 먹기
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             window.insetsController?.hide(WindowInsets.Type.statusBars())
         } else {
@@ -44,6 +46,7 @@ class AcademyLoginActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowTitleEnabled(false)
 
+        // 학원 계정으로 회원가입
         binding.btnSignUp.setOnClickListener {
             startActivity(Intent(this, AcademySignupActivity::class.java))
             finish()
@@ -58,6 +61,8 @@ class AcademyLoginActivity : AppCompatActivity() {
             dialogBinding.btnCancel.setOnClickListener { dialog.dismiss() }
             dialogBinding.ivClose.setOnClickListener { dialog.dismiss() }
             dialog.show()
+
+            // 찾기 버튼 클릭
             dialogBinding.btnFind.setOnClickListener {
                 val call:String = dialogBinding.tilInputCall.editText?.text.toString()
                 Toast.makeText(this, "휴대폰 번호 : ${call}", Toast.LENGTH_SHORT).show()
@@ -73,6 +78,8 @@ class AcademyLoginActivity : AppCompatActivity() {
             dialogBinding.btnCancel.setOnClickListener { dialog.dismiss() }
             dialogBinding.ivClose.setOnClickListener { dialog.dismiss() }
             dialog.show()
+
+            // 찾기 버튼 클릭
             dialogBinding.btnFind.setOnClickListener {
                 val id:String = dialogBinding.tilInputId.editText?.text.toString()
                 val call:String = dialogBinding.tilInputCall.editText?.text.toString()
@@ -85,6 +92,7 @@ class AcademyLoginActivity : AppCompatActivity() {
             val id:String = binding.tilId.editText?.text.toString()
             val password:String = binding.tilPassword.editText?.text.toString()
 
+            // 로그인 처리 retrofit
             RetrofitHelper.getRetrofitInstance().create(RetrofitMemberService::class.java)
                 .memberLogin(id, password).enqueue(object : Callback<Member> {
                     override fun onResponse(call: Call<Member>, response: Response<Member>) {
@@ -94,87 +102,43 @@ class AcademyLoginActivity : AppCompatActivity() {
                             .setMessage("message : ${result?.authority}")
                             .setPositiveButton("OK", null).show()*/
                         when(result?.authority) {
-                            "teacher" -> {
-                                //val intent = Intent(this@AcademyLoginActivity, MainActivity::class.java)
-                                //intent.putExtra("teacher", Gson().toJson(result))
+                            "teacher" -> {  // 선생님 로그인
+                                // G 클래스의 companion object에 선생님 객체 주입
                                 G.member = result
+
+                                // 선생님 강의 강좌 리스트의 첫 번째에 추가할 내용
                                 G.member.courseArr.add(0, "선택안함")
                                 startActivity(Intent(this@AcademyLoginActivity, MainActivity::class.java))
                                 finish()
                             }
-                            "student" -> {
-                                //val intent = Intent(this@AcademyLoginActivity, StudentActivity::class.java)
-                                //intent.putExtra("student", Gson().toJson(result))
+                            "student" -> {  // 학생 로그인
+                                // G 클래스의 companion object에 학생 객체 주입
                                 G.member = result
+
+                                // 학생 수강 신청 강좌 리스트의 첫 번째에 추가할 내용
                                 G.member.courseArr.add(0, "선택안함")
                                 startActivity(Intent(this@AcademyLoginActivity, StudentActivity::class.java))
                                 finish()
                             }
-                            else -> {
-                                AlertDialog.Builder(this@AcademyLoginActivity)
-                                    .setMessage("아이디나 비밀번호가 맞지 않습니다.")
-                                    .setPositiveButton("OK", null).show()
-                            }
                         }
                     }
                     override fun onFailure(call: Call<Member>, t: Throwable) {
+                        // 로그인 실패 시 에러 발생하므로..
                         AlertDialog.Builder(this@AcademyLoginActivity)
-                            .setMessage("error : ${t.message}")
+                            .setMessage("아이디나 비밀번호가 맞지 않습니다.")
                             .setPositiveButton("OK", null).show()
                     }
                 })
-
-            /*var authority = "teacher"
-            var profile = ""
-            var tempId = "aaa"
-            var tempPassword = "aaa"
-            var name = "sam"
-            val courseArr:MutableList<String> = mutableListOf()
-            courseArr.add("kor")
-            courseArr.add("eng")
-            var call = "111-1111-1111"
-
-            // 선생님 로그인
-            if(id.equals(tempId) && password.equals(tempPassword)) {
-               val teacherMember = Member(authority, profile, id, password, name, courseArr, call)
-                val intent = Intent(this, MainActivity::class.java)
-                intent.putExtra("teacher", Gson().toJson(teacherMember))
-                startActivity(intent)
-                finish()
-            } else { // 로그인 실패
-                binding.tilId.editText?.requestFocus()
-                binding.tilId.editText?.selectAll()
-            }
-
-            authority = "student"
-            profile = ""
-            tempId = "sss"
-            tempPassword = "sss"
-            name = "robin"
-            call = "010-1111-2222"
-            courseArr.clear()
-            courseArr.add("kor")
-            courseArr.add("math")
-
-            // 학생 로그인
-            if(id.equals(tempId) && password.equals(tempPassword)) {
-                val studentMember = Member(authority, profile, id, password, name, courseArr, call)
-                val intent = Intent(this, StudentActivity::class.java)
-                intent.putExtra("student", Gson().toJson(studentMember))
-                startActivity(intent)
-                finish()
-            } else { // 로그인 실패
-                binding.tilId.editText?.requestFocus()
-                binding.tilId.editText?.selectAll()
-            }*/
         }
     }
 
+    // 뒤로 가기
     override fun onSupportNavigateUp(): Boolean {
         finish()
         return super.onSupportNavigateUp()
     }
 
+    // 바깥 화면 터치 시 소프트 키보드 숨기기
     override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
         if(binding.tilId.editText?.text.toString() != "" && binding.tilPassword.editText?.text.toString() != "") {
             val imm:InputMethodManager = getSystemService(InputMethodManager::class.java)

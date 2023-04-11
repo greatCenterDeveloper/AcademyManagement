@@ -10,12 +10,14 @@ import android.view.WindowInsets
 import android.view.WindowManager
 import com.swj.academymanagement.databinding.ActivityIntroBinding
 
+// 인트로 화면
 class IntroActivity : AppCompatActivity() {
     val binding:ActivityIntroBinding by lazy { ActivityIntroBinding.inflate(layoutInflater) }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
+        // 화면 전체 다 먹기
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             window.insetsController?.hide(WindowInsets.Type.statusBars())
         } else {

@@ -21,6 +21,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
+// 선생님 / 학생 권한 수업 시간표 조회 화면
 class CourseScheduleActivity : AppCompatActivity() {
 
     val binding:ActivityCourseScheduleBinding by lazy { ActivityCourseScheduleBinding.inflate(layoutInflater) }
@@ -29,6 +30,7 @@ class CourseScheduleActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
+        // 화면 전체 다 먹기
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             window.insetsController?.hide(WindowInsets.Type.statusBars())
         } else {
@@ -38,25 +40,21 @@ class CourseScheduleActivity : AppCompatActivity() {
             )
         }
 
+        // 뒤로 가기
         binding.ivBackspace.setOnClickListener { finish() }
 
-//        val gson = Gson()
-//        val member:Member =
-//        if(gson.fromJson(intent.getStringExtra("teacher"), Member::class.java) != null)
-//            gson.fromJson(intent.getStringExtra("teacher"), Member::class.java)
-//        else gson.fromJson(intent.getStringExtra("student"), Member::class.java)
-
-
         if(G.member.authority == "teacher") {
+            // 선생님 권한으로 로그인한 경우 보여줄 강좌 시간표 리스트
             RetrofitHelper.getRetrofitInstance().create(RetrofitCourseScheduleService::class.java)
-                .courseScheduleList(G.member.authority, G.member.id).enqueue(object : Callback<MutableList<CourseScheduleTeacher>> {
+                .courseScheduleList(
+                    G.member.authority,     // 선생님 권한 -> "teacher"
+                    G.member.id             // 선생님 아이디
+                ).enqueue(object : Callback<MutableList<CourseScheduleTeacher>> {
                     override fun onResponse(
                         call: Call<MutableList<CourseScheduleTeacher>>,
                         response: Response<MutableList<CourseScheduleTeacher>>
                     ) {
                         val courseScheduleArr = response.body()
-                        Log.i("studentssssssss", "studentsSize : ${courseScheduleArr?.size}")
-                        Log.i("studentssssssss", "studentsSize : ${courseScheduleArr?.get(0)?.studentArr?.size}")
 
                         if(courseScheduleArr != null)
                             binding.recycler.adapter = CourseScheduleAdapter(this@CourseScheduleActivity, courseScheduleArr)
@@ -72,6 +70,7 @@ class CourseScheduleActivity : AppCompatActivity() {
                     }
                 })
         } else {
+            // 학생 권한으로 로그인 한 경우 보여줄 강좌 시간표 리스트
             val week:Week = WeekDay.getWeekDate()
             val courseScheduleArr:MutableList<CourseSchedule> = mutableListOf()
             courseScheduleArr.add(CourseSchedule(week.monday.date, week.monday.day, "국어", "1", "101호"))

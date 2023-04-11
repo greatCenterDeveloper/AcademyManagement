@@ -11,6 +11,7 @@ import com.swj.academymanagement.activities.CourseScheduleDetailStudentActivity
 import com.swj.academymanagement.databinding.RecyclerItemCourseScheduleBinding
 import com.swj.academymanagement.model.CourseSchedule
 
+// 학생 권한 수업 시간표 RecyclerView 어댑터
 class CourseScheduleStudentAdapter(val context: Context, val scheduleArr:MutableList<CourseSchedule>)
     : Adapter<CourseScheduleStudentAdapter.VH>() {
     inner class VH(val binding:RecyclerItemCourseScheduleBinding) : ViewHolder(binding.root)
@@ -23,10 +24,21 @@ class CourseScheduleStudentAdapter(val context: Context, val scheduleArr:Mutable
     override fun onBindViewHolder(holder: VH, position: Int) {
         val cs = scheduleArr[position]
         if(cs.date != "") {
-            holder.binding.tvCourse.text = "${cs.course} 강좌"
+            // 강좌 코드를 강좌명으로 변경
+            when(cs.course) {
+                "kor"  -> holder.binding.tvCourse.text = "국어 강좌"
+                "eng"  -> holder.binding.tvCourse.text = "영어 강좌"
+                "math" -> holder.binding.tvCourse.text = "수학 강좌"
+            }
+
+            // 강의실 명
             holder.binding.tvRoom.text = "(${cs.room})"
+
+            // 수업 시간표 요소 하나 클릭 ( ex. 1교시 국어 강좌 )
             holder.binding.root.setOnClickListener {
                 val intent = Intent(context, CourseScheduleDetailStudentActivity::class.java)
+
+                // 수업 시간표 상세 화면에 가져갈 수업 시간표 정보
                 intent.putExtra("schedule", Gson().toJson(cs))
                 context.startActivity(intent)
             }

@@ -23,6 +23,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
+// 학원 계정 회원 가입 화면
 class AcademySignupActivity : AppCompatActivity() {
 
     val binding:ActivityAcademySignupBinding by lazy { ActivityAcademySignupBinding.inflate(layoutInflater) }
@@ -45,6 +46,7 @@ class AcademySignupActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
+        // 화면 전체 다 먹기
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             window.insetsController?.hide(WindowInsets.Type.statusBars())
         } else {
@@ -54,9 +56,14 @@ class AcademySignupActivity : AppCompatActivity() {
             )
         }
 
+        // 뒤로가기 버튼
         binding.btnBack.setOnClickListener { finish() }
         //binding.btnCancel.setOnClickListener {  }
+
+        // 회원가입 버튼
         binding.btnSighup.setOnClickListener { signUp() }
+
+        // 프로필 이미지 선택
         binding.btnProfileSelect.setOnClickListener {
             val intent = Intent(Intent.ACTION_OPEN_DOCUMENT).setType("image/*")
             imagePickResultLauncher.launch(intent)
@@ -70,7 +77,7 @@ class AcademySignupActivity : AppCompatActivity() {
                 AlertDialog.Builder(this).setMessage("아이디를 입력하세요.").setPositiveButton("OK", null).show()
                 idCheck = false
             } else {
-                // 중복된 아이디가 없는지 Retrofit
+                // 중복된 아이디 있는지 확인
                 RetrofitHelper.getRetrofitInstance().create(RetrofitMemberService::class.java)
                     .memberSignUpIdCheck(id).enqueue(object : Callback<String> {
                         override fun onResponse(call: Call<String>, response: Response<String>) {
@@ -113,7 +120,7 @@ class AcademySignupActivity : AppCompatActivity() {
                 AlertDialog.Builder(this).setMessage("휴대폰 번호를 입력하세요.").setPositiveButton("OK", null).show()
                 callCheck = false
             }  else {
-                // 중복된 휴대폰 번호가 있는지 Retrofit
+                // 중복된 휴대폰 번호가 있는지 확인 (member 테이블 unique 키)
                 call = "${call1}-${call2}-${call3}"
                 RetrofitHelper.getRetrofitInstance().create(RetrofitMemberService::class.java)
                     .memberSignUpCallNumberCheck(call).enqueue(object : Callback<String> {
@@ -138,6 +145,7 @@ class AcademySignupActivity : AppCompatActivity() {
         }
     }
 
+    // 프로필 이미지 사진 선택 객체
     private val imagePickResultLauncher:ActivityResultLauncher<Intent> =
         registerForActivityResult(
             ActivityResultContracts.StartActivityForResult(),
@@ -150,6 +158,7 @@ class AcademySignupActivity : AppCompatActivity() {
             }
         )
 
+    // 바깥 화면 터치 시 소프트 키보드 숨기기
     override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
         // 비밀번호 확인까지 입력하고 프로필 사진을 등록하는 경우도 있으므로 소프트 키보드 숨기기
         // 이름 입력하면 강좌 선택해야하므로 소프트 키보드 숨기기
@@ -189,10 +198,12 @@ class AcademySignupActivity : AppCompatActivity() {
         // 비밀번호 확인과 일치하는지?
         passwordCheck = binding.tilPasswordCheck.editText!!.text.toString() == password
 
+        // 이름이 비어있지 않다면 name 변수에 이름 값 넣기
         var name:String = ""
         if (!binding.tilName.editText!!.text.toString().equals(""))
             name = binding.tilName.editText!!.text.toString()
 
+        // 강좌 리스트에 강좌들 넣기
         val courseArr:MutableList<String> = mutableListOf()
         if (binding.cbKor.isChecked) courseArr.add("kor")
         if (binding.cbEng.isChecked) courseArr.add("eng")
@@ -205,9 +216,10 @@ class AcademySignupActivity : AppCompatActivity() {
         // 강좌 선택함
         // 휴대폰 번호 중복되지 않을 경우 가입 승인
         if(authCheck && idCheck && passwordCheck && callCheck && !name.equals("") && courseArr.size != 0) {
-            // 가입 처리 Retrofit
+            // member 객체에 회원 가입하려고 입력한 내용들 주입
             val member = Member(authority, profile, id, password, name, courseArr, call)
 
+            // 가입 처리 Retrofit
             val retrofit = RetrofitHelper.getRetrofitInstance()
             retrofit.create(RetrofitMemberService::class.java).memberSignUp(member).enqueue(object : Callback<String> {
                 override fun onResponse(call: Call<String>, response: Response<String>) {
@@ -215,7 +227,7 @@ class AcademySignupActivity : AppCompatActivity() {
                     AlertDialog.Builder(this@AcademySignupActivity)
                         .setMessage(result)
                         .setPositiveButton("OK", DialogInterface.OnClickListener { _, _ ->
-                            if(result?.contains("성공") == true) {
+                            if(result?.contains("성공") == true) { // 넘어오는 문자열 : 회원 가입 성공 이므로..
                                 // 가입 완료 후 다시 로그인 화면으로...
                                 startActivity(Intent(this@AcademySignupActivity, AcademyLoginActivity::class.java))
                                 finish()
@@ -230,15 +242,15 @@ class AcademySignupActivity : AppCompatActivity() {
                 }
             })
         } else {
-            if(!authCheck)
+            if(!authCheck)          //  권한을 체크하지 않았다면..
                 AlertDialog.Builder(this).setMessage("학생, 선생님 체크해 주세요.").setPositiveButton("OK", null).show()
-            else if(!idCheck)
+            else if(!idCheck)       // 아이디 중복 확인을 하지 않았다면..
                 AlertDialog.Builder(this).setMessage("아이디 중복 확인을 해주세요.").setPositiveButton("OK", null).show()
-            else if(!passwordCheck)
+            else if(!passwordCheck) // 비밀번호가 서로 일치하지 않는다면..
                 AlertDialog.Builder(this).setMessage("비밀번호가 일치하지 않습니다.").setPositiveButton("OK", null).show()
-            else if(!callCheck)
+            else if(!callCheck)     // 휴대폰 번호 중복 확인을 하지 않았다면..
                 AlertDialog.Builder(this).setMessage("휴대폰 번호 중복 확인을 해주세요.").setPositiveButton("OK", null).show()
-            else
+            else                    // 그 밖에 입력하지 않은 정보가 있다면.. ( 프로필 사진 제외 )
                 AlertDialog.Builder(this).setMessage("미 입력된 회원 정보가 있습니다.").setPositiveButton("OK", null).show()
         }
     }

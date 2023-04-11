@@ -12,6 +12,7 @@ import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.Query
 
+// 선생님 권한 학생 관리 Retrofit
 interface RetrofitStudentManagementService {
 
     // 내 강좌 학생 목록 보여주기

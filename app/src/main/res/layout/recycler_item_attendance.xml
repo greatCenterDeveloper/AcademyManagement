@@ -55,7 +55,7 @@
         android:layout_below="@id/tv_attendance_date"
         android:layout_toRightOf="@id/tv_student"
         android:layout_alignTop="@id/tv_student"
-        android:layout_marginLeft="30dp"
+        android:layout_marginLeft="16dp"
             android:background="@drawable/bg_color_recycler"
             android:padding="4dp"/>
 

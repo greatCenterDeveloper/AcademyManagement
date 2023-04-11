@@ -9,6 +9,7 @@ import com.swj.academymanagement.adapters.CounselCurrentAdapter
 import com.swj.academymanagement.databinding.FragmentCounselCurrentBinding
 import com.swj.academymanagement.model.CounselCurrent
 
+// 선생님 권한 상담 현황 리스트 Fragment
 class CounselCurrentFragment : Fragment() {
 
     lateinit var binding:FragmentCounselCurrentBinding
@@ -25,7 +26,7 @@ class CounselCurrentFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val counselCurrentArr:MutableList<CounselCurrent> = mutableListOf()
+        /*val counselCurrentArr:MutableList<CounselCurrent> = mutableListOf()
         counselCurrentArr.add(
             CounselCurrent(
             "가강사", "2023-02-18", "홍길동", "홍길동 학생 상담하였습니다.")
@@ -36,6 +37,6 @@ class CounselCurrentFragment : Fragment() {
         counselCurrentArr.add(CounselCurrent(
             "다강사", "2023-02-28", "최길동", "최길동 학생 상담 하였소.")
         )
-        binding.recycler.adapter = CounselCurrentAdapter(requireActivity(), counselCurrentArr)
+        binding.recycler.adapter = CounselCurrentAdapter(requireActivity(), counselCurrentArr)*/
     }
 }
