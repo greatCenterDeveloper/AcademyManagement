@@ -1,12 +1,12 @@
 package com.swj.academymanagement.activities
 
-import android.content.DialogInterface
 import android.content.Intent
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.WindowInsets
 import android.view.WindowManager
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import com.google.gson.Gson
 import com.swj.academymanagement.G
@@ -73,15 +73,14 @@ class CounselDetailUpdateActivity : AppCompatActivity() {
                 .counselUpdate(counselCurrent).enqueue(object :Callback<String> {
                     override fun onResponse(call: Call<String>, response: Response<String>) {
                         val message = response.body()
-                        AlertDialog.Builder(this@CounselDetailUpdateActivity)
-                            .setMessage(message)
-                            .setPositiveButton("OK", DialogInterface.OnClickListener { _, _ ->
-                                if(message?.contains("완료") ?: false) { // 넘어오는 문자열 : 상담 작성 완료 이므로..
-                                    startActivity(Intent(this@CounselDetailUpdateActivity,
-                                                  CounselActivity::class.java))
-                                    finish()
-                                }
-                            }).show()
+
+                        Toast.makeText(this@CounselDetailUpdateActivity, message, Toast.LENGTH_SHORT).show()
+
+                        if(message?.contains("완료") ?: false) { // 넘어오는 문자열 : 상담 수정 완료 이므로..
+                            startActivity(Intent(this@CounselDetailUpdateActivity,
+                                CounselActivity::class.java))
+                            finish()
+                        }
                     }
 
                     override fun onFailure(call: Call<String>, t: Throwable) {

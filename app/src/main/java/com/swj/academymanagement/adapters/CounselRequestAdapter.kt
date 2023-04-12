@@ -5,6 +5,7 @@ import android.content.DialogInterface
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.PopupMenu
 import androidx.core.app.ActivityOptionsCompat
@@ -12,7 +13,6 @@ import androidx.core.util.Pair
 import androidx.recyclerview.widget.RecyclerView.Adapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.google.gson.Gson
-import com.swj.academymanagement.G
 import com.swj.academymanagement.R
 import com.swj.academymanagement.activities.CounselRequestActivity
 import com.swj.academymanagement.activities.CounselRequestUpdateActivity
@@ -69,7 +69,6 @@ class CounselRequestAdapter(val context: Context, val counselRequestArr:MutableL
                         )
                     context.startActivity(intent, options.toBundle())
                 } else if(it.itemId == R.id.menu_delete) {  // 상담 신청 삭제
-                    G.counselRequestDeletePosition = holder.adapterPosition
 
                     AlertDialog.Builder(context)
                         .setMessage("삭제하시겠습니까?")
@@ -84,12 +83,14 @@ class CounselRequestAdapter(val context: Context, val counselRequestArr:MutableL
                                         response: Response<String>
                                     ) {
                                         val message = response.body()
-                                        AlertDialog.Builder(context)
-                                            .setMessage(message)
-                                            .setPositiveButton("OK", DialogInterface.OnClickListener { _, _ ->
-                                                if(message?.contains("완료") ?: false)
-                                                    this@CounselRequestAdapter.notifyItemRemoved(G.counselRequestDeletePosition)
-                                            }).show()
+
+                                        Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
+
+                                        // 넘어오는 문자열 : 상담 신청 삭제 완료 이므로..
+                                        if(message?.contains("완료") ?: false) {
+                                            counselRequestArr.remove(counselRequest)
+                                            this@CounselRequestAdapter.notifyItemRemoved(holder.adapterPosition)
+                                        }
                                     }
 
                                     override fun onFailure(call: Call<String>, t: Throwable) {

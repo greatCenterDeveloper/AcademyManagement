@@ -11,6 +11,7 @@ import android.view.WindowInsets
 import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
 import android.widget.ArrayAdapter
+import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
@@ -142,10 +143,10 @@ class SmsSendActivity : AppCompatActivity() {
                             ).enqueue(object :Callback<String> {
                                 override fun onResponse(call: Call<String>, response: Response<String>) {
                                     val message = response.body()
+
+                                    // 마지막 이미지까지 디비에 저장이 완료됬을 경우, 넘어오는 문자열 : 문자 전송 성공
                                     if(!message.isNullOrEmpty())
-                                        AlertDialog.Builder(this@SmsSendActivity)
-                                            .setMessage("$message")
-                                            .setPositiveButton("OK", null).show()
+                                        Toast.makeText(this@SmsSendActivity, message, Toast.LENGTH_SHORT).show()
                                 }
 
                                 override fun onFailure(call: Call<String>, t: Throwable) {

@@ -9,6 +9,7 @@ import android.view.MotionEvent
 import android.view.WindowInsets
 import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
+import android.widget.Toast
 import androidx.activity.result.ActivityResultCallback
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
@@ -224,15 +225,14 @@ class AcademySignupActivity : AppCompatActivity() {
             retrofit.create(RetrofitMemberService::class.java).memberSignUp(member).enqueue(object : Callback<String> {
                 override fun onResponse(call: Call<String>, response: Response<String>) {
                     val result = response.body()
-                    AlertDialog.Builder(this@AcademySignupActivity)
-                        .setMessage(result)
-                        .setPositiveButton("OK", DialogInterface.OnClickListener { _, _ ->
-                            if(result?.contains("성공") == true) { // 넘어오는 문자열 : 회원 가입 성공 이므로..
-                                // 가입 완료 후 다시 로그인 화면으로...
-                                startActivity(Intent(this@AcademySignupActivity, AcademyLoginActivity::class.java))
-                                finish()
-                            }
-                        }).show()
+
+                    Toast.makeText(this@AcademySignupActivity, result, Toast.LENGTH_SHORT).show()
+
+                    if(result?.contains("성공") == true) { // 넘어오는 문자열 : 회원 가입 성공 이므로..
+                        // 가입 완료 후 다시 로그인 화면으로...
+                        startActivity(Intent(this@AcademySignupActivity, AcademyLoginActivity::class.java))
+                        finish()
+                    }
                 }
 
                 override fun onFailure(call: Call<String>, t: Throwable) {
