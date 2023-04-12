@@ -54,8 +54,10 @@ class CourseScheduleActivity : AppCompatActivity() {
                     ) {
                         val courseScheduleArr = response.body()
 
-                        if(courseScheduleArr != null)
+                        if(courseScheduleArr != null) {
                             binding.recycler.adapter = CourseScheduleAdapter(this@CourseScheduleActivity, courseScheduleArr)
+                            binding.recycler.suppressLayout(true)
+                        }
                     }
 
                     override fun onFailure(
@@ -80,8 +82,10 @@ class CourseScheduleActivity : AppCompatActivity() {
                     ) {
                         val courseScheduleArr = response.body()
 
-                        if(courseScheduleArr != null)
+                        if(courseScheduleArr != null) {
                             binding.recycler.adapter = CourseScheduleStudentAdapter(this@CourseScheduleActivity, courseScheduleArr)
+                            binding.recycler.suppressLayout(true)
+                        }
                     }
 
                     override fun onFailure(

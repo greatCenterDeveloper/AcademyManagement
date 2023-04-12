@@ -181,7 +181,6 @@
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
             android:orientation="vertical"
             app:spanCount="5"
-            android:layout_toRightOf="@id/layout_left_title"
-            android:nestedScrollingEnabled="false"/>
+            android:layout_toRightOf="@id/layout_left_title"/>
     </RelativeLayout>
 </RelativeLayout>

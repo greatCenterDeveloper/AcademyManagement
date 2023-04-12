@@ -70,5 +70,5 @@ interface RetrofitStudentManagementService {
     // 출결 현황 이름 검색
     @GET("/studentManagement/studentAttendanceNameSearch.php")
     fun studentAttendanceNameSearch(@Query("teacherId") teacherId:String,
-                                     @Query("name") name:String):Call<MutableList<StudentAttendance>>
+                                    @Query("name") name:String):Call<MutableList<StudentAttendance>>
 }
