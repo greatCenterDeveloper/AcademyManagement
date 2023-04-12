@@ -4,13 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.MainActivity">
+    tools:context=".activities.MainActivity"
+    android:background="@drawable/icons8_bg_academy">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:theme="@style/appbar"
+        android:background="#00ffffff"
         app:elevation="0dp">
 
         <androidx.appcompat.widget.Toolbar
@@ -62,7 +64,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
                 android:orientation="horizontal"
-                android:weightSum="36">
+                android:weightSum="36"
+                android:layout_marginTop="8dp">
 
                 <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/btn_student_management"
@@ -74,7 +77,8 @@
                     android:textSize="30sp"
                     android:fontFamily="@font/cookierunblack"
                     android:layout_below="@id/layout_title"
-                    android:layout_marginLeft="16dp"/>
+                    android:layout_marginLeft="16dp"
+                    android:background="@drawable/button_click_color2"/>
 
                 <TextView
                     android:layout_width="0dp"
@@ -90,7 +94,8 @@
                     android:textStyle="bold"
                     android:textSize="30sp"
                     android:fontFamily="@font/cookierunblack"
-                    android:layout_marginRight="16dp"/>
+                    android:layout_marginRight="16dp"
+                    android:background="@drawable/button_click_color2"/>
             </LinearLayout>
 
 
@@ -113,7 +118,8 @@
                     android:textStyle="bold"
                     android:textSize="30sp"
                     android:fontFamily="@font/cookierunblack"
-                    android:layout_marginLeft="16dp"/>
+                    android:layout_marginLeft="16dp"
+                    android:background="@drawable/button_click_color2"/>
 
                 <TextView
                     android:layout_width="0dp"
@@ -129,7 +135,8 @@
                     android:textStyle="bold"
                     android:textSize="30sp"
                     android:fontFamily="@font/cookierunblack"
-                    android:layout_marginRight="16dp"/>
+                    android:layout_marginRight="16dp"
+                    android:background="@drawable/button_click_color2"/>
             </LinearLayout>
 
 
@@ -152,7 +159,8 @@
                     android:textStyle="bold"
                     android:textSize="30sp"
                     android:fontFamily="@font/cookierunblack"
-                    android:layout_marginLeft="16dp"/>
+                    android:layout_marginLeft="16dp"
+                    android:background="@drawable/button_click_color2"/>
 
                 <TextView
                     android:layout_width="0dp"
@@ -168,7 +176,8 @@
                     android:textStyle="bold"
                     android:textSize="30sp"
                     android:fontFamily="@font/cookierunblack"
-                    android:layout_marginRight="16dp"/>
+                    android:layout_marginRight="16dp"
+                    android:background="@drawable/button_click_color2"/>
             </LinearLayout>
 
 
@@ -191,7 +200,8 @@
                     android:textStyle="bold"
                     android:textSize="30sp"
                     android:fontFamily="@font/cookierunblack"
-                    android:layout_marginLeft="16dp"/>
+                    android:layout_marginLeft="16dp"
+                    android:background="@drawable/button_click_color2"/>
 
                 <TextView
                     android:layout_width="0dp"
@@ -229,13 +239,14 @@
                     android:fontFamily="@font/cookierunblack"
                     android:layout_alignParentBottom="true"
                     android:layout_centerHorizontal="true"
-                    android:layout_marginTop="16dp"/>
+                    android:layout_marginTop="16dp"
+                    android:background="@drawable/bg_color"/>
             </RelativeLayout>
         </RelativeLayout>
 
         <com.google.android.material.navigation.NavigationView
             android:id="@+id/nav"
-            android:layout_width="260dp"
+            android:layout_width="190dp"
             android:layout_height="match_parent"
             android:layout_gravity="start"
             app:headerLayout="@layout/drawer_header"

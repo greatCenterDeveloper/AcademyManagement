@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="16dp"
-    tools:context=".activities.AcademyLoginActivity">
+    tools:context=".activities.AcademyLoginActivity"
+    android:background="@drawable/icons8_bg_academy">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
@@ -36,7 +37,8 @@
             android:textStyle="bold"
             android:fontFamily="@font/cookierunbold"
             android:layout_toRightOf="@id/iv_logo"
-            android:layout_marginLeft="8dp"/>
+            android:layout_marginLeft="8dp"
+            android:background="#88ffffff"/>
     </LinearLayout>
 
     <RelativeLayout
@@ -65,17 +67,16 @@
             android:layout_below="@id/tv_title"/>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/til_email_id"
+            android:id="@+id/til_id"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_margin="8dp"
-            android:hint="이메일 아이디"
+            android:hint="아이디"
             app:endIconMode="clear_text"
             android:layout_below="@id/line">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/email_id"
                 android:inputType="text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -92,7 +93,7 @@
             android:layout_margin="8dp"
             android:hint="비밀번호"
             app:endIconMode="password_toggle"
-            android:layout_below="@id/til_email_id">
+            android:layout_below="@id/til_id">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
@@ -122,39 +123,44 @@
             android:layout_toRightOf="@id/checkbox_login_info"
             android:layout_marginTop="10dp"/>
 
+
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_find_id"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="130dp"
+            android:layout_height="40dp"
             android:text="아이디 찾기"
             android:textStyle="bold"
             android:textSize="16sp"
             android:fontFamily="@font/cookierunblack"
+            android:paddingBottom="4dp"
             android:layout_below="@id/checkbox_login_info"
             android:layout_marginLeft="24dp"
             android:layout_marginTop="20dp"
             android:minHeight="0dp"
-            android:minWidth="0dp"/>
+            android:minWidth="0dp"
+            android:background="@drawable/button_click_color"/>
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_find_password"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="130dp"
+            android:layout_height="40dp"
             android:text="비밀번호 찾기"
             android:textStyle="bold"
             android:textSize="16sp"
             android:fontFamily="@font/cookierunblack"
+            android:paddingBottom="4dp"
             android:layout_below="@id/checkbox_login_info"
             android:layout_alignTop="@id/btn_find_id"
             android:layout_alignParentRight="true"
             android:layout_marginRight="24dp"
             android:minHeight="0dp"
-            android:minWidth="0dp"/>
+            android:minWidth="0dp"
+            android:background="@drawable/button_click_color"/>
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_sign_up"
             android:layout_width="130dp"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
             android:text="회원가입"
             android:textStyle="bold"
             android:textSize="20sp"
@@ -162,12 +168,13 @@
             android:layout_below="@id/checkbox_login_info"
             android:layout_marginLeft="24dp"
             android:layout_marginTop="130dp"
-            android:layout_marginBottom="16dp"/>
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/button_click_color2"/>
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_login"
             android:layout_width="130dp"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
             android:text="로그인"
             android:textStyle="bold"
             android:textSize="20sp"
@@ -176,7 +183,8 @@
             android:layout_alignParentRight="true"
             android:layout_marginRight="24dp"
             android:layout_marginTop="130dp"
-            android:layout_marginBottom="16dp"/>
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/button_click_color2"/>
     </RelativeLayout>
 
 </RelativeLayout>

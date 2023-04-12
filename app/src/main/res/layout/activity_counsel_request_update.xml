@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    tools:context=".activities.CounselRequestUpdateActivity"
+    android:background="@drawable/icons8_bg_academy">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/appbar"
+        android:background="#00ffffff"
+        app:elevation="0dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_scrollFlags="scroll|enterAlways">
+
+            <ImageView
+                android:layout_width="70dp"
+                android:layout_height="50dp"
+                android:src="@drawable/galaxy_logo"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="상담 신청"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                android:textSize="24sp"
+                android:fontFamily="@font/cookierunblack"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"/>
+
+            <ImageView
+                android:id="@+id/iv_backspace"
+                android:layout_width="70dp"
+                android:layout_height="50dp"
+                android:src="@drawable/ic_action_backspace"
+                android:layout_alignParentRight="true"
+                android:background="?attr/selectableItemBackgroundBorderless"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#666666"
+                android:layout_below="@id/iv_backspace"
+                android:layout_marginTop="4dp"/>
+        </RelativeLayout>
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:contentInsetStart="0dp">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/tv_counsel_date_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="상담 신청일 : "
+                    android:textStyle="bold"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    android:fontFamily="@font/cookierunbold"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/bg_color"/>
+
+                <TextView
+                    android:id="@+id/tv_counsel_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="2023-03-12"
+                    android:textStyle="bold"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    android:fontFamily="@font/cookierunbold"
+                    android:layout_toRightOf="@id/tv_counsel_date_title"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/bg_color"/>
+
+                <TextView
+                    android:id="@+id/tv_counsel_time_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="신청 시간"
+                    android:textStyle="bold"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    android:fontFamily="@font/cookierunbold"
+                    android:layout_below="@id/tv_counsel_date_title"
+                    android:gravity="center"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/bg_color"/>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/tli_start_time"
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                    android:hint="선택"
+                    android:layout_weight="13"
+                    android:layout_below="@id/tv_counsel_time_title"
+                    android:layout_marginLeft="4dp"
+                    android:background="@drawable/bg_color">
+
+                    <AutoCompleteTextView
+                        android:id="@+id/ac_tv_start_time"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="13sp"
+                        android:fontFamily="@font/cookierunbold"
+                        android:inputType="none"
+                        android:dropDownHeight="160dp"/>
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <TextView
+                    android:id="@+id/tv_counsel_and_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=" ~ "
+                    android:textStyle="bold"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    android:fontFamily="@font/cookierunbold"
+                    android:layout_alignTop="@id/tli_start_time"
+                    android:layout_alignBottom="@id/tli_start_time"
+                    android:layout_toRightOf="@id/tli_start_time"
+                    android:gravity="center"
+                    android:layout_marginLeft="4dp"
+                    android:layout_marginTop="8dp"/>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/tli_end_time"
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                    android:hint="선택"
+                    android:layout_weight="13"
+                    android:layout_alignTop="@id/tli_start_time"
+                    android:layout_toRightOf="@id/tv_counsel_and_time"
+                    android:layout_marginLeft="4dp"
+                    android:background="@drawable/bg_color">
+
+                    <AutoCompleteTextView
+                        android:id="@+id/ac_tv_end_time"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="13sp"
+                        android:fontFamily="@font/cookierunbold"
+                        android:inputType="none"
+                        android:dropDownHeight="160dp"/>
+                </com.google.android.material.textfield.TextInputLayout>
+            </RelativeLayout>
+        </androidx.appcompat.widget.Toolbar>
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_cancel"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:text="취소"
+        android:textStyle="bold"
+        android:textSize="16sp"
+        android:fontFamily="@font/cookierunblack"
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="8dp"
+        android:layout_marginLeft="16dp"
+        android:background="@drawable/button_click_color2"/>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_counsel_request"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:text="상담 신청"
+        android:textStyle="bold"
+        android:textSize="16sp"
+        android:fontFamily="@font/cookierunblack"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="16dp"
+        android:background="@drawable/button_click_color2"/>
+
+    <TextView
+        android:id="@+id/tv_counsel_content_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="상담 내용"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        android:fontFamily="@font/cookierunbold"
+        android:layout_below="@id/appbar"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/bg_color"/>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/til_counsel_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_marginRight="4dp"
+        android:hint="상담 내용 입력"
+        app:endIconMode="clear_text"
+        android:nestedScrollingEnabled="true"
+        android:layout_below="@id/tv_counsel_content_title"
+        android:layout_above="@id/btn_cancel"
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/bg_color">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:inputType="textMultiLine"
+            android:fontFamily="@font/cookierunbold"
+            android:gravity="top"/>
+    </com.google.android.material.textfield.TextInputLayout>
+</RelativeLayout>

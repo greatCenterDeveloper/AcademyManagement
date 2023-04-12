@@ -14,7 +14,8 @@
         android:textColor="@color/black"
         android:textSize="24sp"
         android:fontFamily="@font/cookierunblack"
-        android:layout_marginLeft="8dp"/>
+        android:layout_marginLeft="8dp"
+        android:background="@drawable/bg_color"/>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/til_title"
@@ -27,7 +28,8 @@
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginTop="4dp"
-        android:layout_marginBottom="4dp">
+        android:layout_marginBottom="4dp"
+        android:background="@drawable/bg_color">
 
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
@@ -42,14 +44,15 @@
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btn_save"
         android:layout_width="180dp"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:text="저장하기"
         android:textStyle="bold"
         android:textSize="16sp"
         android:fontFamily="@font/cookierunblack"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginRight="16dp"/>
+        android:layout_marginRight="16dp"
+        android:background="@drawable/button_click_color2"/>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/til_content"
@@ -62,7 +65,8 @@
         android:layout_above="@id/btn_save"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
-        android:layout_marginBottom="8dp">
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/bg_color">
 
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"

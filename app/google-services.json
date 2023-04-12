@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "891627212041",
+    "project_id": "academymanagementswj2023",
+    "storage_bucket": "academymanagementswj2023.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:891627212041:android:635576ccaa79f5353417d8",
+        "android_client_info": {
+          "package_name": "com.swj.academymanagement"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "891627212041-9cj76c97pqjikgfjcnn96d16igf1nfg0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBjClmj6bIX53EyX3fTgP_PxtyE6S2pq-o"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "891627212041-9cj76c97pqjikgfjcnn96d16igf1nfg0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

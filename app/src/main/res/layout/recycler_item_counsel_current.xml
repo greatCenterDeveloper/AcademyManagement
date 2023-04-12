@@ -4,7 +4,8 @@
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     app:cardCornerRadius="16dp"
-    app:cardBackgroundColor="#eeeeee"
+    app:cardElevation="8dp"
+    app:cardBackgroundColor="#bbffffff"
     app:contentPadding="8dp"
     android:layout_margin="8dp">
 
@@ -21,7 +22,9 @@
             android:textColor="@color/black"
             android:textSize="20sp"
             android:fontFamily="@font/cookierunbold"
-            android:layout_marginLeft="16dp"/>
+            android:layout_marginLeft="16dp"
+            android:background="@drawable/bg_color_recycler"
+            android:padding="4dp"/>
 
         <TextView
             android:id="@+id/tv_date"
@@ -33,15 +36,18 @@
             android:textSize="16sp"
             android:fontFamily="@font/cookierunbold"
             android:layout_below="@id/tv_teacher"
-            android:layout_marginLeft="8dp"/>
+            android:layout_marginLeft="8dp"
+            android:background="@drawable/bg_color_recycler"
+            android:padding="4dp"/>
 
         <RelativeLayout
             android:id="@+id/line"
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="#666666"
+            android:background="#555555"
             android:layout_margin="4dp"
-            android:layout_below="@id/tv_date"/>
+            android:layout_below="@id/tv_date"
+            android:padding="4dp"/>
 
         <TextView
             android:id="@+id/tv_student"
@@ -53,7 +59,9 @@
             android:textSize="16sp"
             android:fontFamily="@font/cookierunbold"
             android:layout_marginLeft="16dp"
-            android:layout_below="@id/line"/>
+            android:layout_below="@id/line"
+            android:background="@drawable/bg_color_recycler"
+            android:padding="4dp"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -65,7 +73,9 @@
             android:fontFamily="@font/cookierunbold"
             android:layout_marginLeft="16dp"
             android:layout_below="@id/line"
-            android:layout_toRightOf="@id/tv_student"/>
+            android:layout_toRightOf="@id/tv_student"
+            android:background="@drawable/bg_color_recycler"
+            android:padding="4dp"/>
 
         <TextView
             android:id="@+id/tv_counsel_content"
@@ -79,7 +89,7 @@
             android:layout_below="@id/tv_student"
             android:layout_marginLeft="8dp"
             android:layout_marginTop="8dp"
-            android:background="@drawable/layout_border"
+            android:background="@drawable/layout_border_recycler"
             android:padding="8dp"/>
 
     </RelativeLayout>

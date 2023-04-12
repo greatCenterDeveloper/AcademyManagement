@@ -15,6 +15,7 @@
         android:textSize="24sp"
         android:fontFamily="@font/cookierunblack"
         android:layout_centerInParent="true"
+        android:background="@drawable/bg_color"
         android:visibility="gone"/>
 
     <androidx.recyclerview.widget.RecyclerView

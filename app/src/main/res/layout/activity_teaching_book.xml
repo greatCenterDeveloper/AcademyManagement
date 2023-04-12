@@ -5,13 +5,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="16dp"
-    tools:context=".activities.TeachingBookActivity">
+    tools:context=".activities.TeachingBookActivity"
+    android:background="@drawable/icons8_bg_academy">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:theme="@style/appbar"
-        android:background="@color/white"
+        android:background="#00ffffff"
         app:elevation="0dp">
 
         <RelativeLayout
@@ -71,7 +72,8 @@
                     android:hint="교재명 입력"
                     app:endIconMode="clear_text"
                     android:maxEms="9"
-                    android:layout_weight="4">
+                    android:layout_weight="4"
+                    android:background="@drawable/bg_color">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:layout_width="match_parent"
@@ -88,15 +90,16 @@
 
                 <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/btn_search"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="100dp"
+                    android:layout_height="50dp"
                     android:layout_weight="1"
                     android:text="검색"
                     android:textStyle="bold"
                     android:textColor="@color/black"
                     android:textSize="13sp"
                     android:fontFamily="@font/cookierunbold"
-                    android:layout_gravity="center_vertical"/>
+                    android:layout_gravity="center_vertical"
+                    android:background="@drawable/button_click_color2"/>
             </LinearLayout>
         </androidx.appcompat.widget.Toolbar>
     </com.google.android.material.appbar.AppBarLayout>

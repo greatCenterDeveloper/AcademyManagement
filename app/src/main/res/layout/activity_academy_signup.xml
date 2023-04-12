@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="16dp"
-    tools:context=".activities.AcademySignupActivity">
+    tools:context=".activities.AcademySignupActivity"
+    android:background="@drawable/icons8_bg_academy">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -99,26 +100,28 @@
             android:layout_below="@id/iv_profile"
             android:layout_above="@id/til_name"
             android:layout_marginLeft="8dp"
-            android:layout_marginTop="4dp"/>
+            android:layout_marginTop="4dp"
+            android:background="@drawable/button_click_color"/>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/til_email_id"
+            android:id="@+id/til_id"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_marginTop="8dp"
             android:layout_marginLeft="8dp"
             android:layout_marginRight="8dp"
-            android:hint="이메일 아이디"
+            android:hint="아이디"
             app:endIconMode="clear_text"
             android:layout_below="@id/rg_authority"
             android:layout_toRightOf="@id/iv_profile"
             android:layout_toLeftOf="@id/btn_id_check">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/tiet_id"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textEmailAddress"
+                android:inputType="text"
                 android:fontFamily="@font/cookierunbold"/>
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -132,10 +135,11 @@
             android:textSize="12sp"
             android:fontFamily="@font/cookierunblack"
             android:layout_below="@id/rg_authority"
-            android:layout_alignTop="@id/til_email_id"
+            android:layout_alignTop="@id/til_id"
             android:layout_alignParentRight="true"
-            android:layout_alignBottom="@id/til_email_id"
-            android:layout_marginRight="8dp"/>
+            android:layout_alignBottom="@id/til_id"
+            android:layout_marginRight="8dp"
+            android:background="@drawable/button_click_color"/>
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/til_password"
@@ -147,7 +151,7 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:hint="비밀번호"
             app:endIconMode="password_toggle"
-            android:layout_below="@id/til_email_id"
+            android:layout_below="@id/til_id"
             android:layout_toRightOf="@id/iv_profile"
             android:layout_alignParentRight="true">
 
@@ -348,37 +352,57 @@
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_call_check"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="100dp"
+            android:layout_height="50dp"
             android:text="중복 확인"
             android:textStyle="bold"
             android:textSize="12sp"
             android:fontFamily="@font/cookierunblack"
             android:layout_below="@id/layout_call"
-            android:layout_marginLeft="8dp"/>
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/button_click_color"/>
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btn_cancel"
-            android:layout_width="120dp"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="취소"
-            android:textStyle="bold"
-            android:textSize="12sp"
-            android:fontFamily="@font/cookierunblack"
+            android:orientation="horizontal"
             android:layout_alignParentBottom="true"
-            android:layout_marginTop="16dp"
-            android:layout_marginLeft="16dp"/>
+            android:paddingLeft="4dp"
+            android:paddingRight="4dp">
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btn_sighup"
-            android:layout_width="120dp"
-            android:layout_height="wrap_content"
-            android:text="가입"
-            android:textStyle="bold"
-            android:textSize="12sp"
-            android:fontFamily="@font/cookierunblack"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="16dp"/>
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_back"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:layout_weight="1"
+                android:text="뒤로가기"
+                android:textStyle="bold"
+                android:textSize="12sp"
+                android:fontFamily="@font/cookierunblack"
+                android:background="@drawable/button_click_color2"/>
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_cancel"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:layout_weight="1"
+                android:text="취소"
+                android:textStyle="bold"
+                android:textSize="12sp"
+                android:fontFamily="@font/cookierunblack"
+                android:background="@drawable/button_click_color2"/>
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_sighup"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:layout_weight="1"
+                android:text="가입"
+                android:textStyle="bold"
+                android:textSize="12sp"
+                android:fontFamily="@font/cookierunblack"
+                android:background="@drawable/button_click_color2"/>
+        </LinearLayout>
     </RelativeLayout>
 </RelativeLayout>

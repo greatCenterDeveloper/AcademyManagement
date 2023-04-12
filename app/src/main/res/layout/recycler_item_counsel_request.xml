@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     app:cardCornerRadius="16dp"
-    app:cardElevation="0dp"
     app:contentPadding="8dp"
-    app:cardBackgroundColor="#eeeeee"
+    app:cardElevation="8dp"
+    app:cardBackgroundColor="#bbffffff"
     android:layout_margin="4dp">
 
     <RelativeLayout
@@ -17,13 +17,15 @@
             android:id="@+id/tv_counsel_date_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="상담 일시 : "
+            android:text="신청 일시 : "
             android:textStyle="bold"
             android:textColor="@color/black"
             android:textSize="16sp"
             android:fontFamily="@font/cookierunbold"
             android:layout_marginLeft="8dp"
-            android:layout_marginTop="8dp"/>
+            android:layout_marginTop="8dp"
+            android:background="@drawable/bg_color_recycler"
+            android:padding="4dp"/>
 
         <TextView
             android:id="@+id/tv_counsel_date"
@@ -36,7 +38,9 @@
             android:fontFamily="@font/cookierunbold"
             android:layout_toRightOf="@id/tv_counsel_date_title"
             android:layout_marginLeft="8dp"
-            android:layout_marginTop="8dp"/>
+            android:layout_marginTop="8dp"
+            android:background="@drawable/bg_color_recycler"
+            android:padding="4dp"/>
 
         <TextView
             android:id="@+id/tv_counsel_time_title"
@@ -49,7 +53,9 @@
             android:fontFamily="@font/cookierunbold"
             android:layout_below="@id/tv_counsel_date_title"
             android:layout_marginLeft="8dp"
-            android:layout_marginTop="8dp"/>
+            android:layout_marginTop="8dp"
+            android:background="@drawable/bg_color_recycler"
+            android:padding="4dp"/>
 
         <TextView
             android:id="@+id/tv_counsel_start_time"
@@ -63,7 +69,9 @@
             android:layout_below="@id/tv_counsel_date_title"
             android:layout_toRightOf="@id/tv_counsel_time_title"
             android:layout_marginLeft="8dp"
-            android:layout_marginTop="8dp"/>
+            android:layout_marginTop="8dp"
+            android:background="@drawable/bg_color_recycler"
+            android:padding="4dp"/>
 
         <TextView
             android:id="@+id/tv_counsel_and_time"
@@ -77,7 +85,9 @@
             android:layout_below="@id/tv_counsel_date_title"
             android:layout_toRightOf="@id/tv_counsel_start_time"
             android:layout_marginLeft="8dp"
-            android:layout_marginTop="8dp"/>
+            android:layout_marginTop="8dp"
+            android:background="@drawable/bg_color_recycler"
+            android:padding="4dp"/>
 
         <TextView
             android:id="@+id/tv_counsel_end_time"
@@ -91,34 +101,9 @@
             android:layout_below="@id/tv_counsel_date_title"
             android:layout_toRightOf="@id/tv_counsel_and_time"
             android:layout_marginLeft="8dp"
-            android:layout_marginTop="8dp"/>
-
-        <TextView
-            android:id="@+id/tv_counsel_teacher_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="상담 선생님 : "
-            android:textStyle="bold"
-            android:textColor="@color/black"
-            android:textSize="16sp"
-            android:fontFamily="@font/cookierunbold"
-            android:layout_below="@id/tv_counsel_time_title"
-            android:layout_marginLeft="8dp"
-            android:layout_marginTop="8dp"/>
-
-        <TextView
-            android:id="@+id/tv_teacher"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="나강사 선생님"
-            android:textStyle="bold"
-            android:textColor="@color/black"
-            android:textSize="16sp"
-            android:fontFamily="@font/cookierunbold"
-            android:layout_below="@id/tv_counsel_time_title"
-            android:layout_toRightOf="@id/tv_counsel_teacher_title"
-            android:layout_marginLeft="8dp"
-            android:layout_marginTop="8dp"/>
+            android:layout_marginTop="8dp"
+            android:background="@drawable/bg_color_recycler"
+            android:padding="4dp"/>
 
         <TextView
             android:id="@+id/tv_counsel_content_title"
@@ -129,9 +114,11 @@
             android:textColor="@color/black"
             android:textSize="16sp"
             android:fontFamily="@font/cookierunbold"
-            android:layout_below="@id/tv_counsel_teacher_title"
+            android:layout_below="@id/tv_counsel_time_title"
             android:layout_marginLeft="8dp"
-            android:layout_marginTop="8dp"/>
+            android:layout_marginTop="8dp"
+            android:background="@drawable/bg_color_recycler"
+            android:padding="4dp"/>
 
         <TextView
             android:id="@+id/tv_counsel_content"
@@ -145,8 +132,8 @@
             android:layout_below="@id/tv_counsel_content_title"
             android:layout_marginLeft="8dp"
             android:layout_marginTop="8dp"
-            android:background="@drawable/layout_border"
+            android:background="@drawable/layout_border_recycler"
             android:padding="8dp"/>
 
     </RelativeLayout>
-</androidx.cardview.widget.CardView>
+</com.google.android.material.card.MaterialCardView>

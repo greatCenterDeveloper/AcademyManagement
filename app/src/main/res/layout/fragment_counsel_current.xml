@@ -19,7 +19,8 @@
             android:layout_marginRight="4dp"
             android:hint="이름 입력"
             app:endIconMode="clear_text"
-            android:layout_weight="4">
+            android:layout_weight="1"
+            android:background="@drawable/bg_color">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
@@ -31,7 +32,7 @@
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_search"
-            android:layout_width="wrap_content"
+            android:layout_width="130dp"
             android:layout_height="wrap_content"
             android:text="검색"
             android:textStyle="bold"
@@ -40,30 +41,8 @@
             android:fontFamily="@font/cookierunbold"
             android:layout_gravity="center_vertical"
             android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"/>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
-            android:hint="강사명"
-            android:layout_weight="4">
-
-            <!--inputType : none → 키보드 입력창이 안 올라온다.-->
-            <!--dropDownHeight : 드롭다운창 높이 지정-->
-            <AutoCompleteTextView
-                android:id="@+id/ac_tv_teacher"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/cookierunbold"
-                android:inputType="none"
-                android:dropDownHeight="160dp"/>
-        </com.google.android.material.textfield.TextInputLayout>
+            android:layout_marginBottom="8dp"
+            android:background="@drawable/button_click_color2"/>
     </LinearLayout>
 
     <TextView
@@ -76,6 +55,7 @@
         android:textSize="24sp"
         android:fontFamily="@font/cookierunblack"
         android:layout_centerInParent="true"
+        android:background="@drawable/bg_color"
         android:visibility="gone"/>
 
     <androidx.recyclerview.widget.RecyclerView

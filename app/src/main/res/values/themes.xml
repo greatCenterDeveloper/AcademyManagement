@@ -16,7 +16,7 @@
 
     <!--AppBarLayout만의 스타일 테마-->
     <style name="appbar">
-        <item name="android:background">@color/white</item>
+        <item name="android:background">#00ffffff</item>
         <item name="android:minHeight">0dp</item>
     </style>
 

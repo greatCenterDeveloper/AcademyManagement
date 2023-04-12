@@ -5,13 +5,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="16dp"
-    tools:context=".activities.StudentDetailActivity">
+    tools:context=".activities.StudentDetailActivity"
+    android:background="@drawable/icons8_bg_academy">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:theme="@style/appbar"
-        android:background="@color/white"
+        android:background="#00ffffff"
         app:elevation="0dp">
 
         <RelativeLayout
@@ -82,7 +83,8 @@
                     android:fontFamily="@font/cookierunblack"
                     android:layout_toRightOf="@id/iv_profile"
                     android:layout_marginLeft="16dp"
-                    android:layout_marginTop="8dp"/>
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/bg_color"/>
 
                 <TextView
                     android:id="@+id/tv_course_title"
@@ -95,7 +97,8 @@
                     android:fontFamily="@font/cookierunblack"
                     android:layout_alignLeft="@id/tv_name_title"
                     android:layout_below="@id/tv_name_title"
-                    android:layout_marginTop="8dp"/>
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/bg_color"/>
 
                 <TextView
                     android:id="@+id/tv_call_title"
@@ -108,7 +111,8 @@
                     android:fontFamily="@font/cookierunblack"
                     android:layout_alignLeft="@id/tv_name_title"
                     android:layout_below="@id/tv_course_title"
-                    android:layout_marginTop="8dp"/>
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/bg_color"/>
 
                 <TextView
                     android:id="@+id/tv_name"
@@ -121,7 +125,8 @@
                     android:textSize="20sp"
                     android:fontFamily="@font/cookierunblack"
                     android:layout_alignTop="@id/tv_name_title"
-                    android:layout_toRightOf="@id/tv_name_title"/>
+                    android:layout_toRightOf="@id/tv_name_title"
+                    android:background="@drawable/bg_color"/>
 
                 <TextView
                     android:id="@+id/tv_course"
@@ -134,7 +139,8 @@
                     android:textSize="20sp"
                     android:fontFamily="@font/cookierunblack"
                     android:layout_alignTop="@id/tv_course_title"
-                    android:layout_toRightOf="@id/tv_course_title"/>
+                    android:layout_toRightOf="@id/tv_course_title"
+                    android:background="@drawable/bg_color"/>
 
                 <TextView
                     android:id="@+id/tv_call"
@@ -147,7 +153,8 @@
                     android:textSize="20sp"
                     android:fontFamily="@font/cookierunblack"
                     android:layout_alignTop="@id/tv_call_title"
-                    android:layout_toRightOf="@id/tv_call_title"/>
+                    android:layout_toRightOf="@id/tv_call_title"
+                    android:background="@drawable/bg_color"/>
 
                 <LinearLayout
                     android:id="@+id/layout_btns"
@@ -165,7 +172,8 @@
                         android:text="상담하기"
                         android:textStyle="bold"
                         android:textSize="14sp"
-                        android:fontFamily="@font/cookierunblack"/>
+                        android:fontFamily="@font/cookierunblack"
+                        android:background="@drawable/button_click_color2"/>
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -180,7 +188,8 @@
                         android:text="문자보내기"
                         android:textStyle="bold"
                         android:textSize="14sp"
-                        android:fontFamily="@font/cookierunblack"/>
+                        android:fontFamily="@font/cookierunblack"
+                        android:background="@drawable/button_click_color2"/>
                 </LinearLayout>
             </RelativeLayout>
         </androidx.appcompat.widget.Toolbar>
@@ -230,6 +239,19 @@
                     android:background="#666666"
                     android:layout_marginTop="4dp"/>
 
+                <TextView
+                    android:id="@+id/tv_no_counsel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="상담 내역이 없습니다."
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    android:textSize="20sp"
+                    android:fontFamily="@font/cookierunblack"
+                    android:layout_below="@id/counsel_line"
+                    android:background="@drawable/bg_color"
+                    android:visibility="gone"/>
+
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recycler_counsel"
                     android:layout_width="match_parent"
@@ -268,6 +290,19 @@
                     android:layout_below="@id/tv_message_title"
                     android:background="#666666"
                     android:layout_marginTop="4dp"/>
+
+                <TextView
+                    android:id="@+id/tv_no_message"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="문자 내역이 없습니다."
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    android:textSize="20sp"
+                    android:fontFamily="@font/cookierunblack"
+                    android:layout_below="@id/message_line"
+                    android:background="@drawable/bg_color"
+                    android:visibility="gone"/>
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recycler_message"

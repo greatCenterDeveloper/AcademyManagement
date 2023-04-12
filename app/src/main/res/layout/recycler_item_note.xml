@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     app:cardCornerRadius="16dp"
     app:contentPadding="8dp"
-    app:cardBackgroundColor="#eeeeee"
+    app:cardElevation="8dp"
+    app:cardBackgroundColor="#bbffffff"
     android:layout_marginTop="4dp"
     android:layout_marginBottom="4dp">
 
@@ -22,7 +23,7 @@
             android:textColor="@color/black"
             android:textSize="13sp"
             android:fontFamily="@font/cookierunbold"
-            android:background="@drawable/layout_border"
+            android:background="@drawable/layout_border_recycler"
             android:padding="8dp"/>
 
         <TextView
@@ -39,7 +40,9 @@
             android:layout_toRightOf="@id/tv_kind"
             android:layout_toLeftOf="@id/tv_date"
             android:layout_alignTop="@id/tv_kind"
-            android:layout_alignBottom="@id/tv_kind"/>
+            android:layout_alignBottom="@id/tv_kind"
+            android:background="@drawable/bg_color_recycler"
+            android:padding="4dp"/>
 
         <TextView
             android:id="@+id/tv_date"
@@ -55,7 +58,9 @@
             android:layout_alignTop="@id/tv_kind"
             android:layout_alignBottom="@id/tv_kind"
             android:layout_marginRight="8dp"
-            android:layout_marginLeft="8dp"/>
+            android:layout_marginLeft="8dp"
+            android:background="@drawable/bg_color_recycler"
+            android:padding="4dp"/>
 
         <TextView
             android:id="@+id/tv_content"
@@ -66,11 +71,11 @@
             android:textColor="@color/black"
             android:textSize="16sp"
             android:fontFamily="@font/cookierunbold"
-            android:background="@drawable/layout_border"
+            android:background="@drawable/layout_border_recycler"
             android:padding="8dp"
             android:layout_alignParentLeft="true"
             android:layout_alignParentRight="true"
             android:layout_below="@id/tv_kind"
             android:layout_marginTop="8dp"/>
     </RelativeLayout>
-</androidx.cardview.widget.CardView>
+</com.google.android.material.card.MaterialCardView>

@@ -9,12 +9,14 @@ import android.view.WindowInsets
 import android.view.WindowManager
 import com.swj.academymanagement.databinding.ActivityLoginBinding
 
+// 학원 계정으로 로그인 할 것인지 / 외부 계정으로 로그인 할 것인지 선택하는 화면
 class LoginActivity : AppCompatActivity() {
     val binding:ActivityLoginBinding by lazy { ActivityLoginBinding.inflate(layoutInflater) }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
+        // 화면 전체 다 먹기
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             window.insetsController?.hide(WindowInsets.Type.statusBars())
         } else {
@@ -34,13 +36,17 @@ class LoginActivity : AppCompatActivity() {
 
         // 회원 가입 버튼
         binding.btnSignUp.setOnClickListener {
+            // 로그인 레이아웃 숨기기
             binding.layoutLogin.visibility = View.GONE
+            // 회원가입 레이아웃 보이기
             binding.layoutSignup.visibility = View.VISIBLE
         }
 
         // 로그인 버튼
         binding.btnLogin.setOnClickListener {
+            // 로그인 레이아웃 보이기
             binding.layoutLogin.visibility = View.VISIBLE
+            // 회원가입 레이아웃 숨기기
             binding.layoutSignup.visibility = View.GONE
         }
 

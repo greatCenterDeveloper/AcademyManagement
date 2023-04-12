@@ -13,7 +13,9 @@ import com.swj.academymanagement.activities.StudentDetailActivity
 import com.swj.academymanagement.databinding.RecyclerItemStudentManagementBinding
 import com.swj.academymanagement.model.Member
 
-class StudentManagementAdapter(val context:Context, val studentArr:MutableList<Member>) :Adapter<StudentManagementAdapter.VH>() {
+// 선생님 권한 학생 관리 학생 RecyclerView 어댑터
+class StudentManagementAdapter(val context:Context, val studentArr:List<Member>, val teacherId:String)
+    :Adapter<StudentManagementAdapter.VH>() {
     inner class VH(val binding: RecyclerItemStudentManagementBinding) : ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VH
@@ -24,11 +26,14 @@ class StudentManagementAdapter(val context:Context, val studentArr:MutableList<M
     override fun onBindViewHolder(holder: VH, position: Int) {
         val student:Member = studentArr[position]
 
+        // 학생 프로필 이미지
         if(!student.profile.equals(""))
             Glide.with(context).load(student.profile).into(holder.binding.civProfile)
 
+        // 학생 이름
         holder.binding.tvName.text = student.name
 
+        // 학생이 수강 중인 강좌
         val courses = StringBuffer()
         for(course in student.courseArr) {
             if(course == "국어") courses.append("국어, ")
@@ -36,6 +41,7 @@ class StudentManagementAdapter(val context:Context, val studentArr:MutableList<M
             if(course == "수학") courses.append("수학")
         }
 
+        // 강좌의 [, ] 삭제하기 위해서...
         var courseTemp:String = courses.toString()
 
         lateinit var course:String
@@ -46,23 +52,30 @@ class StudentManagementAdapter(val context:Context, val studentArr:MutableList<M
         val last = course.substring(course.length-2, course.length)
         if(last == ", ") course = course.substring(0, course.length-2)
 
+        // 학생이 수강 중인 강좌
         holder.binding.tvCourse.text = course
-        holder.binding.tvCall.text = student.call
+
+        // 학생 휴대폰 번호
+        holder.binding.tvCall.text = student.call_number
+
+        // 학생이 수강 중인 강좌 리스트에서 뽑아온 강좌들을 , 붙여서 강좌에 저장
         student.course = course
 
+        // 전화 걸기 버튼
         holder.binding.btnPhoneCall.setOnClickListener {
             val intent = Intent()
             intent.action = Intent.ACTION_DIAL
-            intent.data = Uri.parse("tel:${student.call}")
+            // 학생이 휴대폰 번호가 입력된 채로 전화걸기 앱 실행
+            intent.data = Uri.parse("tel:${student.call_number}")
             context.startActivity(intent)
         }
 
+        // 학생 클릭 시 학생 상세 페이지로 이동..
         holder.binding.root.setOnClickListener {
             val intent:Intent = Intent(context, StudentDetailActivity::class.java)
+            // 학생 상세 화면에 가져갈 학생 정보
             intent.putExtra("student", Gson().toJson(student))
             context.startActivity(intent)
         }
     }
-
-
 }

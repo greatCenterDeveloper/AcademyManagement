@@ -3,10 +3,13 @@ package com.swj.academymanagement.activities
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.view.WindowInsets
 import android.view.WindowManager
+import androidx.appcompat.app.AlertDialog
 import com.bumptech.glide.Glide
 import com.google.gson.Gson
+import com.swj.academymanagement.G
 import com.swj.academymanagement.adapters.StudentManagementCounselAdapter
 import com.swj.academymanagement.adapters.StudentManagementCourseAdapter
 import com.swj.academymanagement.adapters.StudentManagementMessageAdapter
@@ -15,7 +18,13 @@ import com.swj.academymanagement.model.Member
 import com.swj.academymanagement.model.StudentManagementCounsel
 import com.swj.academymanagement.model.StudentManagementCourse
 import com.swj.academymanagement.model.StudentManagementMessage
+import com.swj.academymanagement.network.RetrofitHelper
+import com.swj.academymanagement.network.RetrofitStudentManagementService
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
+// 선생님 권한 학생 관리 리스트에서 특정 학생 상세 정보 화면으로 이동한 화면
 class StudentDetailActivity : AppCompatActivity() {
 
     val binding:ActivityStudentDetailBinding by lazy { ActivityStudentDetailBinding.inflate(layoutInflater) }
@@ -24,6 +33,7 @@ class StudentDetailActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
+        // 화면 전체 다 먹기
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             window.insetsController?.hide(WindowInsets.Type.statusBars())
         } else {
@@ -33,25 +43,50 @@ class StudentDetailActivity : AppCompatActivity() {
             )
         }
 
+        // 뒤로 가기
         binding.ivBackspace.setOnClickListener { finish() }
 
-
+        // 학생 관리 리스트에서 학생 상세 정보 화면으로 오기 위해 학생 상세 정보 가져오기
         val student:Member = Gson().fromJson(intent.getStringExtra("student"), Member::class.java)
 
+        // 학생 프로필 이미지
         if(!student.profile.equals(""))
             Glide.with(this).load(student.profile).into(binding.ivProfile)
 
+        // 학생 이름
         binding.tvName.text = student.name
+
+        // 학생이 수강 중인 강좌들
         binding.tvCourse.text = student.course
-        binding.tvCall.text = student.call
 
-        val requestCourseArr:MutableList<StudentManagementCourse> = mutableListOf()
-        for(course in student.courseArr) {
-            var i = 1
-            requestCourseArr.add(StudentManagementCourse(course, "", "강사${i}", "10", "0", student.emailId))
-        }
+        // 학생 휴대폰 번호
+        binding.tvCall.text = student.call_number
 
-        binding.recyclerCourse.adapter = StudentManagementCourseAdapter(this, requestCourseArr)
+        // 이 학생이 수강 중인 강좌 리스트 조회
+        RetrofitHelper.getRetrofitInstance().create(RetrofitStudentManagementService::class.java)
+            .studentCourseList(
+                student.id,     // 학생 아이디
+                G.member.id     // 선생 아이디
+            ).enqueue(object : Callback<MutableList<StudentManagementCourse>> {
+                override fun onResponse(
+                    call: Call<MutableList<StudentManagementCourse>>,
+                    response: Response<MutableList<StudentManagementCourse>>
+                ) {
+                    val requestCourseArr = response.body()
+                    if(requestCourseArr != null)
+                        binding.recyclerCourse.adapter =
+                            StudentManagementCourseAdapter(this@StudentDetailActivity, requestCourseArr)
+                }
+
+                override fun onFailure(
+                    call: Call<MutableList<StudentManagementCourse>>,
+                    t: Throwable
+                ) {
+                    AlertDialog.Builder(this@StudentDetailActivity)
+                        .setMessage("error : ${t.message}")
+                        .setPositiveButton("OK", null).show()
+                }
+            })
 
         val counselArr:MutableList<StudentManagementCounsel> = mutableListOf()
         counselArr.add(StudentManagementCounsel("2023-01-02", student.name, "상담 상담 상담 상담"))
@@ -62,13 +97,36 @@ class StudentDetailActivity : AppCompatActivity() {
 
         binding.recyclerCounsel.adapter = StudentManagementCounselAdapter(this, counselArr)
 
-        val messageArr:MutableList<StudentManagementMessage> = mutableListOf()
-        messageArr.add(StudentManagementMessage("2023-01-19", "어디니?"))
-        messageArr.add(StudentManagementMessage("2023-01-21", "출발했니?"))
-        messageArr.add(StudentManagementMessage("2023-02-08", "왜 안오니?"))
-        messageArr.add(StudentManagementMessage("2023-02-19", "상담 좀 하자."))
-        messageArr.add(StudentManagementMessage("2023-03-29", "오늘 수업 때 문제집 꼭 가져와요."))
+        // 학생에게 보낸 문자 리스트 조회
+        RetrofitHelper.getRetrofitInstance().create(RetrofitStudentManagementService::class.java)
+            .studentMessageList(
+                student.id,     // 학생 아이디
+                G.member.id     // 선생 아이디
+            ).enqueue(object : Callback<MutableList<StudentManagementMessage>>{
+                override fun onResponse(
+                    call: Call<MutableList<StudentManagementMessage>>,
+                    response: Response<MutableList<StudentManagementMessage>>
+                ) {
+                    val messageArr = response.body()
+                    if(messageArr != null) {
+                        if(messageArr.size > 0) {
+                            binding.recyclerMessage.adapter =
+                                StudentManagementMessageAdapter(this@StudentDetailActivity, messageArr)
+                        } else {
+                            binding.tvNoMessage.visibility = View.VISIBLE
+                            binding.recyclerMessage.visibility = View.GONE
+                        }
+                    }
+                }
 
-        binding.recyclerMessage.adapter = StudentManagementMessageAdapter(this, messageArr)
+                override fun onFailure(
+                    call: Call<MutableList<StudentManagementMessage>>,
+                    t: Throwable
+                ) {
+                    AlertDialog.Builder(this@StudentDetailActivity)
+                        .setMessage("error : ${t.message}")
+                        .setPositiveButton("OK", null).show()
+                }
+            })
     }
 }

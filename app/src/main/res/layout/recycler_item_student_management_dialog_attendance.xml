@@ -1,72 +1,77 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginTop="4dp"
     android:layout_marginBottom="4dp"
     android:layout_marginLeft="16dp"
     android:layout_marginRight="16dp"
-    android:paddingTop="8dp"
-    android:paddingBottom="8dp">
+    app:contentPaddingTop="8dp"
+    app:contentPaddingBottom="8dp"
+    app:cardCornerRadius="16dp"
+    app:cardElevation="8dp"
+    app:cardBackgroundColor="#bbeeeeee">
 
-    <TextView
-        android:id="@+id/tv_date"
-        android:layout_width="wrap_content"
+    <RelativeLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="2023-03-24"
-        android:textStyle="bold"
-        android:textColor="@color/black"
-        android:textSize="20sp"
-        android:fontFamily="@font/cookierunblack"
-        android:layout_centerHorizontal="true"/>
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp">
 
-    <TextView
-        android:id="@+id/tv_attendance_time"
-        android:layout_width="130dp"
-        android:layout_height="wrap_content"
-        android:text="11:37"
-        android:textStyle="bold"
-        android:textColor="@color/black"
-        android:textSize="20sp"
-        android:fontFamily="@font/cookierunblack"
-        android:layout_below="@id/tv_date"
-        android:layout_marginLeft="40dp"
-        android:layout_marginTop="8dp"/>
+        <LinearLayout
+            android:id="@+id/layout_day"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_centerHorizontal="true">
 
-    <TextView
-        android:id="@+id/tv_attendance_state"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="등원"
-        android:textStyle="bold"
-        android:textColor="@color/black"
-        android:textSize="20sp"
-        android:fontFamily="@font/cookierunblack"
-        android:layout_alignTop="@id/tv_attendance_time"
-        android:layout_toRightOf="@id/tv_attendance_time"/>
+            <TextView
+                android:id="@+id/tv_day"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="월요일"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:fontFamily="@font/cookierunblack"/>
 
-    <TextView
-        android:id="@+id/tv_gohome_time"
-        android:layout_width="130dp"
-        android:layout_height="wrap_content"
-        android:text="15:34"
-        android:textStyle="bold"
-        android:textColor="@color/black"
-        android:textSize="20sp"
-        android:fontFamily="@font/cookierunblack"
-        android:layout_below="@id/tv_attendance_state"
-        android:layout_marginLeft="40dp"
-        android:layout_marginTop="8dp"/>
+            <TextView
+                android:id="@+id/tv_period"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="1 교시"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:fontFamily="@font/cookierunblack"
+                android:layout_marginLeft="32dp"/>
+        </LinearLayout>
 
-    <TextView
-        android:id="@+id/tv_gohome_state"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="하원"
-        android:textStyle="bold"
-        android:textColor="@color/black"
-        android:textSize="20sp"
-        android:fontFamily="@font/cookierunblack"
-        android:layout_alignTop="@id/tv_gohome_time"
-        android:layout_toRightOf="@id/tv_gohome_time" />
-</RelativeLayout>
+        <TextView
+            android:id="@+id/tv_attendance_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="2023-03-24 11:37:13"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:fontFamily="@font/cookierunblack"
+            android:layout_below="@id/layout_day"
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="24dp"
+            android:layout_marginTop="8dp"/>
+
+        <TextView
+            android:id="@+id/tv_attendance_state"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="출석"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:fontFamily="@font/cookierunblack"
+            android:layout_alignTop="@id/tv_attendance_time"
+            android:layout_toRightOf="@id/tv_attendance_time"/>
+    </RelativeLayout>
+</androidx.cardview.widget.CardView>

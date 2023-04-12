@@ -5,6 +5,7 @@ import java.util.Calendar
 import java.util.Date
 import java.util.Locale
 
+// 한 주의 요일 및 날짜를 저장하는 클래스
 data class Week(
     val monday:Monday,
     val tuesday:Tuesday,
@@ -13,20 +14,24 @@ data class Week(
     val friday:Friday
 )
 
+// 각 요일별 날짜 및 요일을 저장하는 클래스
 class Monday(val date:String, val day:String)
 class Tuesday(val date:String, val day:String)
 class Wednesday(val date:String, val day:String)
 class Thursday(val date:String, val day:String)
 class Friday(val date:String, val day:String)
 
+// 한 주의 요일 및 날짜 가져오기
 class WeekDay {
     companion object {
+        // 날짜 형식 포맷
         fun dateDay(date : Date) : String {
             val dayFormat = SimpleDateFormat("YYYY-MM-dd", Locale.getDefault())
             val day = dayFormat.format(date)
             return day
         }
 
+        // 각 요일별 요일 및 날짜 가져오기 ( ex. 2023-04-09 )
         fun getWeekDate() : Week{
             val calendar = Calendar.getInstance()
 

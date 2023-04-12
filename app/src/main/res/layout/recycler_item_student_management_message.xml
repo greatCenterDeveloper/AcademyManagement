@@ -4,8 +4,8 @@
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     app:cardCornerRadius="16dp"
-    android:elevation="8dp"
-    app:cardBackgroundColor="#eeeeee"
+    app:cardElevation="8dp"
+    app:cardBackgroundColor="#bbffffff"
     app:contentPadding="8dp"
     android:layout_marginTop="4dp"
     android:layout_marginBottom="4dp">
@@ -22,7 +22,9 @@
             android:textStyle="bold"
             android:textSize="16sp"
             android:fontFamily="@font/cookierunblack"
-            android:layout_marginLeft="16dp"/>
+            android:layout_marginLeft="16dp"
+            android:background="@drawable/bg_color_recycler"
+            android:padding="4dp"/>
 
         <TextView
             android:id="@+id/tv_message"
@@ -35,7 +37,9 @@
             android:fontFamily="@font/cookierunblack"
             android:layout_marginLeft="16dp"
             android:layout_marginTop="8dp"
-            android:layout_below="@id/tv_date" />
+            android:layout_below="@id/tv_date"
+            android:background="@drawable/bg_color_recycler"
+            android:padding="4dp"/>
 
     </RelativeLayout>
 

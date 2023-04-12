@@ -8,17 +8,26 @@ import android.view.WindowInsets
 import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
 import android.widget.ArrayAdapter
-import com.google.gson.Gson
+import androidx.appcompat.app.AlertDialog
+import com.swj.academymanagement.G
 import com.swj.academymanagement.adapters.StudentManagementAdapter
 import com.swj.academymanagement.databinding.ActivityStudentManagementBinding
 import com.swj.academymanagement.model.Member
+import com.swj.academymanagement.network.RetrofitHelper
+import com.swj.academymanagement.network.RetrofitStudentManagementService
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
+// 선생님 권한 학생 관리의 선생님 강좌에 수강 중인 학생 리스트 조회 화면
 class StudentManagementActivity : AppCompatActivity() {
     val binding:ActivityStudentManagementBinding by lazy { ActivityStudentManagementBinding.inflate(layoutInflater) }
+    //val studentArr:MutableList<Member>? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
+        // 화면 전체 다 먹기
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             window.insetsController?.hide(WindowInsets.Type.statusBars())
         } else {
@@ -28,38 +37,90 @@ class StudentManagementActivity : AppCompatActivity() {
             )
         }
 
+        // 뒤로 가기
         binding.ivBackspace.setOnClickListener { finish() }
 
-        /*lateinit var teacher: Member
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU)
-            teacher = intent.getSerializableExtra("teacher", Member::class.java)!!
-        else
-            teacher = intent.getSerializableExtra("teacher") as Member*/
-
-        val teacher = Gson().fromJson(intent.getStringExtra("teacher"), Member::class.java)
-
-        val courseAdapter:ArrayAdapter<String> = ArrayAdapter(this, android.R.layout.simple_list_item_1, teacher.courseArr)
+        // 선생님 강좌 리스트 드롭다운 박스에 넣기
+        val courseAdapter:ArrayAdapter<String> = ArrayAdapter(this, android.R.layout.simple_list_item_1, G.member.courseArr)
         binding.acTvCourse.setAdapter(courseAdapter)
 
-        val courseArr = mutableListOf<String>()
-        courseArr.add("국어")
-        courseArr.add("수학")
+        // 학생 이름 검색 ( 입력한 이름이 포함된 모든 학생 리스트 )
+        binding.btnSearch.setOnClickListener {
+            val name = binding.tilName.editText?.text.toString()
+            RetrofitHelper.getRetrofitInstance().create(RetrofitStudentManagementService::class.java)
+                .studentNameSearch(
+                    G.member.id,    // 선생 아이디
+                    name            // 학생 이름
+                ).enqueue(object : Callback<MutableList<Member>> {
+                    override fun onResponse(
+                        call: Call<MutableList<Member>>,
+                        response: Response<MutableList<Member>>
+                    ) {
+                        val studentArr = response.body()
+                        if(studentArr != null)
+                            binding.recycler.adapter =
+                                StudentManagementAdapter(this@StudentManagementActivity, studentArr, G.member.id)
+                    }
 
-        val studentArr:MutableList<Member> = mutableListOf()
-        studentArr.add(Member("학생", "", "aaa@aaa.com", "aaa", "sam", courseArr, "010-1234-5678"))
-        studentArr.add(Member("학생", "", "bbb@bbb.com", "aaa", "robin", courseArr, "010-1111-2222"))
-        studentArr.add(Member("학생", "", "ccc@ccc.com", "aaa", "hong", courseArr, "010-5678-5678"))
-        studentArr.add(Member("학생", "", "fsd@ddf.com", "aaa", "kim", courseArr, "010-2234-4328"))
-        studentArr.add(Member("학생", "", "few@fes.com", "aaa", "rosa", courseArr, "010-6856-6578"))
-        studentArr.add(Member("학생", "", "gre@tff.com", "aaa", "wang", courseArr, "010-6205-5681"))
-        studentArr.add(Member("학생", "", "rgs@aaa.com", "aaa", "bin", courseArr, "010-5854-3564"))
-        studentArr.add(Member("학생", "", "hhg@eee.com", "aaa", "kong", courseArr, "010-1357-5987"))
-        studentArr.add(Member("학생", "", "yed@eee.com", "aaa", "song", courseArr, "010-2687-2585"))
-        studentArr.add(Member("학생", "", "wqe@ddd.com", "aaa", "tom", courseArr, "010-4675-2655"))
+                    override fun onFailure(call: Call<MutableList<Member>>, t: Throwable) {
+                        AlertDialog.Builder(this@StudentManagementActivity)
+                            .setMessage("error : ${t.message}")
+                            .setPositiveButton("OK", null).show()
+                    }
+                })
 
-        binding.recycler.adapter = StudentManagementAdapter(this, studentArr)
+            binding.tilName.editText?.setText("")
+        }
+
+        // 선생님 강좌 드롭다운 박스에서 특정 강좌 선택시 그 강좌에 수강 중인 학생 리스트
+        binding.acTvCourse.setOnItemClickListener { _, _, i, _ ->
+            RetrofitHelper.getRetrofitInstance().create(RetrofitStudentManagementService::class.java)
+                .studentCourseSearch(
+                    G.member.id,            // 선생 아이디
+                    G.member.courseArr[i]   // 선생 강좌
+                ).enqueue(object :Callback<MutableList<Member>> {
+                    override fun onResponse(
+                        call: Call<MutableList<Member>>,
+                        response: Response<MutableList<Member>>
+                    ) {
+                        val studentArr = response.body()
+                        if(studentArr != null)
+                            binding.recycler.adapter =
+                                StudentManagementAdapter(this@StudentManagementActivity, studentArr, G.member.id)
+                    }
+
+                    override fun onFailure(call: Call<MutableList<Member>>, t: Throwable) {
+                        AlertDialog.Builder(this@StudentManagementActivity)
+                            .setMessage("error : ${t.message}")
+                            .setPositiveButton("OK", null).show()
+                    }
+                })
+        }
+
+        // 선생님 강좌에 수강 중인 모든 학생 리스트 조회
+        RetrofitHelper.getRetrofitInstance().create(RetrofitStudentManagementService::class.java)
+            .studentList(
+                G.member.id     // 선생 아이디
+            ).enqueue(object : Callback<MutableList<Member>> {
+                override fun onResponse(
+                    call: Call<MutableList<Member>>,
+                    response: Response<MutableList<Member>>
+                ) {
+                    val studentArr = response.body()
+                    if(studentArr != null)
+                        binding.recycler.adapter =
+                            StudentManagementAdapter(this@StudentManagementActivity, studentArr, G.member.id)
+                }
+
+                override fun onFailure(call: Call<MutableList<Member>>, t: Throwable) {
+                    AlertDialog.Builder(this@StudentManagementActivity)
+                        .setMessage("error : ${t.message}")
+                        .setPositiveButton("OK", null).show()
+                }
+            })
     }
 
+    // 바깥 화면 터치 시 소프트 키보드 숨기기
     override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
         val imm: InputMethodManager = getSystemService(InputMethodManager::class.java)
         imm.hideSoftInputFromWindow(currentFocus?.windowToken, 0)
