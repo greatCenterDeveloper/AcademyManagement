@@ -6,7 +6,7 @@ import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.Query
 
-// 선생님 / 학생 권한 수업 시간표 Retrofit
+// 선생님 권한 수업 시간표 Retrofit
 interface RetrofitCourseScheduleService {
 
     // 선생님 권한 수업 시간표 리스트

@@ -44,8 +44,12 @@ class CourseScheduleDetailStudentActivity : AppCompatActivity() {
         // 요일
         binding.tvDay.text = "(${schedule.day})"
 
-        // 강좌명
-        binding.tvCourse.text = "${schedule.course} 강좌"
+        // 강좌명 ( 강좌 코드를 강좌명으로 변경 )
+        when(schedule.course) {
+            "kor"  -> binding.tvCourse.text = "국어 강좌"
+            "eng"  -> binding.tvCourse.text = "영어 강좌"
+            "math" -> binding.tvCourse.text = "수학 강좌"
+        }
 
         // 강의실 명
         binding.tvRoom.text = "(${schedule.room})"

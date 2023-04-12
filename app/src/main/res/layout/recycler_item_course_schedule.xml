@@ -1,37 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="90dp"
-    android:background="@drawable/cell">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardElevation="0dp">
 
     <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/cell">
 
-        <TextView
-            android:id="@+id/tv_course"
+        <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="국어 강좌"
-            android:textColor="@color/black"
-            android:textStyle="bold"
-            android:textSize="14sp"
-            android:fontFamily="@font/cookierunbold"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="4dp"/>
+            android:layout_centerInParent="true">
 
-        <TextView
-            android:id="@+id/tv_room"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="(101호)"
-            android:textColor="@color/black"
-            android:textStyle="bold"
-            android:textSize="14sp"
-            android:fontFamily="@font/cookierunbold"
-            android:layout_centerHorizontal="true"
-            android:layout_below="@id/tv_course"
-            android:layout_marginTop="4dp"/>
+            <TextView
+                android:id="@+id/tv_course"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="국어 강좌"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                android:textSize="14sp"
+                android:fontFamily="@font/cookierunbold"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="4dp"/>
+
+            <TextView
+                android:id="@+id/tv_room"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="(101호)"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                android:textSize="14sp"
+                android:fontFamily="@font/cookierunbold"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@id/tv_course"
+                android:layout_marginTop="4dp"/>
+        </RelativeLayout>
     </RelativeLayout>
-</RelativeLayout>
+</com.google.android.material.card.MaterialCardView>

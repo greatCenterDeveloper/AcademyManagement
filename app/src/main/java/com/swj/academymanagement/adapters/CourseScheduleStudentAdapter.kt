@@ -23,7 +23,9 @@ class CourseScheduleStudentAdapter(val context: Context, val scheduleArr:Mutable
 
     override fun onBindViewHolder(holder: VH, position: Int) {
         val cs = scheduleArr[position]
-        if(cs.date != "") {
+
+        // 현재 수강 중인 강좌만 색상 변경
+        if(cs.isMyCourse) {
             // 강좌 코드를 강좌명으로 변경
             when(cs.course) {
                 "kor"  -> holder.binding.tvCourse.text = "국어 강좌"
@@ -43,8 +45,8 @@ class CourseScheduleStudentAdapter(val context: Context, val scheduleArr:Mutable
                 context.startActivity(intent)
             }
         } else {
-            holder.binding.tvCourse.text = ""
-            holder.binding.tvRoom.text = ""
+            holder.binding.tvCourse.setTextColor(0x00ffffff)
+            holder.binding.tvRoom.setTextColor(0x00ffffff)
         }
     }
 }
