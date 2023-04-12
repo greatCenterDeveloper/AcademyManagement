@@ -51,66 +51,6 @@
                 android:layout_below="@id/iv_backspace"
                 android:layout_marginTop="4dp"/>
         </RelativeLayout>
-
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            app:contentInsetStart="0dp">
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginTop="8dp">
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
-                    android:hint="강좌명"
-                    android:layout_weight="4"
-                    android:background="@drawable/bg_color">
-
-                    <!--inputType : none → 키보드 입력창이 안 올라온다.-->
-                    <!--dropDownHeight : 드롭다운창 높이 지정-->
-                    <AutoCompleteTextView
-                        android:id="@+id/ac_tv_course"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textSize="13sp"
-                        android:fontFamily="@font/cookierunbold"
-                        android:inputType="none"
-                        android:dropDownHeight="160dp"/>
-
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"/>
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
-                    android:hint="강의실"
-                    android:layout_weight="4"
-                    android:background="@drawable/bg_color">
-
-                    <!--inputType : none → 키보드 입력창이 안 올라온다.-->
-                    <!--dropDownHeight : 드롭다운창 높이 지정-->
-                    <AutoCompleteTextView
-                        android:id="@+id/ac_tv_course_room"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textSize="13sp"
-                        android:fontFamily="@font/cookierunbold"
-                        android:inputType="none"
-                        android:dropDownHeight="160dp"/>
-
-                </com.google.android.material.textfield.TextInputLayout>
-            </LinearLayout>
-        </androidx.appcompat.widget.Toolbar>
     </com.google.android.material.appbar.AppBarLayout>
     
     <RelativeLayout

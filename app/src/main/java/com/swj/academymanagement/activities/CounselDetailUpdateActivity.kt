@@ -4,8 +4,10 @@ import android.content.Intent
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.MotionEvent
 import android.view.WindowInsets
 import android.view.WindowManager
+import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import com.google.gson.Gson
@@ -90,5 +92,15 @@ class CounselDetailUpdateActivity : AppCompatActivity() {
                     }
                 })
         }
+    }
+
+    // 바깥 화면 터치 시 소프트 키보드 숨기기
+    override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
+        if(binding.tilCounselContent.editText?.text.toString() != "") {
+            val imm: InputMethodManager = getSystemService(InputMethodManager::class.java)
+            imm.hideSoftInputFromWindow(currentFocus?.windowToken, 0)
+            currentFocus?.clearFocus()
+        }
+        return super.dispatchTouchEvent(ev)
     }
 }

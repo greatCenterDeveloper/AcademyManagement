@@ -65,7 +65,8 @@
                     android:id="@+id/tab_layout"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    app:tabTextAppearance="@style/tab_text"/>
+                    app:tabTextAppearance="@style/tab_text"
+                    android:background="@drawable/bg_color"/>
 
                 <RelativeLayout
                     android:layout_width="match_parent"
