@@ -68,6 +68,16 @@ class SmsSendActivity : AppCompatActivity() {
         // 사진 선택 버튼
         binding.btnSelectImage.setOnClickListener { selectImage() }
 
+
+        // 학생 상세 정보에서 가져온 학생 정보
+        // str 배열에서 이 학생을 찾기 위해서 가져온 학생의 아이디
+        val studentId = intent.getStringExtra("studentId")
+        // 학생 이름
+        val studentName = intent.getStringExtra("studentName")
+        // 학생 휴대폰 번호
+        val studentCall = intent.getStringExtra("studentCall")
+
+
         // 내 강좌에 수강 중인 학생의 리스트
         var str:MutableList<Member> = mutableListOf()
 
@@ -88,6 +98,23 @@ class SmsSendActivity : AppCompatActivity() {
                         str = studentArr        // 내 강좌에 수강 중인 학생 리스트에 넣기
                         for(i in 0 until str.size) {
                             nameList.add(str[i].name)   // 학생 이름 드롭다운 메뉴에 추가할 학생 이름 리스트 생성
+                        }
+
+                        // Retrofit 으로 선생님의 강좌에 수강 중인 학생의 목록을 가져오면
+                        // 학생 상세 페이지에서 가져온 학생의 정보와 대조하여 choiceStudentIndex (현재 선택된 학생의 인덱스 번호)를
+                        // 문자를 보내려는 학생으로 설정한다.
+                        if(studentId != null && studentName != null && studentCall != null) {
+                            // 학생 이름을 학생 상세 페이지에서 가져온 학생의 이름으로 설정
+                            binding.acTvStudent.setText(studentName)
+
+                            // 학생의 휴대폰 번호를 학생 상세 페이지에서 가져온 학생의 휴대폰 번호로 설정
+                            binding.tvCallNumber.text = studentCall
+
+                            // choiceStudentIndex (현재 선택된 학생의 인덱스 번호)를
+                            // 학생 상세 페이지에서 가져온 학생으로 설정
+                            for((i, member) in str.withIndex()) {
+                                choiceStudentIndex = if(member.id == studentId) i else 0
+                            }
                         }
 
                         val nameAdapter: ArrayAdapter<String> =
