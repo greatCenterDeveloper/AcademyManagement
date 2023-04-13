@@ -16,5 +16,8 @@ interface RetrofitCourseScheduleService {
 
     // 선생님 권한 학생 출결 체크
     @GET("/courseSchedule/courseScheduleAttendanceCheck.php")
-    fun courseScheduleAttendanceCheck(@Query("courseScheduleCode") courseScheduleCode:String): Call<String>
+    fun courseScheduleAttendanceCheck(@Query("courseScheduleCode") courseScheduleCode:String,
+                                      @Query("studentId") studentId:String): Call<Unit>
+
+    // 선생님 권한 학생 출결 체크 후 몇 명 출결 체크 됬는지 알려줌
 }
