@@ -13,4 +13,8 @@ interface RetrofitCourseScheduleService {
     @GET("/courseSchedule/courseScheduleTotalList.php")
     fun courseScheduleList(@Query("authority") authority:String,
                            @Query("memberId") memberId:String):Call<MutableList<CourseScheduleTeacher>>
+
+    // 선생님 권한 학생 출결 체크
+    @GET("/courseSchedule/courseScheduleAttendanceCheck.php")
+    fun courseScheduleAttendanceCheck(@Query("courseScheduleCode") courseScheduleCode:String): Call<String>
 }
