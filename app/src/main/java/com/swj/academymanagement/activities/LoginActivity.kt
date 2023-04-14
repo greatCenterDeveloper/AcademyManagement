@@ -57,5 +57,10 @@ class LoginActivity : AppCompatActivity() {
 
         // 네이버 아이디로 가입하기 버튼
         binding.btnNaverAccountSignup.setOnClickListener {}
+
+        // 오시는 길 버튼
+        binding.btnRoadView.setOnClickListener {
+            startActivity(Intent(this, RoadViewActivity::class.java))
+        }
     }
 }

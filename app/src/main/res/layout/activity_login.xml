@@ -160,7 +160,7 @@
         android:background="@drawable/bg_color"/>
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btn_load_view"
+        android:id="@+id/btn_road_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="오시는길"
