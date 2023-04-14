@@ -1,5 +1,6 @@
 package com.swj.academymanagement.activities
 
+import android.content.Intent
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -8,9 +9,16 @@ import android.view.WindowInsets
 import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import com.google.gson.Gson
+import com.swj.academymanagement.G
 import com.swj.academymanagement.databinding.ActivityCourseScheduleDetailStudentBinding
 import com.swj.academymanagement.model.CourseSchedule
+import com.swj.academymanagement.network.RetrofitCourseScheduleStudentService
+import com.swj.academymanagement.network.RetrofitHelper
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 // 학생 권한 수업 시간표 상세 화면
 class CourseScheduleDetailStudentActivity : AppCompatActivity() {
@@ -36,7 +44,7 @@ class CourseScheduleDetailStudentActivity : AppCompatActivity() {
         // 뒤로 가기
         binding.ivBackspace.setOnClickListener { finish() }
 
-        val schedule = Gson().fromJson(intent.getStringExtra("schedule"), CourseSchedule::class.java)
+        var schedule = Gson().fromJson(intent.getStringExtra("schedule"), CourseSchedule::class.java)
 
         // 강의 날짜 ( ex. 2023-04-11 )
         binding.tvDate.text = schedule.date
@@ -44,8 +52,12 @@ class CourseScheduleDetailStudentActivity : AppCompatActivity() {
         // 요일
         binding.tvDay.text = "(${schedule.day})"
 
-        // 강좌명
-        binding.tvCourse.text = "${schedule.course} 강좌"
+        // 강좌명 ( 강좌 코드를 강좌명으로 변경 )
+        when(schedule.course) {
+            "kor"  -> binding.tvCourse.text = "국어 강좌"
+            "eng"  -> binding.tvCourse.text = "영어 강좌"
+            "math" -> binding.tvCourse.text = "수학 강좌"
+        }
 
         // 강의실 명
         binding.tvRoom.text = "(${schedule.room})"
@@ -66,11 +78,80 @@ class CourseScheduleDetailStudentActivity : AppCompatActivity() {
             }
         }
 
+        // 이미 작성해 놓은 메모가 있으면 메모장에 작성했던 내용 표시
+        RetrofitHelper.getRetrofitInstance().create(RetrofitCourseScheduleStudentService::class.java)
+            .courseScheduleStudentContentRead(
+                schedule.courseScheduleStudentCode,     // 학생의 강의 시간표 메모 테이블 PK
+                G.member.id                             // 학생 아이디
+            ).enqueue(object :Callback<String> {
+                override fun onResponse(
+                    call: Call<String>,
+                    response: Response<String>
+                ) {
+                    // 읽어온 메모 내용을 화면에 표시
+                    binding.tilContent.editText?.setText(response.body())
+                }
+
+                override fun onFailure(call: Call<String>, t: Throwable) {}
+            })
+
         // 해당 교시의 수업 시간에 작성할 내용 작성 후 저장 버튼
         binding.btnSave.setOnClickListener {
             // 수업 시간에 메모한 내용
             val content = binding.tilContent.editText?.text.toString()
-            Toast.makeText(this, content, Toast.LENGTH_SHORT).show()
+
+            RetrofitHelper.getRetrofitInstance().create(RetrofitCourseScheduleStudentService::class.java)
+                .courseScheduleStudentContentInsert(
+                    schedule.courseScheduleCode,    // 강의 시간표 코드 (FK) : 학생의 강의 시간표 메모 테이블의 FK
+                    G.member.id,                    // 학생 아이디
+                    content                         // 수업 시간에 메모한 내용
+                ).enqueue(object :Callback<String> {
+                    override fun onResponse(call: Call<String>, response: Response<String>) {
+                        val message = response.body()
+
+                        Toast.makeText(this@CourseScheduleDetailStudentActivity, message, Toast.LENGTH_SHORT).show()
+
+                        // 넘어오는 문자열 : 저장 완료 이므로..
+                        if(message?.contains("완료") ?: false) {
+                            startActivity(Intent(this@CourseScheduleDetailStudentActivity, CourseScheduleActivity::class.java))
+                            finish()
+                        }
+                    }
+
+                    override fun onFailure(call: Call<String>, t: Throwable) {
+                        AlertDialog.Builder(this@CourseScheduleDetailStudentActivity)
+                            .setMessage("error : ${t.message}")
+                            .setPositiveButton("OK", null).show()
+                    }
+                })
+
+        }
+
+        // 해당 교시의 수업 시간에 적은 내용 삭제
+        binding.btnDelete.setOnClickListener {
+            RetrofitHelper.getRetrofitInstance().create(RetrofitCourseScheduleStudentService::class.java)
+                .courseScheduleStudentContentDelete(
+                    schedule.courseScheduleStudentCode,     // 학생의 강의 시간표 메모 테이블 PK
+                    G.member.id                             // 학생 아이디
+                ).enqueue(object :Callback<String> {
+                    override fun onResponse(call: Call<String>, response: Response<String>) {
+                        val message = response.body()
+
+                        Toast.makeText(this@CourseScheduleDetailStudentActivity, message, Toast.LENGTH_SHORT).show()
+
+                        // 넘어오는 문자열 : 삭제 완료 이므로..
+                        if(message?.contains("완료") ?: false) {
+                            startActivity(Intent(this@CourseScheduleDetailStudentActivity, CourseScheduleActivity::class.java))
+                            finish()
+                        }
+                    }
+
+                    override fun onFailure(call: Call<String>, t: Throwable) {
+                        AlertDialog.Builder(this@CourseScheduleDetailStudentActivity)
+                            .setMessage("error : ${t.message}")
+                            .setPositiveButton("OK", null).show()
+                    }
+                })
         }
     }
 

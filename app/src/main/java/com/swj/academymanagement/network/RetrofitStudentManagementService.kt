@@ -2,6 +2,7 @@ package com.swj.academymanagement.network
 
 import com.swj.academymanagement.model.Member
 import com.swj.academymanagement.model.StudentAttendance
+import com.swj.academymanagement.model.StudentManagementCounsel
 import com.swj.academymanagement.model.StudentManagementCourse
 import com.swj.academymanagement.model.StudentManagementDialogAttendance
 import com.swj.academymanagement.model.StudentManagementMessage
@@ -34,6 +35,11 @@ interface RetrofitStudentManagementService {
     fun studentCourseList(@Query("studentId") studentId:String,
                           @Query("teacherId") teacherId:String):Call<MutableList<StudentManagementCourse>>
 
+    // 학생 상세 정보 -> 학생과 상담한 상담 내역 리스트
+    @GET("/studentManagement/studentCounselList.php")
+    fun studentCounselList(@Query("studentId") studentId:String,
+                           @Query("teacherId") teacherId:String):Call<MutableList<StudentManagementCounsel>>
+
     // 학생 상세 정보 -> 문자 보낸 내역
     @FormUrlEncoded
     @POST("/studentManagement/studentMessageList.php")
@@ -64,5 +70,5 @@ interface RetrofitStudentManagementService {
     // 출결 현황 이름 검색
     @GET("/studentManagement/studentAttendanceNameSearch.php")
     fun studentAttendanceNameSearch(@Query("teacherId") teacherId:String,
-                                     @Query("name") name:String):Call<MutableList<StudentAttendance>>
+                                    @Query("name") name:String):Call<MutableList<StudentAttendance>>
 }

@@ -2,12 +2,12 @@ package com.swj.academymanagement.adapters
 
 import android.content.Context
 import android.content.Intent
-import android.net.Uri
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView.Adapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.bumptech.glide.Glide
+import com.swj.academymanagement.activities.TeachingBookUrlActivity
 import com.swj.academymanagement.databinding.RecyclerItemTeachingBookBinding
 import com.swj.academymanagement.model.ShoppingItem
 
@@ -24,24 +24,26 @@ class TeachingBookAdapter(val context: Context, val items:MutableList<ShoppingIt
     override fun onBindViewHolder(holder: VH, position: Int) {
         val item:ShoppingItem = items[position]
 
-        // 책 제목
+        // 도서 제목
         holder.binding.tvTitle.text = item.title
 
-        // 책 최저가
-        holder.binding.tvLowPrice.text = "${item.lprice}원"
+        // 도서 가격
+        holder.binding.tvDiscount.text = "${item.discount}원"
 
-        // 책 판매점 명
-        holder.binding.tvMall.text = item.mallName
+        // 도서 출판사
+        holder.binding.tvPublisher.text = item.publisher
 
-        // 책 이미지
+        // 도서 작가
+        holder.binding.tvAuthor.text = item.author
+
+        // 도서 이미지
         Glide.with(context).load(item.image).into(holder.binding.iv)
 
-        // 책 쇼핑몰 페이지 이동
-        /*holder.binding.root.setOnClickListener{
-            val intent = Intent(Intent.ACTION_VIEW)
-            intent.data = Uri.parse(item.link)
+        // 도서 쇼핑몰 페이지 이동
+        holder.binding.root.setOnClickListener{
+            val intent = Intent(context, TeachingBookUrlActivity::class.java)
+            intent.putExtra("bookUrl", item.link)
             context.startActivity(intent)
-        }*/
+        }
     }
-
 }

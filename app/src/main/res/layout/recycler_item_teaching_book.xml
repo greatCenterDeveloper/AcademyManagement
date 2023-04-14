@@ -35,31 +35,49 @@
             android:background="@drawable/bg_color_recycler"/>
 
         <TextView
-            android:id="@+id/tv_low_price"
+            android:id="@+id/tv_discount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/tv_title"
-            android:text="1000"
+            android:text="1000원"
             android:textColor="@color/purple_700"
             android:textSize="12sp"
             android:textStyle="bold"
             android:fontFamily="@font/cookierunblack"
             android:layout_marginLeft="12dp"
+            android:layout_marginTop="4dp"
             android:padding="4dp"
             android:background="@drawable/bg_color_recycler"/>
 
         <TextView
-            android:id="@+id/tv_mall"
+            android:id="@+id/tv_publisher"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="MALL NAME"
+            android:text="홍길동 출판사"
             android:textColor="@color/black"
             android:textStyle="bold"
             android:textSize="12sp"
             android:fontFamily="@font/cookierunblack"
-            android:layout_below="@id/tv_low_price"
+            android:layout_below="@id/tv_discount"
             android:layout_marginLeft="12dp"
             android:layout_marginBottom="4dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/bg_color_recycler"
+            android:padding="4dp"/>
+
+        <TextView
+            android:id="@+id/tv_author"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="홍길동"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:textSize="12sp"
+            android:fontFamily="@font/cookierunblack"
+            android:layout_below="@id/tv_publisher"
+            android:layout_marginLeft="12dp"
+            android:layout_marginBottom="4dp"
+            android:layout_marginTop="4dp"
             android:background="@drawable/bg_color_recycler"
             android:padding="4dp"/>
 

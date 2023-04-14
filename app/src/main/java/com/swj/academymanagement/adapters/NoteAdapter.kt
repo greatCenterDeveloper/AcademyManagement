@@ -5,6 +5,7 @@ import android.content.Intent
 import android.database.sqlite.SQLiteDatabase
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.PopupMenu
 import androidx.core.app.ActivityOptionsCompat
@@ -95,6 +96,8 @@ class NoteAdapter(val context: Context, val db:SQLiteDatabase, val noteArr:Mutab
 
                             noteArr.remove(note)
                             this.notifyItemRemoved(position)
+
+                            Toast.makeText(context, "삭제 완료", Toast.LENGTH_SHORT).show()
                         }
                         .setNegativeButton("NO", null)
                         .show()

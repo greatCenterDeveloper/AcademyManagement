@@ -26,7 +26,10 @@ class StudentManagementDialogAttendanceAdapter(val context:Context, val attendan
         // 교시
         holder.binding.tvPeriod.text = "${smda.period} 교시"
 
-        // 출석 시간 (년-월-일 시:분:초)
+        // 출석 날짜 (년-월-일)
+        holder.binding.tvAttendanceDay.text = smda.attendanceDay
+
+        // 출석 시간 (시:분)
         holder.binding.tvAttendanceTime.text = smda.attendanceTime
 
         // 출석 상태 ( 출석, 결석, 지각 )

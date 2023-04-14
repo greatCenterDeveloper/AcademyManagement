@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView.Adapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.google.gson.Gson
@@ -33,6 +34,16 @@ class CourseScheduleAdapter(val context: Context, val scheduleArr:MutableList<Co
 
         // 강의실 명
         holder.binding.tvRoom.text = "(${cs.room})"
+
+        // 내가 강의하는 강좌가 아니라면 연보라색으로 표시
+        if(cs.studentArr.size == 0) {
+            holder.binding.tvCourse.setTextColor(
+                ContextCompat.getColor(context, com.google.android.material.R.color.m3_ref_palette_dynamic_tertiary70)
+            )
+            holder.binding.tvRoom.setTextColor(
+                ContextCompat.getColor(context, com.google.android.material.R.color.m3_ref_palette_dynamic_tertiary70)
+            )
+        }
 
         // 수업 시간표 요소 하나 클릭 ( ex. 1교시 국어 강좌 )
         holder.binding.root.setOnClickListener {

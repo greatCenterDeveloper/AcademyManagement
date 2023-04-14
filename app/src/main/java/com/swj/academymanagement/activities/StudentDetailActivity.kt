@@ -1,5 +1,6 @@
 package com.swj.academymanagement.activities
 
+import android.content.Intent
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -14,6 +15,7 @@ import com.swj.academymanagement.adapters.StudentManagementCounselAdapter
 import com.swj.academymanagement.adapters.StudentManagementCourseAdapter
 import com.swj.academymanagement.adapters.StudentManagementMessageAdapter
 import com.swj.academymanagement.databinding.ActivityStudentDetailBinding
+import com.swj.academymanagement.model.CounselRequestTeacher
 import com.swj.academymanagement.model.Member
 import com.swj.academymanagement.model.StudentManagementCounsel
 import com.swj.academymanagement.model.StudentManagementCourse
@@ -23,6 +25,9 @@ import com.swj.academymanagement.network.RetrofitStudentManagementService
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.TimeZone
 
 // 선생님 권한 학생 관리 리스트에서 특정 학생 상세 정보 화면으로 이동한 화면
 class StudentDetailActivity : AppCompatActivity() {
@@ -62,6 +67,73 @@ class StudentDetailActivity : AppCompatActivity() {
         // 학생 휴대폰 번호
         binding.tvCall.text = student.call_number
 
+        // 상담 하기 버튼
+        binding.btnCounsel.setOnClickListener {
+            val intent = Intent(this, CounselDetailActivity::class.java)
+
+            // 상담 테이블의 외래키로 상담 신청 테이블의 상담 신청 코드가 설정 되어 있으므로..
+            // 여기서 화면 전환을 한다면 상담 신청 테이블에 하나 insert 해라. (php에서 이 값을 보고 insert 처리)
+            val counselRequestCode = "insert"
+
+            // 학생의 아이디
+            val studentId = student.id
+
+            // 학생 이름
+            val studentName = student.name
+
+            // 현재 날짜 가져오기
+            var sdf = SimpleDateFormat("yyyy-MM-dd")
+            sdf.timeZone = TimeZone.getTimeZone("Asia/Seoul")
+
+            // 현재 날짜
+            val date = sdf.format(Date())
+
+            // 현재 시간 가져오기
+            sdf = SimpleDateFormat("HH:mm")
+            sdf.timeZone = TimeZone.getTimeZone("Asia/Seoul")
+
+            // 상담 시작 시간
+            val counselStartTime = sdf.format(Date())
+
+            // 상담 마지막 시간 -> 아직 상담 내용 입력 전이므로 ""으로..
+            val counselEndTime = ""
+
+            // 상담 신청 내용 -> 학생이 상담 신청해서 넘어간게 아니라 선생님 임의 상담이므로..
+            val counselContent = "선생님 임의 상담"
+
+            // 상담 내용 입력 화면에 넘겨줄 상담 신청 객체
+            val crt = CounselRequestTeacher(
+                            counselRequestCode,     // 상담 신청 코드 (상담 신청 테이블에 추가하기 위해 "insert" 문자열 넘겨줌.)
+                            studentId,              // 학생 아이디
+                            studentName,            // 학생 이름
+                            date,                   // 상담 신청일
+                            date,                   // 상담일
+                            counselStartTime,       // 상담 시작 시간
+                            counselEndTime,         // 상담 마지막 시간
+                            counselContent          // 상담 신청 내용
+                      )
+            intent.putExtra("counselRequest", Gson().toJson(crt))
+            startActivity(intent)
+            finish()
+        }
+
+        // 문자 보내기 버튼
+        binding.btnSendMessage.setOnClickListener {
+            val intent = Intent(this, SmsSendActivity::class.java)
+
+            // 학생 아이디
+            intent.putExtra("studentId", student.id)
+
+            // 학생 이름
+            intent.putExtra("studentName", student.name)
+
+            // 학생 휴대폰 번호
+            intent.putExtra("studentCall", student.call_number)
+
+            startActivity(intent)
+            finish()
+        }
+
         // 이 학생이 수강 중인 강좌 리스트 조회
         RetrofitHelper.getRetrofitInstance().create(RetrofitStudentManagementService::class.java)
             .studentCourseList(
@@ -88,14 +160,42 @@ class StudentDetailActivity : AppCompatActivity() {
                 }
             })
 
-        val counselArr:MutableList<StudentManagementCounsel> = mutableListOf()
-        counselArr.add(StudentManagementCounsel("2023-01-02", student.name, "상담 상담 상담 상담"))
-        counselArr.add(StudentManagementCounsel("2023-01-10", student.name, "상담을 시작합니다. 상담을 완료하였습니다."))
-        counselArr.add(StudentManagementCounsel("2023-02-02", student.name, "상담을 시작할까요? 상담을 종료합니다."))
-        counselArr.add(StudentManagementCounsel("2023-02-12", student.name, "훌륭한 성적을 못내서 상담하였습니다."))
-        counselArr.add(StudentManagementCounsel("2023-03-22", student.name, "길동군 더 어려운 시험 없냐고 상담하였습니다."))
 
-        binding.recyclerCounsel.adapter = StudentManagementCounselAdapter(this, counselArr)
+        // 학생과 상담한 상담 내역 리스트
+        RetrofitHelper.getRetrofitInstance().create(RetrofitStudentManagementService::class.java)
+            .studentCounselList(
+                student.id,     // 학생 아이디
+                G.member.id     // 선생 아이디
+            ).enqueue(object :Callback<MutableList<StudentManagementCounsel>> {
+                override fun onResponse(
+                    call: Call<MutableList<StudentManagementCounsel>>,
+                    response: Response<MutableList<StudentManagementCounsel>>
+                ) {
+                    val counselArr = response.body()
+                    if(counselArr != null) {
+                        if (counselArr.size > 0) {
+                            binding.recyclerCounsel.adapter =
+                                StudentManagementCounselAdapter(
+                                    this@StudentDetailActivity,
+                                    counselArr
+                                )
+                        } else {
+                            binding.tvNoCounsel.visibility = View.VISIBLE
+                            binding.recyclerCounsel.visibility = View.GONE
+                        }
+                    }
+                }
+
+                override fun onFailure(
+                    call: Call<MutableList<StudentManagementCounsel>>,
+                    t: Throwable
+                ) {
+                    AlertDialog.Builder(this@StudentDetailActivity)
+                        .setMessage("error : ${t.message}")
+                        .setPositiveButton("OK", null).show()
+                }
+            })
+
 
         // 학생에게 보낸 문자 리스트 조회
         RetrofitHelper.getRetrofitInstance().create(RetrofitStudentManagementService::class.java)
