@@ -67,15 +67,12 @@ class CourseScheduleDetailActivity : AppCompatActivity() {
             }
         }
 
-        if(cst.studentArr.size > 0)
+        if(cst.studentArr.size > 0) {
             // 내 강좌에 수강 중인 학생 리스트가 있다면 학생 리스트 조회
             binding.recycler.adapter = CourseScheduleStudentListAdapter(this, cst.courseScheduleCode, cst.studentArr)
-        else {
+        } else {
             // 학생 RecyclerView 숨기기
             binding.recycler.visibility = View.GONE
-
-            // 저장 버튼 ( 학생 RecyclerView 에서 출석 / 결석 / 지각 RadioButton 선택 후 저장하기 버튼 )
-            binding.btnSave.visibility = View.GONE
 
             // 내 강좌에 수강 중인 학생 리스트가 없으니.. 학생이 없다는 문구 출력
             binding.tvNoStudent.visibility = View.VISIBLE

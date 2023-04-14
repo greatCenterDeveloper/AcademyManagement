@@ -42,13 +42,7 @@ class StudentManagementAdapter(val context:Context, val studentArr:List<Member>,
         }
 
         // 강좌의 [, ] 삭제하기 위해서...
-        var courseTemp:String = courses.toString()
-
-        lateinit var course:String
-        if(courseTemp.contains("국어")) course = "국어, "
-        if(courseTemp.contains("영어")) course += "영어, "
-        if(courseTemp.contains("수학")) course += "수학"
-
+        var course:String = courses.toString()
         val last = course.substring(course.length-2, course.length)
         if(last == ", ") course = course.substring(0, course.length-2)
 

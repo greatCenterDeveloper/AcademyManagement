@@ -49,29 +49,49 @@
         </LinearLayout>
 
         <TextView
-            android:id="@+id/tv_attendance_time"
+            android:id="@+id/tv_attendance_day"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="2023-03-24 11:37:13"
+            android:text="2023-04-09"
             android:textStyle="bold"
             android:textColor="@color/black"
             android:textSize="20sp"
             android:fontFamily="@font/cookierunblack"
             android:layout_below="@id/layout_day"
-            android:layout_marginLeft="40dp"
-            android:layout_marginRight="24dp"
+            android:layout_alignLeft="@id/layout_day"
             android:layout_marginTop="8dp"/>
 
-        <TextView
-            android:id="@+id/tv_attendance_state"
+        <LinearLayout
+            android:id="@+id/layout_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="출석"
-            android:textStyle="bold"
-            android:textColor="@color/black"
-            android:textSize="20sp"
-            android:fontFamily="@font/cookierunblack"
-            android:layout_alignTop="@id/tv_attendance_time"
-            android:layout_toRightOf="@id/tv_attendance_time"/>
+            android:orientation="horizontal"
+            android:layout_below="@id/tv_attendance_day"
+            android:layout_marginTop="8dp"
+            android:layout_centerHorizontal="true">
+
+            <TextView
+                android:id="@+id/tv_attendance_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="11:37"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:fontFamily="@font/cookierunblack"
+                android:layout_marginRight="36dp"/>
+
+            <TextView
+                android:id="@+id/tv_attendance_state"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="출석"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:fontFamily="@font/cookierunblack"/>
+        </LinearLayout>
+
+
     </RelativeLayout>
 </androidx.cardview.widget.CardView>
