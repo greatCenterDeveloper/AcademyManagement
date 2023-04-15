@@ -15,11 +15,12 @@ import com.swj.academymanagement.adapters.StudentManagementCounselAdapter
 import com.swj.academymanagement.adapters.StudentManagementCourseAdapter
 import com.swj.academymanagement.adapters.StudentManagementMessageAdapter
 import com.swj.academymanagement.databinding.ActivityStudentDetailBinding
+import com.swj.academymanagement.model.CounselCurrent
 import com.swj.academymanagement.model.CounselRequestTeacher
 import com.swj.academymanagement.model.Member
-import com.swj.academymanagement.model.StudentManagementCounsel
 import com.swj.academymanagement.model.StudentManagementCourse
 import com.swj.academymanagement.model.StudentManagementMessage
+import com.swj.academymanagement.network.RetrofitCounselService
 import com.swj.academymanagement.network.RetrofitHelper
 import com.swj.academymanagement.network.RetrofitStudentManagementService
 import retrofit2.Call
@@ -162,23 +163,20 @@ class StudentDetailActivity : AppCompatActivity() {
 
 
         // 학생과 상담한 상담 내역 리스트
-        RetrofitHelper.getRetrofitInstance().create(RetrofitStudentManagementService::class.java)
+        RetrofitHelper.getRetrofitInstance().create(RetrofitCounselService::class.java)
             .studentCounselList(
                 student.id,     // 학생 아이디
                 G.member.id     // 선생 아이디
-            ).enqueue(object :Callback<MutableList<StudentManagementCounsel>> {
+            ).enqueue(object :Callback<MutableList<CounselCurrent>> {
                 override fun onResponse(
-                    call: Call<MutableList<StudentManagementCounsel>>,
-                    response: Response<MutableList<StudentManagementCounsel>>
+                    call: Call<MutableList<CounselCurrent>>,
+                    response: Response<MutableList<CounselCurrent>>
                 ) {
-                    val counselArr = response.body()
-                    if(counselArr != null) {
-                        if (counselArr.size > 0) {
+                    val counselCurrentArr = response.body()
+                    if(counselCurrentArr != null) {
+                        if (counselCurrentArr.size > 0) {
                             binding.recyclerCounsel.adapter =
-                                StudentManagementCounselAdapter(
-                                    this@StudentDetailActivity,
-                                    counselArr
-                                )
+                                StudentManagementCounselAdapter(this@StudentDetailActivity, counselCurrentArr)
                         } else {
                             binding.tvNoCounsel.visibility = View.VISIBLE
                             binding.recyclerCounsel.visibility = View.GONE
@@ -186,10 +184,7 @@ class StudentDetailActivity : AppCompatActivity() {
                     }
                 }
 
-                override fun onFailure(
-                    call: Call<MutableList<StudentManagementCounsel>>,
-                    t: Throwable
-                ) {
+                override fun onFailure(call: Call<MutableList<CounselCurrent>>, t: Throwable) {
                     AlertDialog.Builder(this@StudentDetailActivity)
                         .setMessage("error : ${t.message}")
                         .setPositiveButton("OK", null).show()
