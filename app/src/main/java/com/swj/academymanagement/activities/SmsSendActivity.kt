@@ -145,48 +145,79 @@ class SmsSendActivity : AppCompatActivity() {
             // 작성한 문자 메세지 내용
             val message = binding.tilSmsContent.editText?.text.toString()
 
-            // 현재 시간 가져오기
-            val sdf = SimpleDateFormat("yyyyMMddHHmmss")
-            sdf.timeZone = TimeZone.getTimeZone("Asia/Seoul")
+            if(images.size > 0) imageContainSendMessage(str, message)   // 이미지 첨부 후 문자 발송
+            else sendMessage(str, message)  // 이미지 첨부하지 않고 문자 내용만 발송
+        }
+    }
 
-            // 현재 시간 가져와서 메세지에 첨부한 이미지 파일의 이름으로 만들기
-            val name = "IMG_${sdf.format(Date())}"
+    // 이미지 첨부 후 문자 발송
+    private fun imageContainSendMessage(str:MutableList<Member>, message:String) {
+        // 현재 시간 가져오기
+        val sdf = SimpleDateFormat("yyyyMMddHHmmss")
+        sdf.timeZone = TimeZone.getTimeZone("Asia/Seoul")
 
-            // 파이어베이스 이미지 파일 저장
-            val storage = FirebaseStorage.getInstance()
-            for(i in 0 until images.size) {
-                val imgRef:StorageReference = storage.getReference("profileImage/${name}${i+1}")
-                imgRef.putFile(images[i]).addOnSuccessListener {
-                    imgRef.downloadUrl.addOnSuccessListener {
-                        // 이미지를 성공적으로 전송했다면 이미지 uri 가져와서 문자 메세지 DB에 저장
-                        RetrofitHelper.getRetrofitInstance().create(RetrofitSendMessageService::class.java)
-                            .sendMessage(
-                                str[choiceStudentIndex].id, // 문자 메세지 받을 학생의 아이디
-                                G.member.id,                // 문자 메세지 보낼 선생님 아이디
-                                message,                    // 문자 메세지 내용
-                                it.toString(),              // 첨부한 이미지 파일 주소
-                                (i+1),                      // php에서 현재 몇 번째 이미지가 전송되고 있는지 확인하기 위해..
-                                images.size                 // php에서 이미지 리스트 길이를 가지고 이미지 리스트 길이만큼 insert 하기 위해서..
-                            ).enqueue(object :Callback<String> {
-                                override fun onResponse(call: Call<String>, response: Response<String>) {
-                                    val message = response.body()
+        // 현재 시간 가져와서 메세지에 첨부한 이미지 파일의 이름으로 만들기
+        val name = "IMG_${sdf.format(Date())}"
 
-                                    // 마지막 이미지까지 디비에 저장이 완료됬을 경우, 넘어오는 문자열 : 문자 전송 성공
-                                    if(!message.isNullOrEmpty())
-                                        Toast.makeText(this@SmsSendActivity, message, Toast.LENGTH_SHORT).show()
-                                }
+        // 파이어베이스 이미지 파일 저장
+        val storage = FirebaseStorage.getInstance()
+        for(i in 0 until images.size) {
+            val imgRef:StorageReference = storage.getReference("profileImage/${name}${i+1}")
+            imgRef.putFile(images[i]).addOnSuccessListener {
+                imgRef.downloadUrl.addOnSuccessListener {
+                    // 이미지를 성공적으로 전송했다면 이미지 uri 가져와서 문자 메세지 DB에 저장
+                    RetrofitHelper.getRetrofitInstance().create(RetrofitSendMessageService::class.java)
+                        .sendImageContainMessage(
+                            str[choiceStudentIndex].id, // 문자 메세지 받을 학생의 아이디
+                            G.member.id,                // 문자 메세지 보낼 선생님 아이디
+                            message,                    // 문자 메세지 내용
+                            it.toString(),              // 첨부한 이미지 파일 주소
+                            (i+1),                      // php에서 현재 몇 번째 이미지가 전송되고 있는지 확인하기 위해..
+                            images.size                 // php에서 이미지 리스트 길이를 가지고 이미지 리스트 길이만큼 insert 하기 위해서..
+                        ).enqueue(object :Callback<String> {
+                            override fun onResponse(call: Call<String>, response: Response<String>) {
+                                val message = response.body()
 
-                                override fun onFailure(call: Call<String>, t: Throwable) {
-                                    AlertDialog.Builder(this@SmsSendActivity)
-                                        .setMessage("error : ${t.message}")
-                                        .setPositiveButton("OK", null).show()
-                                }
-                            })
-                    }
+                                // 마지막 이미지까지 디비에 저장이 완료됬을 경우, 넘어오는 문자열 : 문자 전송 성공
+                                if(!message.isNullOrEmpty())
+                                    Toast.makeText(this@SmsSendActivity, message, Toast.LENGTH_SHORT).show()
+                            }
+
+                            override fun onFailure(call: Call<String>, t: Throwable) {
+                                AlertDialog.Builder(this@SmsSendActivity)
+                                    .setMessage("error : ${t.message}")
+                                    .setPositiveButton("OK", null).show()
+                            }
+                        })
                 }
             }
         }
     }
+
+
+    // 이미지 첨부하지 않고 문자 내용만 발송
+    private fun sendMessage(str:MutableList<Member>, message:String) {
+        RetrofitHelper.getRetrofitInstance().create(RetrofitSendMessageService::class.java)
+            .sendMessage(
+                str[choiceStudentIndex].id, // 문자 메세지 받을 학생의 아이디
+                G.member.id,                // 문자 메세지 보낼 선생님 아이디
+                message,                    // 문자 메세지 내용
+            ).enqueue(object :Callback<String> {
+                override fun onResponse(call: Call<String>, response: Response<String>) {
+                    val message = response.body()
+
+                    // 넘어오는 문자열 : 문자 전송 성공
+                    Toast.makeText(this@SmsSendActivity, message, Toast.LENGTH_SHORT).show()
+                }
+
+                override fun onFailure(call: Call<String>, t: Throwable) {
+                    AlertDialog.Builder(this@SmsSendActivity)
+                        .setMessage("error : ${t.message}")
+                        .setPositiveButton("OK", null).show()
+                }
+            })
+    }
+
 
     // 이미지 선택 메소드
     private fun selectImage() {
