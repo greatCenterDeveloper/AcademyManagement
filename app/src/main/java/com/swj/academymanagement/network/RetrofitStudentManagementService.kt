@@ -46,6 +46,21 @@ interface RetrofitStudentManagementService {
     fun studentMessageList(@Field("studentId") studentId:String,
                            @Field("teacherId") teacherId:String):Call<MutableList<StudentManagementMessage>>
 
+    // 학생 상세 정보 -> 문자 삭제하기 전에 이미지 Uri 가져오기
+    @GET("/studentManagement/studentMessageGetImageUri.php")
+    fun studentMessageGetImageUri(@Query("studentId") studentId:String,
+                                  @Query("teacherId") teacherId:String,
+                                  @Query("message") message:String,
+                                  @Query("date") date:String):Call<MutableList<String>>
+
+    // 학생 상세 정보 -> 문자 삭제
+    @FormUrlEncoded
+    @POST("/studentManagement/studentMessageDelete.php")
+    fun studentMessageDelete(@Field("studentId") studentId:String,
+                             @Field("teacherId") teacherId:String,
+                             @Field("message") message:String,
+                             @Field("date") date:String):Call<String>
+
     // 학생 상세 정보 -> 특정 강좌 출석부
     @GET("/studentManagement/studentCourseAttendanceList.php")
     fun studentCourseAttendanceList(@Query("courseCode") courseCode:String,

@@ -162,7 +162,8 @@ class SmsSendActivity : AppCompatActivity() {
         // 파이어베이스 이미지 파일 저장
         val storage = FirebaseStorage.getInstance()
         for(i in 0 until images.size) {
-            val imgRef:StorageReference = storage.getReference("profileImage/${name}${i+1}.jpg")
+            val imgFile:String = "${name}${i+1}.jpg"
+            val imgRef:StorageReference = storage.getReference("profileImage/$imgFile")
             imgRef.putFile(images[i]).addOnSuccessListener {
                 imgRef.downloadUrl.addOnSuccessListener {
                     // 이미지를 성공적으로 전송했다면 이미지 uri 가져와서 문자 메세지 DB에 저장
@@ -171,7 +172,7 @@ class SmsSendActivity : AppCompatActivity() {
                             str[choiceStudentIndex].id, // 문자 메세지 받을 학생의 아이디
                             G.member.id,                // 문자 메세지 보낼 선생님 아이디
                             message,                    // 문자 메세지 내용
-                            it.toString(),              // 첨부한 이미지 파일 주소
+                            imgFile,                    // 첨부한 이미지 파일 이름
                             (i+1),                      // php에서 현재 몇 번째 이미지가 전송되고 있는지 확인하기 위해..
                             images.size                 // php에서 이미지 리스트 길이를 가지고 이미지 리스트 길이만큼 insert 하기 위해서..
                         ).enqueue(object :Callback<String> {
@@ -179,8 +180,12 @@ class SmsSendActivity : AppCompatActivity() {
                                 val message = response.body()
 
                                 // 마지막 이미지까지 디비에 저장이 완료됬을 경우, 넘어오는 문자열 : 문자 전송 성공
-                                if(!message.isNullOrEmpty())
+                                if(!message.isNullOrEmpty()) {
                                     Toast.makeText(this@SmsSendActivity, message, Toast.LENGTH_SHORT).show()
+
+                                    startActivity(Intent(this@SmsSendActivity, MainActivity::class.java))
+                                    finish()
+                                }
                             }
 
                             override fun onFailure(call: Call<String>, t: Throwable) {
@@ -208,6 +213,9 @@ class SmsSendActivity : AppCompatActivity() {
 
                     // 넘어오는 문자열 : 문자 전송 성공
                     Toast.makeText(this@SmsSendActivity, message, Toast.LENGTH_SHORT).show()
+
+                    startActivity(Intent(this@SmsSendActivity, MainActivity::class.java))
+                    finish()
                 }
 
                 override fun onFailure(call: Call<String>, t: Throwable) {
