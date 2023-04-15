@@ -119,7 +119,7 @@ class StudentActivity : AppCompatActivity() {
         val headerView = binding.nav.getHeaderView(0)
         civ = headerView.findViewById(R.id.civ_profile)
         civ.setOnClickListener {
-            val intent = Intent(Intent.ACTION_OPEN_DOCUMENT).setType("image/*")
+            val intent = Intent(Intent.ACTION_PICK).setType("image/*")
             imagePickResultLauncher.launch(intent)
         }
 

@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.MotionEvent
 import android.view.WindowInsets
 import android.view.WindowManager
@@ -64,8 +65,42 @@ class AcademyLoginActivity : AppCompatActivity() {
 
             // 찾기 버튼 클릭
             dialogBinding.btnFind.setOnClickListener {
-                val call:String = dialogBinding.tilInputCall.editText?.text.toString()
-                Toast.makeText(this, "휴대폰 번호 : ${call}", Toast.LENGTH_SHORT).show()
+                val callNumber:String = dialogBinding.tilInputCall.editText?.text.toString()
+
+                if(callNumber.length != 11) {
+                    Toast.makeText(this, "휴대폰 번호를 잘못 입력하셨습니다.", Toast.LENGTH_SHORT).show()
+                } else {
+                    val call1 = callNumber.substring(0, 3)
+                    val call2 = callNumber.substring(3, 7)
+                    val call3 = callNumber.substring(7, callNumber.length)
+
+                    val call = "${call1}-${call2}-${call3}"
+
+                    // member 테이블의 휴대폰 번호는 unique 키 이므로..
+                    RetrofitHelper.getRetrofitInstance().create(RetrofitMemberService::class.java)
+                        .findMemberId(
+                            call    // 휴대폰 번호
+                        ).enqueue(object :Callback<String> {
+                            override fun onResponse(call: Call<String>, response: Response<String>) {
+                                val message = response.body()
+
+                                if(message?.contains("없는") ?: false) { // 없는 휴대폰 번호 입니다. 메세지가 날아올 경우
+                                    Toast.makeText(this@AcademyLoginActivity, message, Toast.LENGTH_SHORT).show()
+                                } else {
+                                    AlertDialog.Builder(this@AcademyLoginActivity)
+                                        .setMessage(message)
+                                        .setPositiveButton("OK", null).show()
+                                    dialog.dismiss()
+                                }
+                            }
+
+                            override fun onFailure(call: Call<String>, t: Throwable) {
+                                Toast.makeText(this@AcademyLoginActivity, t.message, Toast.LENGTH_SHORT).show()
+                            }
+                        })
+                }
+
+                dialogBinding.tilInputCall.editText?.setText("")
             }
         }
 
