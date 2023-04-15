@@ -73,6 +73,7 @@ class CounselCurrentAdapter(val context: Context, val counselCurrentArr:MutableL
 
                     AlertDialog.Builder(context)
                         .setMessage("삭제하시겠습니까?")
+                        .setNegativeButton("NO", null)
                         .setPositiveButton("OK", DialogInterface.OnClickListener { _, _ ->
                             RetrofitHelper.getRetrofitInstance().create(RetrofitCounselService::class.java)
                                 .counselDelete(
