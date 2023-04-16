@@ -99,7 +99,6 @@ class AcademyLoginActivity : AppCompatActivity() {
                             }
                         })
                 }
-
                 dialogBinding.tilInputCall.editText?.setText("")
             }
         }
@@ -117,8 +116,46 @@ class AcademyLoginActivity : AppCompatActivity() {
             // 찾기 버튼 클릭
             dialogBinding.btnFind.setOnClickListener {
                 val id:String = dialogBinding.tilInputId.editText?.text.toString()
-                val call:String = dialogBinding.tilInputCall.editText?.text.toString()
-                Toast.makeText(this, "아이디 : ${id}\n휴대폰 번호 : ${call}", Toast.LENGTH_SHORT).show()
+                val callNumber:String = dialogBinding.tilInputCall.editText?.text.toString()
+
+                if(callNumber.length != 11) {
+                    Toast.makeText(this, "휴대폰 번호를 잘못 입력하셨습니다.", Toast.LENGTH_SHORT).show()
+                } else {
+                    val call1 = callNumber.substring(0, 3)
+                    val call2 = callNumber.substring(3, 7)
+                    val call3 = callNumber.substring(7, callNumber.length)
+
+                    val call = "${call1}-${call2}-${call3}"
+
+                    // member 테이블의 id는 pk, 휴대폰 번호는 unique 키 이므로..
+                    // member 테이블에서 id와 휴대폰 번호가 일치해야 비밀번호를 알려주도록..
+                    RetrofitHelper.getRetrofitInstance().create(RetrofitMemberService::class.java)
+                        .findMemberPassword(
+                            id,         // 회원 아이디
+                            call        // 휴대폰 번호
+                        ).enqueue(object :Callback<String> {
+                            override fun onResponse(call: Call<String>, response: Response<String>) {
+                                val message = response.body()
+
+                                // 없는 회원 정보 입니다.  메세지가 날아올 경우
+                                if(message?.contains("없는") ?: false) {
+                                    Toast.makeText(this@AcademyLoginActivity, message, Toast.LENGTH_SHORT).show()
+                                    dialogBinding.tilInputId.requestFocus()
+                                } else {
+                                    AlertDialog.Builder(this@AcademyLoginActivity)
+                                        .setMessage(message)
+                                        .setPositiveButton("OK", null).show()
+                                    dialog.dismiss()
+                                }
+                            }
+
+                            override fun onFailure(call: Call<String>, t: Throwable) {
+                                Toast.makeText(this@AcademyLoginActivity, t.message, Toast.LENGTH_SHORT).show()
+                            }
+                        })
+                }
+                dialogBinding.tilInputId.editText?.setText("")
+                dialogBinding.tilInputCall.editText?.setText("")
             }
         }
 

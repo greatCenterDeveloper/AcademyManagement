@@ -27,11 +27,17 @@ interface RetrofitMemberService {
     // 회원 로그인
     @FormUrlEncoded
     @POST("/member/memberLogin.php")
-    fun memberLogin(@Field("id") id:String, @Field("password") password:String):Call<Member>
+    fun memberLogin(@Field("id") id:String,
+                    @Field("password") password:String):Call<Member>
 
     // 아이디 찾기
     @FormUrlEncoded
     @POST("/member/findMemberId.php")
     fun findMemberId(@Field("call") call:String):Call<String>
 
+    // 비밀번호 찾기
+    @FormUrlEncoded
+    @POST("/member/findMemberPassword.php")
+    fun findMemberPassword(@Field("id") id:String,
+                           @Field("call") call:String):Call<String>
 }
