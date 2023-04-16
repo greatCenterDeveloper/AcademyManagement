@@ -8,10 +8,18 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView.Adapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.bumptech.glide.Glide
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.StorageReference
 import com.google.gson.Gson
+import com.swj.academymanagement.G
 import com.swj.academymanagement.activities.StudentDetailActivity
 import com.swj.academymanagement.databinding.RecyclerItemStudentManagementBinding
 import com.swj.academymanagement.model.Member
+import com.swj.academymanagement.network.RetrofitHelper
+import com.swj.academymanagement.network.RetrofitMemberService
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 // 선생님 권한 학생 관리 학생 RecyclerView 어댑터
 class StudentManagementAdapter(val context:Context, val studentArr:List<Member>, val teacherId:String)
@@ -26,9 +34,29 @@ class StudentManagementAdapter(val context:Context, val studentArr:List<Member>,
     override fun onBindViewHolder(holder: VH, position: Int) {
         val student:Member = studentArr[position]
 
-        // 학생 프로필 이미지
-        if(!student.profile.equals(""))
-            Glide.with(context).load(student.profile).into(holder.binding.civProfile)
+        // member 테이블의 Primary Key인 id로 FirebaseStorage에 저장된 profile 이미지 이름 가져오기
+        RetrofitHelper.getRetrofitInstance().create(RetrofitMemberService::class.java)
+            .getMemberProfile(
+                student.id     // 학생 아이디
+            ).enqueue(object : Callback<String> {
+                override fun onResponse(call: Call<String>, response: Response<String>) {
+
+                    // 디비에 저장된 프로필 사진 이름 가져오기
+                    val profile = response.body()
+
+                    // FirebaseStorage에서 불러온 사진 좌측 드로우어 메뉴의 프로필 이미지에 붙이기
+                    val storage = FirebaseStorage.getInstance()
+                    val imgRef: StorageReference = storage.getReference().child("profileImage/$profile")
+                    imgRef.downloadUrl.addOnSuccessListener {
+
+                        // 학생 프로필 이미지
+                        Glide.with(context).load(it).into(holder.binding.civProfile)
+                    }
+                }
+
+                override fun onFailure(call: Call<String>, t: Throwable) {}
+            })
+
 
         // 학생 이름
         holder.binding.tvName.text = student.name
