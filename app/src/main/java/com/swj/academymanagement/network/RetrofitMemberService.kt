@@ -48,6 +48,11 @@ interface RetrofitMemberService {
                              @Field("password") password:String,
                              @Field("id") id:String):Call<String>
 
+    // 회원 탈퇴
+    @FormUrlEncoded
+    @POST("/member/memberUnregister.php")
+    fun memberUnregister(@Field("id") id:String):Call<String>
+
     // 선생님 / 학생 메인 화면 NavigationView 프로필 이미지 이름 가져오기
     @FormUrlEncoded
     @POST("/member/getMemberProfile.php")

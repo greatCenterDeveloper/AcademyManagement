@@ -7,4 +7,8 @@
     <item android:id="@+id/menu_password_update"
         android:title="비밀번호 수정"
         android:icon="@drawable/baseline_key_24"/>
+
+    <item android:id="@+id/menu_unregister"
+        android:title="회원 탈퇴"
+        android:icon="@drawable/baseline_unregister_24"/>
 </menu>

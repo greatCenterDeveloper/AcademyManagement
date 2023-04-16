@@ -158,6 +158,58 @@ class MainActivity : AppCompatActivity() {
                         dialogBinding.tilPassword.editText?.requestFocus()
                     }
                 }
+            } else if(it.itemId == R.id.menu_unregister) { // 회원 탈퇴 버튼 클릭 시
+
+                AlertDialog.Builder(this@MainActivity)
+                    .setMessage("정말로 탈퇴하시겠습니까?")
+                    .setNegativeButton("NO", null)
+                    .setPositiveButton("OK") { _, _ ->
+
+                        // 회원 탈퇴 retrofit
+                        RetrofitHelper.getRetrofitInstance().create(RetrofitMemberService::class.java)
+                            .memberUnregister(
+                                G.member.id     // 선생님 아이디
+                            ).enqueue(object :Callback<String> {
+                                override fun onResponse(call: Call<String>, response: Response<String>) {
+                                    val messageResult = response.body()
+
+                                    val messageArr = messageResult?.split(",")
+
+                                    var toastMessage = ""
+
+                                    if(messageArr != null) {
+                                        // 프로필 이미지가 존재한다면..
+                                        if(messageArr.size > 1) {
+                                            // 파이어베이스에 저장된 프로필 이미지 이름
+                                            val profileImage = messageArr[0]
+
+                                            // FirebaseStorage에서 저장된 기존 프로필 이미지 삭제
+                                            FirebaseStorage.getInstance().getReference()
+                                                .child("profileImage/$profileImage").delete()
+
+                                            toastMessage = messageArr[1]
+                                        } else {
+                                            // 프로필 이미지가 존재하지 않는다면..
+                                            toastMessage = messageArr[0]
+                                        }
+
+                                        // G 클래스 member 객체에서 회원 정보 제거
+                                        G.member = Member("","","","","", call_number = "")
+
+                                        Toast.makeText(this@MainActivity, toastMessage, Toast.LENGTH_SHORT).show()
+
+                                        val intent = Intent(this@MainActivity, LoginActivity::class.java)
+                                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
+                                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                                        startActivity(intent)
+                                    }
+                                }
+
+                                override fun onFailure(call: Call<String>, t: Throwable) {
+                                    Toast.makeText(this@MainActivity, t.message, Toast.LENGTH_SHORT).show()
+                                }
+                            })
+                    }.show()
             }
 
             binding.drawerLayout.closeDrawer(binding.nav)
