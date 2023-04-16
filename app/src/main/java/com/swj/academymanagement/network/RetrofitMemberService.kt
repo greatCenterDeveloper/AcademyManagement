@@ -41,6 +41,15 @@ interface RetrofitMemberService {
     fun findMemberPassword(@Field("id") id:String,
                            @Field("call") call:String):Call<String>
 
+    // 내 정보 수정
+    @FormUrlEncoded
+    @POST("/member/updateMemberInfo.php")
+    fun updateMemberInfo(@Field("id") id:String,
+                         @Field("name") name:String,
+                         @Field("call") call:String,
+                         @Field("prevPassword") prevPassword:String,
+                         @Field("password") password:String):Call<String>
+
     // 비밀번호 수정
     @FormUrlEncoded
     @POST("/member/updateMemberPassword.php")

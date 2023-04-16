@@ -93,7 +93,11 @@ class AcademySignupActivity : AppCompatActivity() {
                                 .setMessage(result)
                                 .setPositiveButton("OK", DialogInterface.OnClickListener { _, _ ->
                                     if(result!!.contains("가능")) idCheck = true
-                                    else binding.tietId.requestFocus()
+                                    else {
+                                        binding.tietId.requestFocus()
+                                        binding.tietId.setText("")
+                                        idCheck = false
+                                    }
                                 }).show()
                         }
 
@@ -124,7 +128,9 @@ class AcademySignupActivity : AppCompatActivity() {
             }
 
             if (call1.equals("") || call2.equals("") || call3.equals("")) {
-                AlertDialog.Builder(this).setMessage("휴대폰 번호를 입력하세요.").setPositiveButton("OK", null).show()
+                AlertDialog.Builder(this)
+                    .setMessage("휴대폰 번호를 입력하세요.")
+                    .setPositiveButton("OK", null).show()
                 callCheck = false
             }  else {
                 // 중복된 휴대폰 번호가 있는지 확인 (member 테이블 unique 키)
@@ -137,7 +143,15 @@ class AcademySignupActivity : AppCompatActivity() {
                                 .setMessage(result)
                                 .setPositiveButton("OK", DialogInterface.OnClickListener { _, _ ->
                                     if(result!!.contains("가능")) callCheck = true
-                                    else binding.tilCall1.editText?.requestFocus()
+                                    else {
+                                        binding.tilCall1.editText?.requestFocus()
+
+                                        binding.tilCall1.editText?.setText("")
+                                        binding.tilCall2.editText?.setText("")
+                                        binding.tilCall3.editText?.setText("")
+
+                                        callCheck = false
+                                    }
                                 }).show()
                         }
 

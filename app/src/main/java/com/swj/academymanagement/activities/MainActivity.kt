@@ -8,9 +8,10 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import android.view.View
+import android.view.MotionEvent
 import android.view.WindowInsets
 import android.view.WindowManager
+import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.activity.result.ActivityResultCallback
 import androidx.activity.result.ActivityResultLauncher
@@ -85,6 +86,64 @@ class MainActivity : AppCompatActivity() {
                 dialogBinding.ivClose.setOnClickListener { dialog.dismiss() }
                 dialog.show()
 
+                // 휴대폰 번호 중복 확인 안 한걸로 초기화
+                var callCheck = false
+
+                // 휴대폰 번호 중복 확인 버튼
+                dialogBinding.btnCallCheck.setOnClickListener {
+
+                    var call1 = ""
+                    if (dialogBinding.tilCall1.editText!!.text.toString().length == 3) {
+                        call1 = dialogBinding.tilCall1.editText!!.text.toString()
+                    }
+
+                    var call2 = ""
+                    if (dialogBinding.tilCall2.editText!!.text.toString().length == 4) {
+                        call2 = dialogBinding.tilCall2.editText!!.text.toString()
+                    }
+
+                    var call3 = ""
+                    if (dialogBinding.tilCall3.editText!!.text.toString().length == 4) {
+                        call3 = dialogBinding.tilCall3.editText!!.text.toString()
+                    }
+
+                    if (call1.equals("") || call2.equals("") || call3.equals("")) {
+                        AlertDialog.Builder(this)
+                            .setMessage("휴대폰 번호를 입력하세요.")
+                            .setPositiveButton("OK", null).show()
+                        callCheck = false
+                    }  else {
+
+                        // 중복된 휴대폰 번호가 있는지 확인 (member 테이블 unique 키)
+                        val call = "${call1}-${call2}-${call3}"
+                        RetrofitHelper.getRetrofitInstance().create(RetrofitMemberService::class.java)
+                            .memberSignUpCallNumberCheck(call).enqueue(object : Callback<String> {
+                                override fun onResponse(call: Call<String>, response: Response<String>) {
+                                    val result = response.body()
+                                    AlertDialog.Builder(this@MainActivity)
+                                        .setMessage(result)
+                                        .setPositiveButton("OK", DialogInterface.OnClickListener { _, _ ->
+                                            if(result!!.contains("가능")) callCheck = true
+                                            else {
+                                                dialogBinding.tilCall1.editText?.requestFocus()
+
+                                                dialogBinding.tilCall1.editText?.setText("")
+                                                dialogBinding.tilCall2.editText?.setText("")
+                                                dialogBinding.tilCall3.editText?.setText("")
+
+                                                callCheck = false
+                                            }
+                                        }).show()
+                                }
+
+                                override fun onFailure(call: Call<String>, t: Throwable) {
+                                    Toast.makeText(this@MainActivity, t.message, Toast.LENGTH_SHORT).show()
+                                }
+                            })
+                    }
+                }
+
+
                 // 내 정보 수정 버튼
                 dialogBinding.btnUpdate.setOnClickListener {
                     val name = dialogBinding.tilName.editText?.text.toString()
@@ -96,9 +155,53 @@ class MainActivity : AppCompatActivity() {
                     val password = dialogBinding.tilPassword.editText?.text.toString()
                     val passwordCheck = dialogBinding.tilPasswordCheck.editText?.text.toString()
 
-                    if(password == passwordCheck) {
-                        Toast.makeText(this, "수정 되었습니다.", Toast.LENGTH_SHORT).show()
-                        dialog.dismiss()
+                    if(password != passwordCheck) {
+                        // 비밀번호와 비밀번호 확인이 서로 일치하지 않는 경우
+
+                        Toast.makeText(this, "비밀번호와 비밀번호 확인이\n일치하지 않습니다.", Toast.LENGTH_SHORT).show()
+
+                        dialogBinding.tilPassword.editText?.setText("")
+                        dialogBinding.tilPasswordCheck.editText?.setText("")
+                        dialogBinding.tilPassword.editText?.requestFocus()
+                    } else if(!callCheck) {
+                        // 휴대폰 번호 중복 확인을 하지 않은 경우
+                        Toast.makeText(this, "휴대폰 번호 중복 확인을 안 하셨습니다.", Toast.LENGTH_SHORT).show()
+                    } else {
+
+                        // 내 정보 수정 retrofit
+                        RetrofitHelper.getRetrofitInstance().create(RetrofitMemberService::class.java)
+                            .updateMemberInfo(
+                                G.member.id,        // 선생님 아이디
+                                name,               // 변경할 이름
+                                call,               // 변경할 휴대폰 번호
+                                prevPassword,       // 이전 비밀번호
+                                password            // 변경할 비밀번호
+                            ).enqueue(object :Callback<String> {
+                                override fun onResponse(
+                                    call: Call<String>,
+                                    response: Response<String>
+                                ) {
+                                    val message = response.body()
+
+                                    // 이전 비밀번호가 일치한다면 "success" 문자열이 날아오니 내 정보 수정 처리됬으므로..
+                                    if(message == "success") {
+                                        Toast.makeText(this@MainActivity,
+                                            "내 정보 수정 완료", Toast.LENGTH_SHORT).show()
+                                        dialog.dismiss()
+                                    } else {
+                                        // 이전 비밀번호가 불일치 한다면...
+                                        Toast.makeText(this@MainActivity,
+                                            "이전 비밀번호가 일치하지 않습니다.", Toast.LENGTH_SHORT).show()
+
+                                        dialogBinding.tilPrevPassword.editText?.setText("")
+                                        dialogBinding.tilPrevPassword.editText?.requestFocus()
+                                    }
+                                }
+
+                                override fun onFailure(call: Call<String>, t: Throwable) {
+                                    Toast.makeText(this@MainActivity, t.message, Toast.LENGTH_SHORT).show()
+                                }
+                            })
                     }
                 }
             } else if(it.itemId == R.id.menu_password_update) { // NavigationView 메뉴 비밀번호 수정
@@ -132,7 +235,7 @@ class MainActivity : AppCompatActivity() {
                                     val message = response.body()
 
                                     // 이전 비밀번호가 일치한다면 "success" 문자열이 날아오니 비밀번호 수정 처리됬으므로..
-                                    if(message?.contains("success") ?: false) {
+                                    if(message == "success") {
                                         Toast.makeText(this@MainActivity,
                                             "비밀번호 수정 완료", Toast.LENGTH_SHORT).show()
                                         dialog.dismiss()
@@ -350,6 +453,14 @@ class MainActivity : AppCompatActivity() {
 
                 override fun onFailure(call: Call<String>, t: Throwable) {}
             })
+    }
+
+    // 바깥 화면 터치 시 소프트 키보드 숨기기
+    override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
+        val imm: InputMethodManager = getSystemService(InputMethodManager::class.java)
+        imm.hideSoftInputFromWindow(currentFocus?.windowToken, 0)
+        currentFocus?.clearFocus()
+        return super.dispatchTouchEvent(ev)
     }
 
     // 우측 상단에 로그아웃 메뉴 버튼 보이기
