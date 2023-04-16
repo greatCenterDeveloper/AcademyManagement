@@ -8,11 +8,15 @@ import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.RecyclerView.Adapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.bumptech.glide.Glide
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.StorageReference
+import com.swj.academymanagement.G
 import com.swj.academymanagement.databinding.DialogStudentManagementAttendanceBinding
 import com.swj.academymanagement.databinding.RecyclerItemStudentManagementCourseBinding
 import com.swj.academymanagement.model.StudentManagementCourse
 import com.swj.academymanagement.model.StudentManagementDialogAttendance
 import com.swj.academymanagement.network.RetrofitHelper
+import com.swj.academymanagement.network.RetrofitMemberService
 import com.swj.academymanagement.network.RetrofitStudentManagementService
 import retrofit2.Call
 import retrofit2.Callback
@@ -39,9 +43,29 @@ class StudentManagementCourseAdapter(val context:Context, val courseArr:MutableL
             "math" -> holder.binding.tvCourse.text = "수학"
         }
 
-        // 선생님 프로필 이미지
-        if(!smc.profile.equals(""))
-            Glide.with(context).load(smc.profile).into(holder.binding.civProfile)
+        // member 테이블의 Primary Key인 id로 FirebaseStorage에 저장된 profile 이미지 이름 가져오기
+        RetrofitHelper.getRetrofitInstance().create(RetrofitMemberService::class.java)
+            .getMemberProfile(
+                G.member.id     // 선생님 아이디
+            ).enqueue(object : Callback<String> {
+                override fun onResponse(call: Call<String>, response: Response<String>) {
+
+                    // 디비에 저장된 프로필 사진 이름 가져오기
+                    val profile = response.body()
+
+                    // FirebaseStorage에서 불러온 사진 프로필 이미지 공간에 붙이기
+                    val storage = FirebaseStorage.getInstance()
+                    val imgRef: StorageReference = storage.getReference().child("profileImage/$profile")
+                    imgRef.downloadUrl.addOnSuccessListener {
+
+                        // 선생님 프로필 이미지
+                        Glide.with(context).load(it).into(holder.binding.civProfile)
+                    }
+                }
+
+                override fun onFailure(call: Call<String>, t: Throwable) {}
+            })
+
 
         // 선생님 이름
         holder.binding.tvName.text = "${smc.teacher} 선생님"

@@ -44,7 +44,7 @@ class StudentManagementAdapter(val context:Context, val studentArr:List<Member>,
                     // 디비에 저장된 프로필 사진 이름 가져오기
                     val profile = response.body()
 
-                    // FirebaseStorage에서 불러온 사진 좌측 드로우어 메뉴의 프로필 이미지에 붙이기
+                    // FirebaseStorage에서 불러온 사진 recyclerView 프로필 이미지 공간에 붙이기
                     val storage = FirebaseStorage.getInstance()
                     val imgRef: StorageReference = storage.getReference().child("profileImage/$profile")
                     imgRef.downloadUrl.addOnSuccessListener {

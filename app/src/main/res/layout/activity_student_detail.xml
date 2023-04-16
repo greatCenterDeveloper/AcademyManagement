@@ -64,7 +64,7 @@
 
                 <ImageView
                     android:id="@+id/iv_profile"
-                    android:layout_width="50dp"
+                    android:layout_width="70dp"
                     android:layout_height="wrap_content"
                     android:src="@drawable/user_icon"
                     android:background="#aaaaaa"
@@ -74,7 +74,7 @@
 
                 <TextView
                     android:id="@+id/tv_name_title"
-                    android:layout_width="100dp"
+                    android:layout_width="80dp"
                     android:layout_height="wrap_content"
                     android:text="이름"
                     android:textColor="@color/black"
@@ -82,13 +82,13 @@
                     android:textSize="20sp"
                     android:fontFamily="@font/cookierunblack"
                     android:layout_toRightOf="@id/iv_profile"
-                    android:layout_marginLeft="16dp"
+                    android:layout_marginLeft="8dp"
                     android:layout_marginTop="8dp"
                     android:background="@drawable/bg_color"/>
 
                 <TextView
                     android:id="@+id/tv_course_title"
-                    android:layout_width="100dp"
+                    android:layout_width="80dp"
                     android:layout_height="wrap_content"
                     android:text="강좌"
                     android:textColor="@color/black"
@@ -102,7 +102,7 @@
 
                 <TextView
                     android:id="@+id/tv_call_title"
-                    android:layout_width="100dp"
+                    android:layout_width="80dp"
                     android:layout_height="wrap_content"
                     android:text="휴대폰"
                     android:textColor="@color/black"
