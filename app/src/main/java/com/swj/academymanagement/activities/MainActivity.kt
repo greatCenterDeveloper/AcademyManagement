@@ -116,9 +116,46 @@ class MainActivity : AppCompatActivity() {
                     val password = dialogBinding.tilPassword.editText?.text.toString()
                     val passwordCheck = dialogBinding.tilPasswordCheck.editText?.text.toString()
 
+                    // 새로이 입력한 비밀번호와 비밀번호 확인이 서로 일치한다면..
                     if(password == passwordCheck) {
-                        Toast.makeText(this, "수정 되었습니다.", Toast.LENGTH_SHORT).show()
-                        dialog.dismiss()
+
+                        RetrofitHelper.getRetrofitInstance().create(RetrofitMemberService::class.java)
+                            .updateMemberPassword(
+                                prevPassword,       // 이전 비밀번호
+                                password,           // 수정하려는 비밀번호
+                                G.member.id         // 선생님 아이디
+                            ).enqueue(object :Callback<String> {
+                                override fun onResponse(
+                                    call: Call<String>,
+                                    response: Response<String>
+                                ) {
+                                    val message = response.body()
+
+                                    // 이전 비밀번호가 일치한다면 "success" 문자열이 날아오니 비밀번호 수정 처리됬으므로..
+                                    if(message?.contains("success") ?: false) {
+                                        Toast.makeText(this@MainActivity,
+                                            "비밀번호 수정 완료", Toast.LENGTH_SHORT).show()
+                                        dialog.dismiss()
+                                    } else {
+                                        // 이전 비밀번호가 불일치 한다면...
+                                        Toast.makeText(this@MainActivity,
+                                            "이전 비밀번호가 일치하지 않습니다.", Toast.LENGTH_SHORT).show()
+
+                                        dialogBinding.tilPrevPassword.editText?.setText("")
+                                        dialogBinding.tilPrevPassword.editText?.requestFocus()
+                                    }
+                                }
+
+                                override fun onFailure(call: Call<String>, t: Throwable) {
+                                    Toast.makeText(this@MainActivity, t.message, Toast.LENGTH_SHORT).show()
+                                }
+                            })
+                    } else {
+                        Toast.makeText(this, "비밀번호와 비밀번호 확인이\n일치하지 않습니다.", Toast.LENGTH_SHORT).show()
+
+                        dialogBinding.tilPassword.editText?.setText("")
+                        dialogBinding.tilPasswordCheck.editText?.setText("")
+                        dialogBinding.tilPassword.editText?.requestFocus()
                     }
                 }
             }
