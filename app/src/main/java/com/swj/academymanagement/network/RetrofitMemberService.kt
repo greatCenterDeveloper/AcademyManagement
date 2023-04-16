@@ -40,4 +40,15 @@ interface RetrofitMemberService {
     @POST("/member/findMemberPassword.php")
     fun findMemberPassword(@Field("id") id:String,
                            @Field("call") call:String):Call<String>
+
+    // 선생님 / 학생 메인 화면 NavigationView 프로필 이미지 이름 가져오기
+    @FormUrlEncoded
+    @POST("/member/getMemberProfile.php")
+    fun getMemberProfile(@Field("id") id:String):Call<String>
+
+    // 선생님 / 학생 메인 화면 NavigationView 프로필 이미지 변경
+    @FormUrlEncoded
+    @POST("/member/updateMemberProfile.php")
+    fun updateMemberProfile(@Field("id") id:String,
+                            @Field("profile") profile:String):Call<String>
 }

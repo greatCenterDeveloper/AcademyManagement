@@ -2,6 +2,7 @@ package com.swj.academymanagement.activities
 
 import android.content.DialogInterface
 import android.content.Intent
+import android.net.Uri
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -16,13 +17,23 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AlertDialog
 import com.bumptech.glide.Glide
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.StorageReference
 import com.swj.academymanagement.G
 import com.swj.academymanagement.R
 import com.swj.academymanagement.databinding.ActivityStudentBinding
 import com.swj.academymanagement.databinding.DialogMyInfoUpdateBinding
 import com.swj.academymanagement.databinding.DialogPasswordUpdateBinding
 import com.swj.academymanagement.model.Member
+import com.swj.academymanagement.network.RetrofitHelper
+import com.swj.academymanagement.network.RetrofitMemberService
 import de.hdodenhof.circleimageview.CircleImageView
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.TimeZone
 
 // 학생 권한 로그인 시 보여줄 초기 화면
 class StudentActivity : AppCompatActivity() {
@@ -33,7 +44,7 @@ class StudentActivity : AppCompatActivity() {
     lateinit var drawerToggle:ActionBarDrawerToggle
 
     // 내 정보 수정 좌측 드로우어 메뉴에서 프로필 이미지 변경 시 가져올 이미지 주소
-    var profile:String = ""
+    var profile:Uri? = null
 
     // 내 정보 수정 좌측 드로우어 메뉴의 프로필 이미지
     lateinit var civ:CircleImageView
@@ -115,9 +126,32 @@ class StudentActivity : AppCompatActivity() {
             false
         }
 
-        // 프로필 이미지 변경
+        // NavigationView 안에 있는 HeaderView 안에 있는 CircleImageView를 찾아오기
         val headerView = binding.nav.getHeaderView(0)
         civ = headerView.findViewById(R.id.civ_profile)
+
+        // member 테이블의 Primary Key인 id로 FirebaseStorage에 저장된 profile 이미지 이름 가져오기
+        RetrofitHelper.getRetrofitInstance().create(RetrofitMemberService::class.java)
+            .getMemberProfile(
+                G.member.id     // 학생 아이디
+            ).enqueue(object : Callback<String> {
+                override fun onResponse(call: Call<String>, response: Response<String>) {
+
+                    // 디비에 저장된 프로필 사진 이름 가져오기
+                    val profile = response.body()
+
+                    // FirebaseStorage에서 불러온 사진 좌측 드로우어 메뉴의 프로필 이미지에 붙이기
+                    val storage = FirebaseStorage.getInstance()
+                    val imgRef: StorageReference = storage.getReference().child("profileImage/$profile")
+                    imgRef.downloadUrl.addOnSuccessListener {
+                        Glide.with(this@StudentActivity).load(it).into(civ)
+                    }
+                }
+
+                override fun onFailure(call: Call<String>, t: Throwable) {}
+            })
+
+        // 프로필 이미지 변경
         civ.setOnClickListener {
             val intent = Intent(Intent.ACTION_PICK).setType("image/*")
             imagePickResultLauncher.launch(intent)
@@ -161,14 +195,67 @@ class StudentActivity : AppCompatActivity() {
             ActivityResultCallback {
                 if(it.resultCode != RESULT_CANCELED) {
                     val intent:Intent = it.data!!
-                    profile = intent.data.toString()
+                    profile = intent.clipData!!.getItemAt(0).uri
 
-                    // 디비 프로필 사진 경로 변경..
+                    // 디비 프로필 사진 이름 변경..
+                    // member 테이블의 Primary Key인 id로 FirebaseStorage에 저장된 profile 이미지 이름 가져오기
+                    RetrofitHelper.getRetrofitInstance().create(RetrofitMemberService::class.java)
+                        .getMemberProfile(
+                            G.member.id     // 학생 아이디
+                        ).enqueue(object :Callback<String> {
+                            override fun onResponse(call: Call<String>, response: Response<String>) {
 
-                    Glide.with(this).load(intent.data).into(civ)
+                                // 디비에 저장된 프로필 사진 이름 가져오기
+                                val profile = response.body()
+
+                                // FirebaseStorage에서 저장된 기존 프로필 이미지 삭제
+                                val storage = FirebaseStorage.getInstance()
+                                val imgRef: StorageReference = storage.getReference().child("profileImage/$profile")
+                                imgRef.delete()
+
+                                // 디비 프로필 사진 이름 변경..
+                                updateMemberProfile()
+                            }
+
+                            override fun onFailure(call: Call<String>, t: Throwable) {}
+                        })
+
+                    Glide.with(this).load(profile).into(civ)
                 }
             }
         )
+
+    // 디비에 저장된 프로필 사진 이름 변경
+    private fun updateMemberProfile() {
+        // 현재 시간 가져오기
+        val sdf = SimpleDateFormat("yyyyMMddHHmmss")
+        sdf.timeZone = TimeZone.getTimeZone("Asia/Seoul")
+
+        // 현재 시간 가져와서 메세지에 첨부한 이미지 파일의 이름으로 만들기
+        val profileName = "IMG_${sdf.format(Date())}"
+
+        // 디비에 저장된 프로필 이미지 이름 변경하기
+        RetrofitHelper.getRetrofitInstance().create(RetrofitMemberService::class.java)
+            .updateMemberProfile(
+                G.member.id,            // 학생 아이디
+                profileName             // 프로필 이미지 이름
+            ).enqueue(object :Callback<String> {
+                override fun onResponse(call: Call<String>, response: Response<String>) {
+                    val message = response.body()
+
+                    // 넘어오는 문자열 : 수정 성공
+                    if(message?.contains("성공") ?: false) {
+                        val storage = FirebaseStorage.getInstance()
+                        val imgRef: StorageReference = storage.getReference().child("profileImage/$profileName")
+                        imgRef.putFile(profile!!).addOnSuccessListener {
+                            Toast.makeText(this@StudentActivity, "프로필 이미지 변경 성공", Toast.LENGTH_SHORT).show()
+                        }
+                    }
+                }
+
+                override fun onFailure(call: Call<String>, t: Throwable) {}
+            })
+    }
 
     // 우측 상단에 로그아웃 메뉴 버튼 보이기
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

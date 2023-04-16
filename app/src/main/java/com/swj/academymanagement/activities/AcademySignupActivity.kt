@@ -161,7 +161,7 @@ class AcademySignupActivity : AppCompatActivity() {
                     val intent:Intent = it.data!!
                     profile = intent.clipData!!.getItemAt(0).uri
 
-                    Glide.with(this).load(intent.data).into(binding.ivProfile)
+                    Glide.with(this).load(profile).into(binding.ivProfile)
                 }
             }
         )
