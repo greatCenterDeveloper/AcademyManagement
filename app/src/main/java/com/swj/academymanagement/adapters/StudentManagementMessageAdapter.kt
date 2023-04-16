@@ -119,7 +119,7 @@ class StudentManagementMessageAdapter(val context:Context, val messageArr:Mutabl
 
         for(imageUri in imageUriArr) {
             // 이미지 가져오기
-            val imgRef: StorageReference = storage.getReference().child("profileImage/$imageUri")
+            val imgRef: StorageReference = storage.getReference().child("messageImage/$imageUri")
 
             // 이미지 삭제
             imgRef.delete().addOnSuccessListener {}

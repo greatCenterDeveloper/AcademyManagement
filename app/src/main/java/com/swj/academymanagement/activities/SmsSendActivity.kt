@@ -163,7 +163,7 @@ class SmsSendActivity : AppCompatActivity() {
         val storage = FirebaseStorage.getInstance()
         for(i in 0 until images.size) {
             val imgFile:String = "${name}${i+1}.jpg"
-            val imgRef:StorageReference = storage.getReference("profileImage/$imgFile")
+            val imgRef:StorageReference = storage.getReference("messageImage/$imgFile")
             imgRef.putFile(images[i]).addOnSuccessListener {
                 imgRef.downloadUrl.addOnSuccessListener {
                     // 이미지를 성공적으로 전송했다면 이미지 uri 가져와서 문자 메세지 DB에 저장

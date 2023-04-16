@@ -2,6 +2,7 @@ package com.swj.academymanagement.activities
 
 import android.content.DialogInterface
 import android.content.Intent
+import android.net.Uri
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -16,6 +17,8 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import com.bumptech.glide.Glide
 import com.google.android.material.radiobutton.MaterialRadioButton
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.StorageReference
 import com.swj.academymanagement.databinding.ActivityAcademySignupBinding
 import com.swj.academymanagement.model.Member
 import com.swj.academymanagement.network.RetrofitHelper
@@ -23,6 +26,9 @@ import com.swj.academymanagement.network.RetrofitMemberService
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.TimeZone
 
 // 학원 계정 회원 가입 화면
 class AcademySignupActivity : AppCompatActivity() {
@@ -37,7 +43,7 @@ class AcademySignupActivity : AppCompatActivity() {
     // 핸드폰 중복검사 했는지 확인..
     var callCheck = false
     // 사진 경로
-    var profile:String = ""
+    var profile:Uri? = null
     // 아이디
     var id:String = ""
     // 휴대폰 번호
@@ -153,7 +159,8 @@ class AcademySignupActivity : AppCompatActivity() {
             ActivityResultCallback {
                 if(it.resultCode != RESULT_CANCELED) {
                     val intent:Intent = it.data!!
-                    profile = intent.data.toString()
+                    profile = intent.clipData!!.getItemAt(0).uri
+
                     Glide.with(this).load(intent.data).into(binding.ivProfile)
                 }
             }
@@ -188,11 +195,6 @@ class AcademySignupActivity : AppCompatActivity() {
             authCheck = true
         }
 
-
-        // 사진 경로
-        //val profile = ""
-
-
         // 비밀번호
         var password:String = binding.tilPassword.editText!!.text.toString()
 
@@ -217,8 +219,29 @@ class AcademySignupActivity : AppCompatActivity() {
         // 강좌 선택함
         // 휴대폰 번호 중복되지 않을 경우 가입 승인
         if(authCheck && idCheck && passwordCheck && callCheck && !name.equals("") && courseArr.size != 0) {
+
+            // 프로필 이미지 이름
+            var imgFile:String = ""
+
+            // 프로필 사진을 선택했을 경우 FirebaseStorage에 저장
+            if(profile != null) {
+                // 현재 시간 가져오기
+                val sdf = SimpleDateFormat("yyyyMMddHHmmss")
+                sdf.timeZone = TimeZone.getTimeZone("Asia/Seoul")
+
+                // 현재 시간 가져와서 메세지에 첨부한 이미지 파일의 이름으로 만들기
+                val name = "IMG_${sdf.format(Date())}"
+
+                // FirebaseStorage 이미지 파일 저장
+                val storage = FirebaseStorage.getInstance()
+                imgFile = "${name}.jpg"
+                val imgRef: StorageReference = storage.getReference("profileImage/$imgFile")
+                imgRef.putFile(profile!!)
+            }
+
+
             // member 객체에 회원 가입하려고 입력한 내용들 주입
-            val member = Member(authority, profile, id, password, name, courseArr, call)
+            val member = Member(authority, imgFile, id, password, name, courseArr, call)
 
             // 가입 처리 Retrofit
             val retrofit = RetrofitHelper.getRetrofitInstance()
