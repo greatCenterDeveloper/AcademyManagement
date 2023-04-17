@@ -10,7 +10,6 @@ import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
 import android.widget.ArrayAdapter
 import android.widget.Toast
-import androidx.appcompat.app.AlertDialog
 import com.swj.academymanagement.G
 import com.swj.academymanagement.R
 import com.swj.academymanagement.databinding.ActivityCounselInputBinding
@@ -88,10 +87,8 @@ class CounselRequestInsertActivity : AppCompatActivity() {
             val counselRequest = CounselRequest(date, startTime, endTime, counselContent, G.member.id)
 
             // 상담 시작 시간 및 마지막 시간 입력을 하지 않았을 시..
-            if(startTime == "" && endTime == "") {
-                AlertDialog.Builder(this@CounselRequestInsertActivity)
-                    .setMessage("상담 시간을 선택하세요.")
-                    .setPositiveButton("OK", null).show()
+            if(startTime == "" || endTime == "") {
+                Toast.makeText(this, "상담 시간을 선택하세요.", Toast.LENGTH_SHORT).show()
             } else {
                 // 전부 입력했다면 상담 신청 내용 저장
                 RetrofitHelper.getRetrofitInstance().create(RetrofitCounselStudentService::class.java)

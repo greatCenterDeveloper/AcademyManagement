@@ -40,8 +40,23 @@ class StudentManagementActivity : AppCompatActivity() {
         // 뒤로 가기
         binding.ivBackspace.setOnClickListener { finish() }
 
+        // 강좌 선택 드롭다운 박스에 넣을 강좌 이름 리스트
+        val courseArr:MutableList<String> = mutableListOf()
+
+        // 강좌 코드를 강좌명으로 변경
+        for(course in G.member.courseArr) {
+            when(course) {
+                "kor"  -> courseArr.add("국어")
+                "eng"  -> courseArr.add("영어")
+                "math" -> courseArr.add("수학")
+            }
+        }
+
+        // 이걸 선택하면 모든 학생이 보여야 한다.
+        courseArr.add(0, "선택안함")
+
         // 선생님 강좌 리스트 드롭다운 박스에 넣기
-        val courseAdapter:ArrayAdapter<String> = ArrayAdapter(this, android.R.layout.simple_list_item_1, G.member.courseArr)
+        val courseAdapter:ArrayAdapter<String> = ArrayAdapter(this, android.R.layout.simple_list_item_1, courseArr)
         binding.acTvCourse.setAdapter(courseAdapter)
 
         // 학생 이름 검색 ( 입력한 이름이 포함된 모든 학생 리스트 )

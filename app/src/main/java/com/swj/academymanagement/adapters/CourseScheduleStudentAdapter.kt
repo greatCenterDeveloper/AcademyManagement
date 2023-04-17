@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView.Adapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.google.gson.Gson
+import com.swj.academymanagement.activities.CourseScheduleActivity
 import com.swj.academymanagement.activities.CourseScheduleDetailStudentActivity
 import com.swj.academymanagement.databinding.RecyclerItemCourseScheduleBinding
 import com.swj.academymanagement.model.CourseSchedule
@@ -43,6 +44,7 @@ class CourseScheduleStudentAdapter(val context: Context, val scheduleArr:Mutable
                 // 수업 시간표 상세 화면에 가져갈 수업 시간표 정보
                 intent.putExtra("schedule", Gson().toJson(cs))
                 context.startActivity(intent)
+                (context as CourseScheduleActivity).finish()
             }
         } else {
             holder.binding.tvCourse.setTextColor(0x00ffffff)

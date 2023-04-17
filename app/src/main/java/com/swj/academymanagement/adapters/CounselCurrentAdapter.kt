@@ -68,6 +68,7 @@ class CounselCurrentAdapter(val context: Context, val counselCurrentArr:MutableL
                             context as CounselActivity, Pair(holder.binding.tvCounselContent, "counsel")
                         )
                     context.startActivity(intent, options.toBundle())
+                    context.finish()
 
                 } else if(it.itemId == R.id.menu_delete) {  // 상담 내용 삭제
 

@@ -195,10 +195,13 @@ class AcademyLoginActivity : AppCompatActivity() {
                         }
                     }
                     override fun onFailure(call: Call<Member>, t: Throwable) {
-                        // 로그인 실패 시 에러 발생하므로..
-                        AlertDialog.Builder(this@AcademyLoginActivity)
-                            .setMessage("아이디나 비밀번호가 맞지 않습니다.")
-                            .setPositiveButton("OK", null).show()
+                        if(t.message?.contains("time") ?: false) { // time out 일 경우 에러 메세지 표시
+                            Toast.makeText(this@AcademyLoginActivity, "error : ${t.message}", Toast.LENGTH_SHORT).show()
+                        }
+                        else { // 로그인 실패
+                            Toast.makeText(this@AcademyLoginActivity,
+                                "아이디나 비밀번호가 맞지 않습니다.", Toast.LENGTH_SHORT).show()
+                        }
                     }
                 })
         }

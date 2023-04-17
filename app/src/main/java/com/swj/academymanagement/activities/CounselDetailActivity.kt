@@ -73,7 +73,9 @@ class CounselDetailActivity : AppCompatActivity() {
                         Toast.makeText(this@CounselDetailActivity, message, Toast.LENGTH_SHORT).show()
 
                         if(message?.contains("완료") ?: false) { // 넘어오는 문자열 : 상담 작성 완료 이므로..
-                            startActivity(Intent(this@CounselDetailActivity, CounselActivity::class.java))
+                            val intent = Intent(this@CounselDetailActivity, CounselActivity::class.java)
+                            intent.putExtra("counsel", "counsel")
+                            startActivity(intent)
                             finish()
                         }
                     }

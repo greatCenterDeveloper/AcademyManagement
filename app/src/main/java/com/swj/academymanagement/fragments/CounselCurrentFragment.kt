@@ -43,6 +43,9 @@ class CounselCurrentFragment : Fragment() {
             // 검색하기 위해 입력한 학생 이름
             val name = binding.tilName.editText?.text.toString()
 
+            // 다음 검색시 번거롭게 학생 이름을 지울 필요 없이 미리 클리어..
+            binding.tilName.editText?.setText("")
+
             RetrofitHelper.getRetrofitInstance().create(RetrofitCounselService::class.java)
                 .counselNameSearch(
                     G.member.id,    // 선생님 아이디

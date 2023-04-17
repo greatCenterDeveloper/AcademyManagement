@@ -41,7 +41,10 @@ class CourseScheduleDetailStudentActivity : AppCompatActivity() {
         }
 
         // 뒤로 가기
-        binding.ivBackspace.setOnClickListener { finish() }
+        binding.ivBackspace.setOnClickListener {
+            startActivity(Intent(this@CourseScheduleDetailStudentActivity, CourseScheduleActivity::class.java))
+            finish()
+        }
 
         var schedule = Gson().fromJson(intent.getStringExtra("schedule"), CourseSchedule::class.java)
 
