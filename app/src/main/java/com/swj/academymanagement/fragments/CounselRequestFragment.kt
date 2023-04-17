@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.app.AlertDialog
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.swj.academymanagement.G
 import com.swj.academymanagement.activities.CounselActivity
@@ -61,9 +61,7 @@ class CounselRequestFragment : Fragment() {
                     call: Call<MutableList<CounselRequestTeacher>>,
                     t: Throwable
                 ) {
-                    AlertDialog.Builder(ca)
-                        .setMessage("error : ${t.message}")
-                        .setPositiveButton("OK", null).show()
+                    Toast.makeText(context, "error : ${t.message}", Toast.LENGTH_SHORT).show()
                 }
             })
     }

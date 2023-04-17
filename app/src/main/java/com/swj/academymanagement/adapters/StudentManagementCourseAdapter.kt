@@ -4,6 +4,7 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.RecyclerView.Adapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
@@ -117,9 +118,7 @@ class StudentManagementCourseAdapter(val context:Context, val courseArr:MutableL
                         call: Call<MutableList<StudentManagementDialogAttendance>>,
                         t: Throwable
                     ) {
-                        AlertDialog.Builder(context)
-                            .setMessage("error : ${t.message}")
-                            .setPositiveButton("OK", null).show()
+                        Toast.makeText(context, "error : ${t.message}", Toast.LENGTH_SHORT).show()
                     }
                 })
             dialog.show()

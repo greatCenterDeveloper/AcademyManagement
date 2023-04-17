@@ -95,9 +95,7 @@ class CounselRequestAdapter(val context: Context, val counselRequestArr:MutableL
                                     }
 
                                     override fun onFailure(call: Call<String>, t: Throwable) {
-                                        AlertDialog.Builder(context)
-                                            .setMessage("error : ${t.message}")
-                                            .setPositiveButton("OK", null).show()
+                                        Toast.makeText(context, "error : ${t.message}", Toast.LENGTH_SHORT).show()
                                     }
                                 })
                         }).show()

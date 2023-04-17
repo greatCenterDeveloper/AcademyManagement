@@ -33,6 +33,4 @@ class AttendanceAdapter(val context: Context, val attendanceArr:MutableList<Stud
         // 하원 시간
         holder.binding.tvGohomeTime.text = att.gohomeTime
     }
-
-
 }
