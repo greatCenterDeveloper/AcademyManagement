@@ -5,7 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.WindowInsets
 import android.view.WindowManager
-import androidx.appcompat.app.AlertDialog
+import android.widget.Toast
 import com.swj.academymanagement.G
 import com.swj.academymanagement.adapters.CourseScheduleAdapter
 import com.swj.academymanagement.adapters.CourseScheduleStudentAdapter
@@ -64,9 +64,7 @@ class CourseScheduleActivity : AppCompatActivity() {
                         call: Call<MutableList<CourseScheduleTeacher>>,
                         t: Throwable
                     ) {
-                        AlertDialog.Builder(this@CourseScheduleActivity)
-                            .setMessage("error : ${t.message}")
-                            .setPositiveButton("OK", null).show()
+                        Toast.makeText(this@CourseScheduleActivity, "error : ${t.message}", Toast.LENGTH_SHORT).show()
                     }
                 })
         } else {
@@ -92,9 +90,7 @@ class CourseScheduleActivity : AppCompatActivity() {
                         call: Call<MutableList<CourseSchedule>>,
                         t: Throwable
                     ) {
-                        AlertDialog.Builder(this@CourseScheduleActivity)
-                            .setMessage("error : ${t.message}")
-                            .setPositiveButton("OK", null).show()
+                        Toast.makeText(this@CourseScheduleActivity, "error : ${t.message}", Toast.LENGTH_SHORT).show()
                     }
                 })
         }

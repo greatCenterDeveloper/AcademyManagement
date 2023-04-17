@@ -68,11 +68,10 @@ class TeachingBookActivity : AppCompatActivity() {
                                 binding.recycler.adapter = TeachingBookAdapter(this@TeachingBookActivity, result.items)
                             else Toast.makeText(this@TeachingBookActivity, "검색 결과가 없습니다.", Toast.LENGTH_SHORT).show()
                         }
-
                     }
 
                     override fun onFailure(call: Call<NaverSearchApiResponse>, t: Throwable) {
-                        Toast.makeText(this@TeachingBookActivity, t.message, Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this@TeachingBookActivity, "error : ${t.message}", Toast.LENGTH_SHORT).show()
                     }
                 })
         }

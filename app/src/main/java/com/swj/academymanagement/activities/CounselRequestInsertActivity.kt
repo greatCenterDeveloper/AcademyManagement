@@ -108,9 +108,7 @@ class CounselRequestInsertActivity : AppCompatActivity() {
                         }
 
                         override fun onFailure(call: Call<String>, t: Throwable) {
-                            AlertDialog.Builder(this@CounselRequestInsertActivity)
-                                .setMessage("error : ${t.message}")
-                                .setPositiveButton("OK", null).show()
+                            Toast.makeText(this@CounselRequestInsertActivity, "error : ${t.message}", Toast.LENGTH_SHORT).show()
                         }
                     })
             }

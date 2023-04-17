@@ -124,9 +124,7 @@ class CounselRequestUpdateActivity : AppCompatActivity() {
                         }
 
                         override fun onFailure(call: Call<String>, t: Throwable) {
-                            AlertDialog.Builder(this@CounselRequestUpdateActivity)
-                                .setMessage("error : ${t.message}")
-                                .setPositiveButton("OK", null).show()
+                            Toast.makeText(this@CounselRequestUpdateActivity, "error : ${t.message}", Toast.LENGTH_SHORT).show()
                         }
                     })
             }

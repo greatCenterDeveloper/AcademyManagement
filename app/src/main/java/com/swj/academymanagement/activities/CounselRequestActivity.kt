@@ -7,7 +7,7 @@ import android.os.Bundle
 import android.view.View
 import android.view.WindowInsets
 import android.view.WindowManager
-import androidx.appcompat.app.AlertDialog
+import android.widget.Toast
 import com.swj.academymanagement.G
 import com.swj.academymanagement.adapters.CounselRequestAdapter
 import com.swj.academymanagement.databinding.ActivityCounselRequestBinding
@@ -85,9 +85,7 @@ class CounselRequestActivity : AppCompatActivity() {
 
                 override fun onFailure(call: Call<MutableList<CounselRequest>>, t: Throwable) {
                     if(!(this@CounselRequestActivity).isFinishing) {
-                        AlertDialog.Builder(this@CounselRequestActivity)
-                            .setMessage("error : ${t.message}")
-                            .setPositiveButton("OK", null).show()
+                        Toast.makeText(this@CounselRequestActivity, "error : ${t.message}", Toast.LENGTH_SHORT).show()
                     }
                 }
             })

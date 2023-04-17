@@ -92,19 +92,17 @@ class AcademySignupActivity : AppCompatActivity() {
                             AlertDialog.Builder(this@AcademySignupActivity)
                                 .setMessage(result)
                                 .setPositiveButton("OK", DialogInterface.OnClickListener { _, _ ->
-                                    if(result!!.contains("가능")) idCheck = true
-                                    else {
-                                        binding.tietId.requestFocus()
-                                        binding.tietId.setText("")
-                                        idCheck = false
-                                    }
+                                    idCheck = if(result!!.contains("가능")) true
+                                              else {
+                                                  binding.tietId.requestFocus()
+                                                  binding.tietId.setText("")
+                                                  false
+                                              }
                                 }).show()
                         }
 
                         override fun onFailure(call: Call<String>, t: Throwable) {
-                            AlertDialog.Builder(this@AcademySignupActivity)
-                                .setMessage("error : ${t.message}")
-                                .setPositiveButton("OK", null).show()
+                            Toast.makeText(this@AcademySignupActivity, "error : ${t.message}", Toast.LENGTH_SHORT).show()
                         }
                     })
             }
@@ -156,9 +154,7 @@ class AcademySignupActivity : AppCompatActivity() {
                         }
 
                         override fun onFailure(call: Call<String>, t: Throwable) {
-                            AlertDialog.Builder(this@AcademySignupActivity)
-                                .setMessage("error : ${t.message}")
-                                .setPositiveButton("OK", null).show()
+                            Toast.makeText(this@AcademySignupActivity, "error : ${t.message}", Toast.LENGTH_SHORT).show()
                         }
                     })
 
@@ -273,9 +269,7 @@ class AcademySignupActivity : AppCompatActivity() {
                 }
 
                 override fun onFailure(call: Call<String>, t: Throwable) {
-                    AlertDialog.Builder(this@AcademySignupActivity)
-                        .setMessage(t.message)
-                        .setPositiveButton("OK", null).show()
+                    Toast.makeText(this@AcademySignupActivity, "error : ${t.message}", Toast.LENGTH_SHORT).show()
                 }
             })
         } else {

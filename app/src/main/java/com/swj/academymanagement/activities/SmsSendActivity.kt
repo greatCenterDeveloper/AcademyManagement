@@ -14,7 +14,6 @@ import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
@@ -124,9 +123,7 @@ class SmsSendActivity : AppCompatActivity() {
                 }
 
                 override fun onFailure(call: Call<MutableList<Member>>, t: Throwable) {
-                    AlertDialog.Builder(this@SmsSendActivity)
-                        .setMessage("error : ${t.message}")
-                        .setPositiveButton("OK", null).show()
+                    Toast.makeText(this@SmsSendActivity, "error : ${t.message}", Toast.LENGTH_SHORT).show()
                 }
             })
 
@@ -189,9 +186,7 @@ class SmsSendActivity : AppCompatActivity() {
                             }
 
                             override fun onFailure(call: Call<String>, t: Throwable) {
-                                AlertDialog.Builder(this@SmsSendActivity)
-                                    .setMessage("error : ${t.message}")
-                                    .setPositiveButton("OK", null).show()
+                                Toast.makeText(this@SmsSendActivity, "error : ${t.message}", Toast.LENGTH_SHORT).show()
                             }
                         })
                 }
@@ -219,9 +214,7 @@ class SmsSendActivity : AppCompatActivity() {
                 }
 
                 override fun onFailure(call: Call<String>, t: Throwable) {
-                    AlertDialog.Builder(this@SmsSendActivity)
-                        .setMessage("error : ${t.message}")
-                        .setPositiveButton("OK", null).show()
+                    Toast.makeText(this@SmsSendActivity, "error : ${t.message}", Toast.LENGTH_SHORT).show()
                 }
             })
     }

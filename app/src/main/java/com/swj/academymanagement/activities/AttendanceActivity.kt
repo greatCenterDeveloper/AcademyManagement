@@ -8,7 +8,7 @@ import android.view.MotionEvent
 import android.view.WindowInsets
 import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
-import androidx.appcompat.app.AlertDialog
+import android.widget.Toast
 import com.swj.academymanagement.G
 import com.swj.academymanagement.adapters.AttendanceAdapter
 import com.swj.academymanagement.databinding.ActivityAttendanceBinding
@@ -75,9 +75,7 @@ class AttendanceActivity : AppCompatActivity() {
                             call: Call<MutableList<StudentAttendance>>,
                             t: Throwable
                         ) {
-                            AlertDialog.Builder(this@AttendanceActivity)
-                                .setMessage("error : ${t.message}")
-                                .setPositiveButton("OK", null).show()
+                            Toast.makeText(this@AttendanceActivity, "error : ${t.message}", Toast.LENGTH_SHORT).show()
                         }
                     })
             }
@@ -119,9 +117,7 @@ class AttendanceActivity : AppCompatActivity() {
                             call: Call<MutableList<StudentAttendance>>,
                             t: Throwable
                         ) {
-                            AlertDialog.Builder(this@AttendanceActivity)
-                                .setMessage("error : ${t.message}")
-                                .setPositiveButton("OK", null).show()
+                            Toast.makeText(this@AttendanceActivity, "error : ${t.message}", Toast.LENGTH_SHORT).show()
                         }
                     })
             }
@@ -148,9 +144,7 @@ class AttendanceActivity : AppCompatActivity() {
                         call: Call<MutableList<StudentAttendance>>,
                         t: Throwable
                     ) {
-                        AlertDialog.Builder(this@AttendanceActivity)
-                            .setMessage("error : ${t.message}")
-                            .setPositiveButton("OK", null).show()
+                        Toast.makeText(this@AttendanceActivity, "error : ${t.message}", Toast.LENGTH_SHORT).show()
                     }
                 })
             binding.tilName.editText?.setText("")
@@ -170,9 +164,7 @@ class AttendanceActivity : AppCompatActivity() {
                 }
 
                 override fun onFailure(call: Call<MutableList<StudentAttendance>>, t: Throwable) {
-                    AlertDialog.Builder(this@AttendanceActivity)
-                        .setMessage("error : ${t.message}")
-                        .setPositiveButton("OK", null).show()
+                    Toast.makeText(this@AttendanceActivity, "error : ${t.message}", Toast.LENGTH_SHORT).show()
                 }
             })
     }

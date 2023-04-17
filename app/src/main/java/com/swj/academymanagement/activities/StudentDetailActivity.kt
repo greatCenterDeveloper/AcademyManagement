@@ -7,7 +7,7 @@ import android.os.Bundle
 import android.view.View
 import android.view.WindowInsets
 import android.view.WindowManager
-import androidx.appcompat.app.AlertDialog
+import android.widget.Toast
 import com.bumptech.glide.Glide
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
@@ -178,9 +178,7 @@ class StudentDetailActivity : AppCompatActivity() {
                     call: Call<MutableList<StudentManagementCourse>>,
                     t: Throwable
                 ) {
-                    AlertDialog.Builder(this@StudentDetailActivity)
-                        .setMessage("error : ${t.message}")
-                        .setPositiveButton("OK", null).show()
+                    Toast.makeText(this@StudentDetailActivity, "error : ${t.message}", Toast.LENGTH_SHORT).show()
                 }
             })
 
@@ -208,9 +206,7 @@ class StudentDetailActivity : AppCompatActivity() {
                 }
 
                 override fun onFailure(call: Call<MutableList<CounselCurrent>>, t: Throwable) {
-                    AlertDialog.Builder(this@StudentDetailActivity)
-                        .setMessage("error : ${t.message}")
-                        .setPositiveButton("OK", null).show()
+                    Toast.makeText(this@StudentDetailActivity, "error : ${t.message}", Toast.LENGTH_SHORT).show()
                 }
             })
 
@@ -241,9 +237,7 @@ class StudentDetailActivity : AppCompatActivity() {
                     call: Call<MutableList<StudentManagementMessage>>,
                     t: Throwable
                 ) {
-                    AlertDialog.Builder(this@StudentDetailActivity)
-                        .setMessage("error : ${t.message}")
-                        .setPositiveButton("OK", null).show()
+                    Toast.makeText(this@StudentDetailActivity, "error : ${t.message}", Toast.LENGTH_SHORT).show()
                 }
             })
     }

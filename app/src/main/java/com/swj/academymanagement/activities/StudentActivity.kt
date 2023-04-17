@@ -135,7 +135,7 @@ class StudentActivity : AppCompatActivity() {
                                 }
 
                                 override fun onFailure(call: Call<String>, t: Throwable) {
-                                    Toast.makeText(this@StudentActivity, t.message, Toast.LENGTH_SHORT).show()
+                                    Toast.makeText(this@StudentActivity, "error : ${t.message}", Toast.LENGTH_SHORT).show()
                                 }
                             })
                     }
@@ -197,7 +197,7 @@ class StudentActivity : AppCompatActivity() {
                                 }
 
                                 override fun onFailure(call: Call<String>, t: Throwable) {
-                                    Toast.makeText(this@StudentActivity, t.message, Toast.LENGTH_SHORT).show()
+                                    Toast.makeText(this@StudentActivity, "error : ${t.message}", Toast.LENGTH_SHORT).show()
                                 }
                             })
                     }
@@ -248,7 +248,7 @@ class StudentActivity : AppCompatActivity() {
                                 }
 
                                 override fun onFailure(call: Call<String>, t: Throwable) {
-                                    Toast.makeText(this@StudentActivity, t.message, Toast.LENGTH_SHORT).show()
+                                    Toast.makeText(this@StudentActivity, "error : ${t.message}", Toast.LENGTH_SHORT).show()
                                 }
                             })
                     } else {
@@ -307,7 +307,7 @@ class StudentActivity : AppCompatActivity() {
                                 }
 
                                 override fun onFailure(call: Call<String>, t: Throwable) {
-                                    Toast.makeText(this@StudentActivity, t.message, Toast.LENGTH_SHORT).show()
+                                    Toast.makeText(this@StudentActivity, "error : ${t.message}", Toast.LENGTH_SHORT).show()
                                 }
                             })
                     }.show()
