@@ -31,7 +31,7 @@ class IntroActivity : AppCompatActivity() {
         handler.postDelayed({
             startActivity(Intent(this, LoginActivity::class.java))
             finish()
-        }, 0)
+        }, 1500)
     }
 
     override fun onPause() {

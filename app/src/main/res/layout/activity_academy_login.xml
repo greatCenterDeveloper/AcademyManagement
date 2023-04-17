@@ -187,4 +187,37 @@
             android:background="@drawable/button_click_color2"/>
     </RelativeLayout>
 
+    <ImageView
+        android:id="@+id/iv_call"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/baseline_call_24"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/bg_color"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="02-1234-5678"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:fontFamily="@font/cookierunbold"
+        android:layout_alignParentBottom="true"
+        android:layout_toRightOf="@id/iv_call"
+        android:layout_marginLeft="8dp"
+        android:background="@drawable/bg_color"/>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_road_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="오시는길"
+        android:textStyle="bold"
+        android:textSize="16sp"
+        android:fontFamily="@font/cookierunbold"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="16dp"
+        android:background="@drawable/button_click_color2"/>
 </RelativeLayout>

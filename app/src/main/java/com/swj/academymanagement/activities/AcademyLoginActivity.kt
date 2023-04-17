@@ -205,6 +205,11 @@ class AcademyLoginActivity : AppCompatActivity() {
                     }
                 })
         }
+
+        // 오시는 길 버튼
+        binding.btnRoadView.setOnClickListener {
+            startActivity(Intent(this, MapViewActivity::class.java))
+        }
     }
 
     // 뒤로 가기
