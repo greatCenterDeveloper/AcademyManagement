@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="16dp"
-    tools:context=".activities.TeachingBookUrlActivity"
+    tools:context=".activities.MapViewActivity"
     android:background="@drawable/icons8_bg_academy">
 
     <com.google.android.material.appbar.AppBarLayout
@@ -29,7 +29,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="도서 웹 페이지"
+                android:text="오시는 길"
                 android:textStyle="bold"
                 android:textColor="@color/black"
                 android:textSize="24sp"
@@ -54,11 +54,53 @@
         </RelativeLayout>
     </com.google.android.material.appbar.AppBarLayout>
 
-    <WebView
-        android:id="@+id/wv"
+    <RelativeLayout
+        android:id="@+id/container_mapview"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
         android:layout_below="@id/appbar"
-        android:layout_marginTop="8dp"/>
+        android:layout_above="@id/tv_road_address"
+        android:background="@drawable/bg_color"
+        android:layout_marginBottom="8dp"/>
+
+    <TextView
+        android:id="@+id/tv_road_address"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/layout_call"
+        android:background="@drawable/bg_color"
+        android:text="서울특별시 성동구 왕십리로 315 한동타워 8층, 16층"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:fontFamily="@font/cookierunbold"
+        android:padding="8dp"/>
+
+    <LinearLayout
+        android:id="@+id/layout_call"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/bg_color"
+        android:padding="4dp">
+
+        <ImageView
+            android:id="@+id/iv_call"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/baseline_call_24"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="02-1234-5678"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:fontFamily="@font/cookierunbold"
+            android:layout_marginLeft="8dp"/>
+    </LinearLayout>
 
 </RelativeLayout>

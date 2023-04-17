@@ -8,15 +8,15 @@ import android.view.ViewGroup
 import android.view.WindowInsets
 import android.view.WindowManager
 import com.kakao.util.maps.helper.Utility
-import com.swj.academymanagement.databinding.ActivityRoadViewBinding
+import com.swj.academymanagement.databinding.ActivityMapViewBinding
 import net.daum.mf.map.api.MapPOIItem
 import net.daum.mf.map.api.MapPoint
 import net.daum.mf.map.api.MapView
 
-class RoadViewActivity : AppCompatActivity() {
+class MapViewActivity : AppCompatActivity() {
 
-    val binding:ActivityRoadViewBinding by lazy {
-        ActivityRoadViewBinding.inflate(layoutInflater)
+    val binding:ActivityMapViewBinding by lazy {
+        ActivityMapViewBinding.inflate(layoutInflater)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -50,7 +50,7 @@ class RoadViewActivity : AppCompatActivity() {
         //mapView.setZoomLevel(7, true)
 
         // 중심점 변경 + 줌 레벨 변경
-        mapView.setMapCenterPointAndZoomLevel(MapPoint.mapPointWithGeoCoord(37.5617, 127.0343), 7, true)
+        mapView.setMapCenterPointAndZoomLevel(MapPoint.mapPointWithGeoCoord(37.5617, 127.0343), 1, true)
 
         // 줌 인할 때 애니메이션 효과
         mapView.zoomIn(true)

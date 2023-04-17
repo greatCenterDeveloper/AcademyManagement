@@ -60,7 +60,7 @@ class LoginActivity : AppCompatActivity() {
 
         // 오시는 길 버튼
         binding.btnRoadView.setOnClickListener {
-            startActivity(Intent(this, RoadViewActivity::class.java))
+            startActivity(Intent(this, MapViewActivity::class.java))
         }
     }
 }

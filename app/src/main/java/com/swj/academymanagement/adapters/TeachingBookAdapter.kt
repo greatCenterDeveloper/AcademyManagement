@@ -2,12 +2,12 @@ package com.swj.academymanagement.adapters
 
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView.Adapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.bumptech.glide.Glide
-import com.swj.academymanagement.activities.TeachingBookUrlActivity
 import com.swj.academymanagement.databinding.RecyclerItemTeachingBookBinding
 import com.swj.academymanagement.model.ShoppingItem
 
@@ -41,9 +41,7 @@ class TeachingBookAdapter(val context: Context, val items:MutableList<ShoppingIt
 
         // 도서 쇼핑몰 페이지 이동
         holder.binding.root.setOnClickListener{
-            val intent = Intent(context, TeachingBookUrlActivity::class.java)
-            intent.putExtra("bookUrl", item.link)
-            context.startActivity(intent)
+            context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(item.link)))
         }
     }
 }

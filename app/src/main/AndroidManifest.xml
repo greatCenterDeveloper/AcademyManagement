@@ -18,10 +18,7 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31" >
         <activity
-            android:name=".activities.RoadViewActivity"
-            android:exported="false" />
-        <activity
-            android:name=".activities.TeachingBookUrlActivity"
+            android:name=".activities.MapViewActivity"
             android:exported="false" />
         <activity
             android:name=".activities.CounselDetailUpdateActivity"
