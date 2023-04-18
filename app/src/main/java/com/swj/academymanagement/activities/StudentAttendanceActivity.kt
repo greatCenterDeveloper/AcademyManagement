@@ -7,7 +7,6 @@ import android.os.Bundle
 import android.view.WindowInsets
 import android.view.WindowManager
 import android.widget.Toast
-import androidx.appcompat.app.AlertDialog
 import com.swj.academymanagement.G
 import com.swj.academymanagement.databinding.ActivityStudentAttendanceBinding
 import com.swj.academymanagement.network.RetrofitAttendanceService
@@ -98,9 +97,7 @@ class StudentAttendanceActivity : AppCompatActivity() {
                     }
 
                     override fun onFailure(call: Call<String>, t: Throwable) {
-                        AlertDialog.Builder(this@StudentAttendanceActivity)
-                            .setMessage("error : ${t.message}")
-                            .setPositiveButton("OK", null).show()
+                        Toast.makeText(this@StudentAttendanceActivity, "error : ${t.message}", Toast.LENGTH_SHORT).show()
                     }
                 })
         }
@@ -135,9 +132,7 @@ class StudentAttendanceActivity : AppCompatActivity() {
                     }
 
                     override fun onFailure(call: Call<String>, t: Throwable) {
-                        AlertDialog.Builder(this@StudentAttendanceActivity)
-                            .setMessage("error : ${t.message}")
-                            .setPositiveButton("OK", null).show()
+                        Toast.makeText(this@StudentAttendanceActivity, "error : ${t.message}", Toast.LENGTH_SHORT).show()
                     }
                 })
         }

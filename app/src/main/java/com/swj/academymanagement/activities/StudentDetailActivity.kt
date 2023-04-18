@@ -7,20 +7,24 @@ import android.os.Bundle
 import android.view.View
 import android.view.WindowInsets
 import android.view.WindowManager
-import androidx.appcompat.app.AlertDialog
+import android.widget.Toast
 import com.bumptech.glide.Glide
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.StorageReference
 import com.google.gson.Gson
 import com.swj.academymanagement.G
 import com.swj.academymanagement.adapters.StudentManagementCounselAdapter
 import com.swj.academymanagement.adapters.StudentManagementCourseAdapter
 import com.swj.academymanagement.adapters.StudentManagementMessageAdapter
 import com.swj.academymanagement.databinding.ActivityStudentDetailBinding
+import com.swj.academymanagement.model.CounselCurrent
 import com.swj.academymanagement.model.CounselRequestTeacher
 import com.swj.academymanagement.model.Member
-import com.swj.academymanagement.model.StudentManagementCounsel
 import com.swj.academymanagement.model.StudentManagementCourse
 import com.swj.academymanagement.model.StudentManagementMessage
+import com.swj.academymanagement.network.RetrofitCounselService
 import com.swj.academymanagement.network.RetrofitHelper
+import com.swj.academymanagement.network.RetrofitMemberService
 import com.swj.academymanagement.network.RetrofitStudentManagementService
 import retrofit2.Call
 import retrofit2.Callback
@@ -54,9 +58,29 @@ class StudentDetailActivity : AppCompatActivity() {
         // 학생 관리 리스트에서 학생 상세 정보 화면으로 오기 위해 학생 상세 정보 가져오기
         val student:Member = Gson().fromJson(intent.getStringExtra("student"), Member::class.java)
 
-        // 학생 프로필 이미지
-        if(!student.profile.equals(""))
-            Glide.with(this).load(student.profile).into(binding.ivProfile)
+        // member 테이블의 Primary Key인 id로 FirebaseStorage에 저장된 profile 이미지 이름 가져오기
+        RetrofitHelper.getRetrofitInstance().create(RetrofitMemberService::class.java)
+            .getMemberProfile(
+                student.id     // 학생 아이디
+            ).enqueue(object : Callback<String> {
+                override fun onResponse(call: Call<String>, response: Response<String>) {
+
+                    // 디비에 저장된 프로필 사진 이름 가져오기
+                    val profile = response.body()
+
+                    // FirebaseStorage에서 불러온 사진 프로필 이미지 공간에 붙이기
+                    val storage = FirebaseStorage.getInstance()
+                    val imgRef: StorageReference = storage.getReference().child("profileImage/$profile")
+                    imgRef.downloadUrl.addOnSuccessListener {
+
+                        // 학생 프로필 이미지
+                        Glide.with(this@StudentDetailActivity).load(it).into(binding.ivProfile)
+                    }
+                }
+
+                override fun onFailure(call: Call<String>, t: Throwable) {}
+            })
+
 
         // 학생 이름
         binding.tvName.text = student.name
@@ -154,31 +178,26 @@ class StudentDetailActivity : AppCompatActivity() {
                     call: Call<MutableList<StudentManagementCourse>>,
                     t: Throwable
                 ) {
-                    AlertDialog.Builder(this@StudentDetailActivity)
-                        .setMessage("error : ${t.message}")
-                        .setPositiveButton("OK", null).show()
+                    Toast.makeText(this@StudentDetailActivity, "error : ${t.message}", Toast.LENGTH_SHORT).show()
                 }
             })
 
 
         // 학생과 상담한 상담 내역 리스트
-        RetrofitHelper.getRetrofitInstance().create(RetrofitStudentManagementService::class.java)
+        RetrofitHelper.getRetrofitInstance().create(RetrofitCounselService::class.java)
             .studentCounselList(
                 student.id,     // 학생 아이디
                 G.member.id     // 선생 아이디
-            ).enqueue(object :Callback<MutableList<StudentManagementCounsel>> {
+            ).enqueue(object :Callback<MutableList<CounselCurrent>> {
                 override fun onResponse(
-                    call: Call<MutableList<StudentManagementCounsel>>,
-                    response: Response<MutableList<StudentManagementCounsel>>
+                    call: Call<MutableList<CounselCurrent>>,
+                    response: Response<MutableList<CounselCurrent>>
                 ) {
-                    val counselArr = response.body()
-                    if(counselArr != null) {
-                        if (counselArr.size > 0) {
+                    val counselCurrentArr = response.body()
+                    if(counselCurrentArr != null) {
+                        if (counselCurrentArr.size > 0) {
                             binding.recyclerCounsel.adapter =
-                                StudentManagementCounselAdapter(
-                                    this@StudentDetailActivity,
-                                    counselArr
-                                )
+                                StudentManagementCounselAdapter(this@StudentDetailActivity, counselCurrentArr)
                         } else {
                             binding.tvNoCounsel.visibility = View.VISIBLE
                             binding.recyclerCounsel.visibility = View.GONE
@@ -186,13 +205,8 @@ class StudentDetailActivity : AppCompatActivity() {
                     }
                 }
 
-                override fun onFailure(
-                    call: Call<MutableList<StudentManagementCounsel>>,
-                    t: Throwable
-                ) {
-                    AlertDialog.Builder(this@StudentDetailActivity)
-                        .setMessage("error : ${t.message}")
-                        .setPositiveButton("OK", null).show()
+                override fun onFailure(call: Call<MutableList<CounselCurrent>>, t: Throwable) {
+                    Toast.makeText(this@StudentDetailActivity, "error : ${t.message}", Toast.LENGTH_SHORT).show()
                 }
             })
 
@@ -223,9 +237,7 @@ class StudentDetailActivity : AppCompatActivity() {
                     call: Call<MutableList<StudentManagementMessage>>,
                     t: Throwable
                 ) {
-                    AlertDialog.Builder(this@StudentDetailActivity)
-                        .setMessage("error : ${t.message}")
-                        .setPositiveButton("OK", null).show()
+                    Toast.makeText(this@StudentDetailActivity, "error : ${t.message}", Toast.LENGTH_SHORT).show()
                 }
             })
     }

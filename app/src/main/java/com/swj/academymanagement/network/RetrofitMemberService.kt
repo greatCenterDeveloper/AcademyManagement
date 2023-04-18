@@ -27,5 +27,49 @@ interface RetrofitMemberService {
     // 회원 로그인
     @FormUrlEncoded
     @POST("/member/memberLogin.php")
-    fun memberLogin(@Field("id") id:String, @Field("password") password:String):Call<Member>
+    fun memberLogin(@Field("id") id:String,
+                    @Field("password") password:String):Call<Member>
+
+    // 아이디 찾기
+    @FormUrlEncoded
+    @POST("/member/findMemberId.php")
+    fun findMemberId(@Field("call") call:String):Call<String>
+
+    // 비밀번호 찾기
+    @FormUrlEncoded
+    @POST("/member/findMemberPassword.php")
+    fun findMemberPassword(@Field("id") id:String,
+                           @Field("call") call:String):Call<String>
+
+    // 내 정보 수정
+    @FormUrlEncoded
+    @POST("/member/updateMemberInfo.php")
+    fun updateMemberInfo(@Field("id") id:String,
+                         @Field("name") name:String,
+                         @Field("call") call:String,
+                         @Field("prevPassword") prevPassword:String,
+                         @Field("password") password:String):Call<String>
+
+    // 비밀번호 수정
+    @FormUrlEncoded
+    @POST("/member/updateMemberPassword.php")
+    fun updateMemberPassword(@Field("prevPassword") prevPassword:String,
+                             @Field("password") password:String,
+                             @Field("id") id:String):Call<String>
+
+    // 회원 탈퇴
+    @FormUrlEncoded
+    @POST("/member/memberUnregister.php")
+    fun memberUnregister(@Field("id") id:String):Call<String>
+
+    // 선생님 / 학생 메인 화면 NavigationView 프로필 이미지 이름 가져오기
+    @FormUrlEncoded
+    @POST("/member/getMemberProfile.php")
+    fun getMemberProfile(@Field("id") id:String):Call<String>
+
+    // 선생님 / 학생 메인 화면 NavigationView 프로필 이미지 변경
+    @FormUrlEncoded
+    @POST("/member/updateMemberProfile.php")
+    fun updateMemberProfile(@Field("id") id:String,
+                            @Field("profile") profile:String):Call<String>
 }

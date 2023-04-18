@@ -43,6 +43,10 @@ class CounselActivity : AppCompatActivity() {
                 tab, position -> tab.text = tabTitle[position]
         }
         mediator.attach()
+
+        if(intent.getStringExtra("counsel") != null) {
+            binding.tabLayout.selectTab(binding.tabLayout.getTabAt(1))
+        }
     }
 
     // 바깥 화면 터치 시 소프트 키보드 숨기기

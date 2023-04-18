@@ -85,6 +85,7 @@ class NoteAdapter(val context: Context, val db:SQLiteDatabase, val noteArr:Mutab
                 }else if(it.itemId == R.id.menu_delete) {   // 노트 삭제
                     AlertDialog.Builder(context)
                         .setMessage("삭제하시겠습니까?")
+                        .setNegativeButton("NO", null)
                         .setPositiveButton("OK") { dialogInterface, i ->
                             //Toast.makeText(context, "${note.authority} 권한에서 실행", Toast.LENGTH_SHORT).show()
                             // SQLite delete.. 권한에 따라 학생의 노트 테이블에서 삭제할지, 선생님의 노트 테이블에서 삭제할지.
@@ -98,9 +99,7 @@ class NoteAdapter(val context: Context, val db:SQLiteDatabase, val noteArr:Mutab
                             this.notifyItemRemoved(position)
 
                             Toast.makeText(context, "삭제 완료", Toast.LENGTH_SHORT).show()
-                        }
-                        .setNegativeButton("NO", null)
-                        .show()
+                        }.show()
                 }
                 false
             }

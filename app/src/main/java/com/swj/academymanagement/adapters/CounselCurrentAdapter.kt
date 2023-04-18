@@ -68,11 +68,13 @@ class CounselCurrentAdapter(val context: Context, val counselCurrentArr:MutableL
                             context as CounselActivity, Pair(holder.binding.tvCounselContent, "counsel")
                         )
                     context.startActivity(intent, options.toBundle())
+                    context.finish()
 
                 } else if(it.itemId == R.id.menu_delete) {  // 상담 내용 삭제
 
                     AlertDialog.Builder(context)
                         .setMessage("삭제하시겠습니까?")
+                        .setNegativeButton("NO", null)
                         .setPositiveButton("OK", DialogInterface.OnClickListener { _, _ ->
                             RetrofitHelper.getRetrofitInstance().create(RetrofitCounselService::class.java)
                                 .counselDelete(
@@ -94,9 +96,7 @@ class CounselCurrentAdapter(val context: Context, val counselCurrentArr:MutableL
                                     }
 
                                     override fun onFailure(call: Call<String>, t: Throwable) {
-                                        AlertDialog.Builder(context)
-                                            .setMessage("error : ${t.message}")
-                                            .setPositiveButton("OK", null).show()
+                                        Toast.makeText(context, "error : ${t.message}", Toast.LENGTH_SHORT).show()
                                     }
                                 })
                         }).show()

@@ -94,9 +94,7 @@ class CourseScheduleStudentListAdapter(val context: Context, val courseScheduleC
                     }
                 }
 
-                override fun onFailure(call: Call<String>, t: Throwable) {
-                    Toast.makeText(context, "error : ${t.message}", Toast.LENGTH_SHORT).show()
-                }
+                override fun onFailure(call: Call<String>, t: Throwable) {}
             })
 
 

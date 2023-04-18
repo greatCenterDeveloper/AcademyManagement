@@ -21,7 +21,7 @@ class SmsImageAdapter(val context: Context, val images:MutableList<Uri>)
     override fun getItemCount(): Int = images.size
 
     override fun onBindViewHolder(holder: VH, position: Int) {
-        // 문자 메세지 전송 시 첨부한 이미들
+        // 문자 메세지 전송 시 첨부한 이미지들
         Glide.with(context).load(images[position]).into(holder.binding.iv)
     }
 }

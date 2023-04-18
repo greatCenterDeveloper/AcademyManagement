@@ -19,6 +19,11 @@ interface RetrofitCounselService {
     @POST("/counsel/counselInsert.php")
     fun counselInsert(@Body counselCurrent: CounselCurrent):Call<String>
 
+    // 학생 상세 정보 -> 학생과 상담한 상담 내역 리스트
+    @GET("/counsel/studentCounselList.php")
+    fun studentCounselList(@Query("studentId") studentId:String,
+                           @Query("teacherId") teacherId:String):Call<MutableList<CounselCurrent>>
+
     // 상담 내용 입력한 상담 현황 리스트
     @GET("/counsel/counselList.php")
     fun counselList(@Query("teacherId") teacherId:String):Call<MutableList<CounselCurrent>>

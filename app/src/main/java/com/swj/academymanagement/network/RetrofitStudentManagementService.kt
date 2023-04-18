@@ -2,7 +2,6 @@ package com.swj.academymanagement.network
 
 import com.swj.academymanagement.model.Member
 import com.swj.academymanagement.model.StudentAttendance
-import com.swj.academymanagement.model.StudentManagementCounsel
 import com.swj.academymanagement.model.StudentManagementCourse
 import com.swj.academymanagement.model.StudentManagementDialogAttendance
 import com.swj.academymanagement.model.StudentManagementMessage
@@ -35,16 +34,26 @@ interface RetrofitStudentManagementService {
     fun studentCourseList(@Query("studentId") studentId:String,
                           @Query("teacherId") teacherId:String):Call<MutableList<StudentManagementCourse>>
 
-    // 학생 상세 정보 -> 학생과 상담한 상담 내역 리스트
-    @GET("/studentManagement/studentCounselList.php")
-    fun studentCounselList(@Query("studentId") studentId:String,
-                           @Query("teacherId") teacherId:String):Call<MutableList<StudentManagementCounsel>>
-
     // 학생 상세 정보 -> 문자 보낸 내역
     @FormUrlEncoded
     @POST("/studentManagement/studentMessageList.php")
     fun studentMessageList(@Field("studentId") studentId:String,
                            @Field("teacherId") teacherId:String):Call<MutableList<StudentManagementMessage>>
+
+    // 학생 상세 정보 -> 문자 삭제하기 전에 이미지 Uri 가져오기
+    @GET("/studentManagement/studentMessageGetImageUri.php")
+    fun studentMessageGetImageUri(@Query("studentId") studentId:String,
+                                  @Query("teacherId") teacherId:String,
+                                  @Query("message") message:String,
+                                  @Query("date") date:String):Call<MutableList<String>>
+
+    // 학생 상세 정보 -> 문자 삭제
+    @FormUrlEncoded
+    @POST("/studentManagement/studentMessageDelete.php")
+    fun studentMessageDelete(@Field("studentId") studentId:String,
+                             @Field("teacherId") teacherId:String,
+                             @Field("message") message:String,
+                             @Field("date") date:String):Call<String>
 
     // 학생 상세 정보 -> 특정 강좌 출석부
     @GET("/studentManagement/studentCourseAttendanceList.php")

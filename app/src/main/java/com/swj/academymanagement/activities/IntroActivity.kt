@@ -29,9 +29,9 @@ class IntroActivity : AppCompatActivity() {
 
         val handler:Handler = Handler(Looper.getMainLooper())
         handler.postDelayed({
-            startActivity(Intent(this, LoginActivity::class.java))
+            startActivity(Intent(this, AcademyLoginActivity::class.java))
             finish()
-        }, 0)
+        }, 1500)
     }
 
     override fun onPause() {

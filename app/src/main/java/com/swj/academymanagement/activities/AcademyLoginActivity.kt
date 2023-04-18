@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.MotionEvent
 import android.view.WindowInsets
 import android.view.WindowManager
@@ -64,8 +65,41 @@ class AcademyLoginActivity : AppCompatActivity() {
 
             // 찾기 버튼 클릭
             dialogBinding.btnFind.setOnClickListener {
-                val call:String = dialogBinding.tilInputCall.editText?.text.toString()
-                Toast.makeText(this, "휴대폰 번호 : ${call}", Toast.LENGTH_SHORT).show()
+                val callNumber:String = dialogBinding.tilInputCall.editText?.text.toString()
+
+                if(callNumber.length != 11) {
+                    Toast.makeText(this, "휴대폰 번호를 잘못 입력하셨습니다.", Toast.LENGTH_SHORT).show()
+                } else {
+                    val call1 = callNumber.substring(0, 3)
+                    val call2 = callNumber.substring(3, 7)
+                    val call3 = callNumber.substring(7, callNumber.length)
+
+                    val call = "${call1}-${call2}-${call3}"
+
+                    // member 테이블의 휴대폰 번호는 unique 키 이므로..
+                    RetrofitHelper.getRetrofitInstance().create(RetrofitMemberService::class.java)
+                        .findMemberId(
+                            call    // 휴대폰 번호
+                        ).enqueue(object :Callback<String> {
+                            override fun onResponse(call: Call<String>, response: Response<String>) {
+                                val message = response.body()
+
+                                if(message?.contains("없는") ?: false) { // 없는 휴대폰 번호 입니다. 메세지가 날아올 경우
+                                    Toast.makeText(this@AcademyLoginActivity, message, Toast.LENGTH_SHORT).show()
+                                } else {
+                                    AlertDialog.Builder(this@AcademyLoginActivity)
+                                        .setMessage(message)
+                                        .setPositiveButton("OK", null).show()
+                                    dialog.dismiss()
+                                }
+                            }
+
+                            override fun onFailure(call: Call<String>, t: Throwable) {
+                                Toast.makeText(this@AcademyLoginActivity, t.message, Toast.LENGTH_SHORT).show()
+                            }
+                        })
+                }
+                dialogBinding.tilInputCall.editText?.setText("")
             }
         }
 
@@ -82,8 +116,46 @@ class AcademyLoginActivity : AppCompatActivity() {
             // 찾기 버튼 클릭
             dialogBinding.btnFind.setOnClickListener {
                 val id:String = dialogBinding.tilInputId.editText?.text.toString()
-                val call:String = dialogBinding.tilInputCall.editText?.text.toString()
-                Toast.makeText(this, "아이디 : ${id}\n휴대폰 번호 : ${call}", Toast.LENGTH_SHORT).show()
+                val callNumber:String = dialogBinding.tilInputCall.editText?.text.toString()
+
+                if(callNumber.length != 11) {
+                    Toast.makeText(this, "휴대폰 번호를 잘못 입력하셨습니다.", Toast.LENGTH_SHORT).show()
+                } else {
+                    val call1 = callNumber.substring(0, 3)
+                    val call2 = callNumber.substring(3, 7)
+                    val call3 = callNumber.substring(7, callNumber.length)
+
+                    val call = "${call1}-${call2}-${call3}"
+
+                    // member 테이블의 id는 pk, 휴대폰 번호는 unique 키 이므로..
+                    // member 테이블에서 id와 휴대폰 번호가 일치해야 비밀번호를 알려주도록..
+                    RetrofitHelper.getRetrofitInstance().create(RetrofitMemberService::class.java)
+                        .findMemberPassword(
+                            id,         // 회원 아이디
+                            call        // 휴대폰 번호
+                        ).enqueue(object :Callback<String> {
+                            override fun onResponse(call: Call<String>, response: Response<String>) {
+                                val message = response.body()
+
+                                // 없는 회원 정보 입니다.  메세지가 날아올 경우
+                                if(message?.contains("없는") ?: false) {
+                                    Toast.makeText(this@AcademyLoginActivity, message, Toast.LENGTH_SHORT).show()
+                                    dialogBinding.tilInputId.requestFocus()
+                                } else {
+                                    AlertDialog.Builder(this@AcademyLoginActivity)
+                                        .setMessage(message)
+                                        .setPositiveButton("OK", null).show()
+                                    dialog.dismiss()
+                                }
+                            }
+
+                            override fun onFailure(call: Call<String>, t: Throwable) {
+                                Toast.makeText(this@AcademyLoginActivity, t.message, Toast.LENGTH_SHORT).show()
+                            }
+                        })
+                }
+                dialogBinding.tilInputId.editText?.setText("")
+                dialogBinding.tilInputCall.editText?.setText("")
             }
         }
 
@@ -123,12 +195,20 @@ class AcademyLoginActivity : AppCompatActivity() {
                         }
                     }
                     override fun onFailure(call: Call<Member>, t: Throwable) {
-                        // 로그인 실패 시 에러 발생하므로..
-                        AlertDialog.Builder(this@AcademyLoginActivity)
-                            .setMessage("아이디나 비밀번호가 맞지 않습니다.")
-                            .setPositiveButton("OK", null).show()
+                        if(t.message?.contains("time") ?: false) { // time out 일 경우 에러 메세지 표시
+                            Toast.makeText(this@AcademyLoginActivity, "error : ${t.message}", Toast.LENGTH_SHORT).show()
+                        }
+                        else { // 로그인 실패
+                            Toast.makeText(this@AcademyLoginActivity,
+                                "아이디나 비밀번호가 맞지 않습니다.", Toast.LENGTH_SHORT).show()
+                        }
                     }
                 })
+        }
+
+        // 오시는 길 버튼
+        binding.btnRoadView.setOnClickListener {
+            startActivity(Intent(this, MapViewActivity::class.java))
         }
     }
 

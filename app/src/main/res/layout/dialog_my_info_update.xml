@@ -72,111 +72,108 @@
             android:id="@+id/tv_call_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="연락처 :"
+            android:text="연락처"
             android:textStyle="bold"
             android:textColor="@color/black"
             android:textSize="14sp"
             android:fontFamily="@font/cookierunbold"
             android:layout_below="@id/til_name"
-            android:layout_above="@id/til_prev_password"
             android:gravity="center"
-            android:layout_marginLeft="8dp"/>
+            android:layout_marginLeft="16dp"/>
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/til_call_1"
-            android:layout_width="65dp"
-            android:layout_height="45dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginRight="4dp"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            app:boxBackgroundColor="@color/white"
-            android:hint="010"
-            app:endIconMode="clear_text"
-            android:layout_below="@id/til_name"
-            android:layout_toRightOf="@id/tv_call_title">
+        <LinearLayout
+            android:id="@+id/layout_call"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_below="@id/tv_call_title"
+            android:layout_marginTop="8dp">
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:layout_width="match_parent"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/til_call_1"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/cookierunbold"
-                android:textSize="14sp"
-                android:textColor="@color/black"
-                android:inputType="number"
-                android:ems="3"
-                android:maxLength="3"
-                android:gravity="center"/>
+                android:layout_weight="3"
+                android:layout_marginLeft="8dp"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                app:boxBackgroundColor="@color/white"
+                app:endIconMode="clear_text">
 
-        </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/cookierunbold"
+                    android:textSize="14sp"
+                    android:textColor="@color/black"
+                    android:inputType="number"
+                    android:ems="3"
+                    android:maxLength="3"
+                    android:gravity="center"/>
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/til_call_2"
-            android:layout_width="67dp"
-            android:layout_height="45dp"
-            android:layout_marginLeft="4dp"
-            android:layout_marginRight="4dp"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            app:boxBackgroundColor="@color/white"
-            android:hint="1234"
-            app:endIconMode="clear_text"
-            android:layout_alignTop="@id/til_call_1"
-            android:layout_toRightOf="@id/til_call_1">
+            </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:layout_width="match_parent"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/til_call_2"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/cookierunbold"
-                android:textSize="14sp"
-                android:textColor="@color/black"
-                android:inputType="number"
-                android:ems="3"
-                android:maxLength="4"
-                android:gravity="center"/>
+                android:layout_weight="4"
+                android:layout_marginLeft="4dp"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                app:boxBackgroundColor="@color/white"
+                app:endIconMode="clear_text">
 
-        </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/cookierunbold"
+                    android:textSize="14sp"
+                    android:textColor="@color/black"
+                    android:inputType="number"
+                    android:ems="3"
+                    android:maxLength="4"
+                    android:gravity="center"/>
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/til_call_3"
-            android:layout_width="67dp"
-            android:layout_height="45dp"
-            android:layout_marginLeft="4dp"
-            android:layout_marginRight="4dp"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            app:boxBackgroundColor="@color/white"
-            android:hint="5678"
-            app:endIconMode="clear_text"
-            android:layout_alignTop="@id/til_call_1"
-            android:layout_toRightOf="@id/til_call_2">
+            </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:layout_width="match_parent"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/til_call_3"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/cookierunbold"
-                android:textSize="14sp"
-                android:textColor="@color/black"
-                android:inputType="number"
-                android:ems="3"
-                android:maxLength="4"
-                android:gravity="center"/>
+                android:layout_weight="4"
+                android:layout_marginLeft="4dp"
+                android:layout_marginRight="8dp"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                app:boxBackgroundColor="@color/white"
+                app:endIconMode="clear_text">
 
-        </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/cookierunbold"
+                    android:textSize="14sp"
+                    android:textColor="@color/black"
+                    android:inputType="number"
+                    android:ems="3"
+                    android:maxLength="4"
+                    android:gravity="center"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+        </LinearLayout>
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_call_check"
             android:layout_width="100dp"
-            android:layout_height="40dp"
+            android:layout_height="50dp"
             android:text="중복 확인"
             android:textStyle="bold"
             android:textSize="12sp"
             android:fontFamily="@font/cookierunblack"
             android:paddingBottom="4dp"
-            android:layout_alignTop="@id/til_call_1"
+            android:layout_marginTop="4dp"
+            android:layout_below="@id/layout_call"
             android:layout_alignParentRight="true"
-            android:layout_toRightOf="@id/til_call_3"
-            android:layout_alignBottom="@id/til_call_1"
-            android:layout_marginRight="8dp"
             android:background="@drawable/button_click_color"/>
-
-
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/til_prev_password"
@@ -188,9 +185,8 @@
             android:hint="이전 비밀번호"
             android:layout_marginLeft="8dp"
             android:layout_marginRight="8dp"
-            android:layout_marginTop="4dp"
             android:layout_marginBottom="4dp"
-            android:layout_below="@id/til_call_1">
+            android:layout_below="@id/btn_call_check">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"

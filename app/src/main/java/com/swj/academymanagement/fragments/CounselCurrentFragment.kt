@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import com.swj.academymanagement.G
 import com.swj.academymanagement.activities.CounselActivity
@@ -44,6 +43,9 @@ class CounselCurrentFragment : Fragment() {
             // 검색하기 위해 입력한 학생 이름
             val name = binding.tilName.editText?.text.toString()
 
+            // 다음 검색시 번거롭게 학생 이름을 지울 필요 없이 미리 클리어..
+            binding.tilName.editText?.setText("")
+
             RetrofitHelper.getRetrofitInstance().create(RetrofitCounselService::class.java)
                 .counselNameSearch(
                     G.member.id,    // 선생님 아이디
@@ -62,9 +64,7 @@ class CounselCurrentFragment : Fragment() {
                     }
 
                     override fun onFailure(call: Call<MutableList<CounselCurrent>>, t: Throwable) {
-                        AlertDialog.Builder(ca)
-                            .setMessage("error : ${t.message}")
-                            .setPositiveButton("OK", null).show()
+                        Toast.makeText(context, "error : ${t.message}", Toast.LENGTH_SHORT).show()
                     }
                 })
         }
@@ -92,9 +92,7 @@ class CounselCurrentFragment : Fragment() {
                 }
 
                 override fun onFailure(call: Call<MutableList<CounselCurrent>>, t: Throwable) {
-                    AlertDialog.Builder(ca)
-                        .setMessage("error : ${t.message}")
-                        .setPositiveButton("OK", null).show()
+                    Toast.makeText(context, "error : ${t.message}", Toast.LENGTH_SHORT).show()
                 }
             })
     }

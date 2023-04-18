@@ -17,7 +17,7 @@
             android:layout_height="wrap_content"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_marginRight="4dp"
-            android:hint="이름 입력"
+            android:hint="학생 이름 입력"
             app:endIconMode="clear_text"
             android:layout_weight="1"
             android:background="@drawable/bg_color">

@@ -10,7 +10,6 @@ import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
 import android.widget.ArrayAdapter
 import android.widget.Toast
-import androidx.appcompat.app.AlertDialog
 import com.google.gson.Gson
 import com.swj.academymanagement.R
 import com.swj.academymanagement.databinding.ActivityCounselRequestUpdateBinding
@@ -64,6 +63,10 @@ class CounselRequestUpdateActivity : AppCompatActivity() {
         binding.acTvStartTime.setText(counselRequest.startTime)
         binding.acTvEndTime.setText(counselRequest.endTime)
 
+        // 기존에 입력된 상담 시작 시간 및 마지막 시간 시간 변수에 대입
+        startTime = counselRequest.startTime
+        endTime = counselRequest.endTime
+
         // 상담 시작 시간 / 상담 마지막 시간 리스트를 시간 드롭다운 어댑터에 넣기
         val timeAdapter: ArrayAdapter<String> = ArrayAdapter(this, android.R.layout.simple_list_item_1, timeList)
         binding.acTvStartTime.setAdapter(timeAdapter)
@@ -104,10 +107,8 @@ class CounselRequestUpdateActivity : AppCompatActivity() {
                 CounselRequest(date, startTime, endTime, counselContent, counselRequest.studentId, counselRequest.counselRequestCode)
 
             // 상담 시작 시간 및 마지막 시간 입력 안했을 시..
-            if(startTime == "" && endTime == "") {
-                AlertDialog.Builder(this@CounselRequestUpdateActivity)
-                    .setMessage("상담 시간을 선택하세요.")
-                    .setPositiveButton("OK", null).show()
+            if(startTime == "" || endTime == "") {
+                Toast.makeText(this, "상담 시간을 선택하세요.", Toast.LENGTH_SHORT).show()
             } else {
                 // 상담 신청 내용 수정
                 RetrofitHelper.getRetrofitInstance().create(RetrofitCounselStudentService::class.java)
@@ -124,9 +125,7 @@ class CounselRequestUpdateActivity : AppCompatActivity() {
                         }
 
                         override fun onFailure(call: Call<String>, t: Throwable) {
-                            AlertDialog.Builder(this@CounselRequestUpdateActivity)
-                                .setMessage("error : ${t.message}")
-                                .setPositiveButton("OK", null).show()
+                            Toast.makeText(this@CounselRequestUpdateActivity, "error : ${t.message}", Toast.LENGTH_SHORT).show()
                         }
                     })
             }
