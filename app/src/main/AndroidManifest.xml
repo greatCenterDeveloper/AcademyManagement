@@ -87,9 +87,6 @@
             android:name=".activities.AcademyLoginActivity"
             android:exported="false" />
         <activity
-            android:name=".activities.LoginActivity"
-            android:exported="false" />
-        <activity
             android:name=".activities.IntroActivity"
             android:exported="true" >
             <intent-filter>
