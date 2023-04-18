@@ -167,6 +167,28 @@ class AttendanceActivity : AppCompatActivity() {
                     Toast.makeText(this@AttendanceActivity, "error : ${t.message}", Toast.LENGTH_SHORT).show()
                 }
             })
+
+        binding.swipeRefreshLayout.setOnRefreshListener {
+            RetrofitHelper.getRetrofitInstance().create(RetrofitStudentManagementService::class.java)
+                .studentAttendanceList(
+                    G.member.id     // 선생님 이름
+                ).enqueue(object : Callback<MutableList<StudentAttendance>>{
+                    override fun onResponse(
+                        call: Call<MutableList<StudentAttendance>>,
+                        response: Response<MutableList<StudentAttendance>>
+                    ) {
+                        val saa = response.body()
+                        if(saa != null) {
+                            binding.recycler.adapter = AttendanceAdapter(this@AttendanceActivity, saa)
+                            binding.swipeRefreshLayout.isRefreshing = false
+                        }
+                    }
+
+                    override fun onFailure(call: Call<MutableList<StudentAttendance>>, t: Throwable) {
+                        Toast.makeText(this@AttendanceActivity, "error : ${t.message}", Toast.LENGTH_SHORT).show()
+                    }
+                })
+        }
     }
 
     // 바깥 화면 터치 시 소프트 키보드 숨기기
