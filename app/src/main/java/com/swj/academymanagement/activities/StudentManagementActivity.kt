@@ -9,6 +9,7 @@ import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
 import android.widget.ArrayAdapter
 import android.widget.Toast
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.swj.academymanagement.G
 import com.swj.academymanagement.adapters.StudentManagementAdapter
 import com.swj.academymanagement.databinding.ActivityStudentManagementBinding
@@ -109,6 +110,14 @@ class StudentManagementActivity : AppCompatActivity() {
         }
 
         // 선생님 강좌에 수강 중인 모든 학생 리스트 조회
+        retrofitStudentList()
+
+        binding.swipeRefreshLayout.setOnRefreshListener {
+            retrofitStudentList(binding.swipeRefreshLayout)
+        }
+    }
+
+    private fun retrofitStudentList(swipeRefreshLayout: SwipeRefreshLayout? = null) {
         RetrofitHelper.getRetrofitInstance().create(RetrofitStudentManagementService::class.java)
             .studentList(
                 G.member.id     // 선생 아이디
@@ -118,9 +127,11 @@ class StudentManagementActivity : AppCompatActivity() {
                     response: Response<MutableList<Member>>
                 ) {
                     val studentArr = response.body()
-                    if(studentArr != null)
+                    if(studentArr != null) {
                         binding.recycler.adapter =
                             StudentManagementAdapter(this@StudentManagementActivity, studentArr, G.member.id)
+                        if(swipeRefreshLayout != null) swipeRefreshLayout.isRefreshing = false
+                    }
                 }
 
                 override fun onFailure(call: Call<MutableList<Member>>, t: Throwable) {
