@@ -8,6 +8,7 @@ import android.view.View
 import android.view.WindowInsets
 import android.view.WindowManager
 import android.widget.Toast
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.swj.academymanagement.G
 import com.swj.academymanagement.adapters.CounselRequestAdapter
 import com.swj.academymanagement.databinding.ActivityCounselRequestBinding
@@ -50,6 +51,10 @@ class CounselRequestActivity : AppCompatActivity() {
 
         // 상담 신청 리스트 조회
         retrofitCounselRequestList()
+
+        binding.swipeRefreshLayout.setOnRefreshListener {
+            retrofitCounselRequestList(binding.swipeRefreshLayout)
+        }
     }
 
     override fun onResume() {
@@ -60,7 +65,7 @@ class CounselRequestActivity : AppCompatActivity() {
     }
 
     // 학생이 작성한 상담 신청 리스트 조회
-    private fun retrofitCounselRequestList() {
+    private fun retrofitCounselRequestList(swipeRefreshLayout: SwipeRefreshLayout? = null) {
         RetrofitHelper.getRetrofitInstance().create(RetrofitCounselStudentService::class.java)
             .counselRequestList(
                 G.member.id     // 학생 아이디
@@ -78,8 +83,11 @@ class CounselRequestActivity : AppCompatActivity() {
 
                             // 기존의 RecyclerView 숨기기
                             binding.recycler.visibility = View.GONE
-                        } else binding.recycler.adapter =
-                            CounselRequestAdapter(this@CounselRequestActivity, counselRequestArr)
+                        } else {
+                            binding.recycler.adapter =
+                                CounselRequestAdapter(this@CounselRequestActivity, counselRequestArr)
+                            if(swipeRefreshLayout != null) swipeRefreshLayout.isRefreshing = false
+                        }
                     }
                 }
 

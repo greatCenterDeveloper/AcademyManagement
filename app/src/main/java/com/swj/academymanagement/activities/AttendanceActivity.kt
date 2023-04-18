@@ -9,6 +9,7 @@ import android.view.WindowInsets
 import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.swj.academymanagement.G
 import com.swj.academymanagement.adapters.AttendanceAdapter
 import com.swj.academymanagement.databinding.ActivityAttendanceBinding
@@ -151,6 +152,14 @@ class AttendanceActivity : AppCompatActivity() {
         }
 
         // 내 강좌에 수강 중인 학생들의 학원 등원 하원 리스트
+        retrofitStudentAttendanceList()
+
+        binding.swipeRefreshLayout.setOnRefreshListener {
+            retrofitStudentAttendanceList(binding.swipeRefreshLayout)
+        }
+    }
+
+    private fun retrofitStudentAttendanceList (swipeRefreshLayout: SwipeRefreshLayout? = null) {
         RetrofitHelper.getRetrofitInstance().create(RetrofitStudentManagementService::class.java)
             .studentAttendanceList(
                 G.member.id     // 선생님 이름
@@ -160,35 +169,16 @@ class AttendanceActivity : AppCompatActivity() {
                     response: Response<MutableList<StudentAttendance>>
                 ) {
                     val saa = response.body()
-                    if(saa != null) binding.recycler.adapter = AttendanceAdapter(this@AttendanceActivity, saa)
+                    if(saa != null) {
+                        binding.recycler.adapter = AttendanceAdapter(this@AttendanceActivity, saa)
+                        if(swipeRefreshLayout != null) swipeRefreshLayout.isRefreshing = false
+                    }
                 }
 
                 override fun onFailure(call: Call<MutableList<StudentAttendance>>, t: Throwable) {
                     Toast.makeText(this@AttendanceActivity, "error : ${t.message}", Toast.LENGTH_SHORT).show()
                 }
             })
-
-        binding.swipeRefreshLayout.setOnRefreshListener {
-            RetrofitHelper.getRetrofitInstance().create(RetrofitStudentManagementService::class.java)
-                .studentAttendanceList(
-                    G.member.id     // 선생님 이름
-                ).enqueue(object : Callback<MutableList<StudentAttendance>>{
-                    override fun onResponse(
-                        call: Call<MutableList<StudentAttendance>>,
-                        response: Response<MutableList<StudentAttendance>>
-                    ) {
-                        val saa = response.body()
-                        if(saa != null) {
-                            binding.recycler.adapter = AttendanceAdapter(this@AttendanceActivity, saa)
-                            binding.swipeRefreshLayout.isRefreshing = false
-                        }
-                    }
-
-                    override fun onFailure(call: Call<MutableList<StudentAttendance>>, t: Throwable) {
-                        Toast.makeText(this@AttendanceActivity, "error : ${t.message}", Toast.LENGTH_SHORT).show()
-                    }
-                })
-        }
     }
 
     // 바깥 화면 터치 시 소프트 키보드 숨기기
