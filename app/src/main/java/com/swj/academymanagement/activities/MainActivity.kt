@@ -301,7 +301,7 @@ class MainActivity : AppCompatActivity() {
 
                                         Toast.makeText(this@MainActivity, toastMessage, Toast.LENGTH_SHORT).show()
 
-                                        val intent = Intent(this@MainActivity, LoginActivity::class.java)
+                                        val intent = Intent(this@MainActivity, AcademyLoginActivity::class.java)
                                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
                                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                                         startActivity(intent)
@@ -476,7 +476,7 @@ class MainActivity : AppCompatActivity() {
                 .setPositiveButton("OK", DialogInterface.OnClickListener { dialogInterface, i ->
                     G.member = Member("","","","","", call_number = "")
 
-                    val intent = Intent(this, LoginActivity::class.java)
+                    val intent = Intent(this, AcademyLoginActivity::class.java)
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                     startActivity(intent)
