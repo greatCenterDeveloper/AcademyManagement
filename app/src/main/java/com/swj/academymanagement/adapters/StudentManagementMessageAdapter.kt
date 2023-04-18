@@ -122,8 +122,7 @@ class StudentManagementMessageAdapter(val context:Context, val messageArr:Mutabl
             val imgRef: StorageReference = storage.getReference().child("messageImage/$imageUri")
 
             // 이미지 삭제
-            imgRef.delete().addOnSuccessListener {}
-                .addOnFailureListener { Toast.makeText(context, "이미지 삭제 실패", Toast.LENGTH_SHORT).show() }
+            imgRef.delete()
         }
     }
 
