@@ -112,6 +112,7 @@ class StudentManagementActivity : AppCompatActivity() {
         // 선생님 강좌에 수강 중인 모든 학생 리스트 조회
         retrofitStudentList()
 
+        // 선생님이 학원 앱에 로그인한 상태인데.. 학생이 새로 추가될 수 있으므로 SwipeRefreshLayout이 필요하다.
         binding.swipeRefreshLayout.setOnRefreshListener {
             retrofitStudentList(binding.swipeRefreshLayout)
         }

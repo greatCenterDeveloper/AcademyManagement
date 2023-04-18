@@ -52,6 +52,8 @@ class CounselRequestActivity : AppCompatActivity() {
         // 상담 신청 리스트 조회
         retrofitCounselRequestList()
 
+        // 학생이 학원에 이미 로그인 한 상태인데.. 학생이 상담 신청한 신청 내용을 선생님과 상담하게되면
+        // 해당 상담 신청은 상담 신청 리스트에서 없어져야 하므로 SwipeRefreshLayout이 필요하다.
         binding.swipeRefreshLayout.setOnRefreshListener {
             retrofitCounselRequestList(binding.swipeRefreshLayout)
         }

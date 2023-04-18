@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.swj.academymanagement.G
 import com.swj.academymanagement.activities.CounselActivity
 import com.swj.academymanagement.adapters.CounselRequestTeacherAdapter
@@ -36,6 +37,15 @@ class CounselRequestFragment : Fragment() {
         val ca = requireActivity() as CounselActivity
 
         // 선생님 강좌에 수강 중인 학생의 상담 신청 현황 리스트 가져오기
+        retrofitCounselRequestStudentList(ca)
+
+        // 선생님이 학원 앱에 로그인한 상태에서 학생이 상담 신청을 할 수 있으므로 SwipeRefreshLayout이 필요하다.
+        binding.swipeRefreshLayout.setOnRefreshListener {
+            retrofitCounselRequestStudentList(ca, binding.swipeRefreshLayout)
+        }
+    }
+
+    private fun retrofitCounselRequestStudentList(ca:CounselActivity, swipeRefreshLayout: SwipeRefreshLayout? = null) {
         RetrofitHelper.getRetrofitInstance().create(RetrofitCounselService::class.java)
             .counselRequestStudentList(
                 G.member.id     // 선생님 아이디
@@ -48,6 +58,9 @@ class CounselRequestFragment : Fragment() {
                     if(counselRequestArr != null) {
                         if(counselRequestArr.size > 0) {
                             binding.recycler.adapter = CounselRequestTeacherAdapter(ca, counselRequestArr)
+
+                            if(swipeRefreshLayout != null) swipeRefreshLayout.isRefreshing = false
+
                         } else { // 상담 신청 리스트가 없다면..
                             // 상담 신청 RecyclerView 숨기기
                             binding.recycler.visibility = View.GONE

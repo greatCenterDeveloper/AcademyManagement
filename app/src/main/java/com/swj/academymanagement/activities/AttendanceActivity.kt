@@ -154,6 +154,7 @@ class AttendanceActivity : AppCompatActivity() {
         // 내 강좌에 수강 중인 학생들의 학원 등원 하원 리스트
         retrofitStudentAttendanceList()
 
+        // 선생님이 학원 앱에 로그인한 상태인데.. 학생들이 등원, 하원 체크를 할 수 있으므로 SwipeRefreshLayout이 필요하다.
         binding.swipeRefreshLayout.setOnRefreshListener {
             retrofitStudentAttendanceList(binding.swipeRefreshLayout)
         }
