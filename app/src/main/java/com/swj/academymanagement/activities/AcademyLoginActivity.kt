@@ -48,10 +48,7 @@ class AcademyLoginActivity : AppCompatActivity() {
         supportActionBar?.setDisplayShowTitleEnabled(false)
 
         // 학원 계정으로 회원가입
-        binding.btnSignUp.setOnClickListener {
-            startActivity(Intent(this, AcademySignupActivity::class.java))
-            finish()
-        }
+        binding.btnSignUp.setOnClickListener { startActivity(Intent(this, AcademySignupActivity::class.java)) }
 
         // 아이디 찾기
         binding.btnFindId.setOnClickListener {
