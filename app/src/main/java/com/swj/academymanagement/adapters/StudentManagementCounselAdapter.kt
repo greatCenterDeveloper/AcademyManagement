@@ -66,7 +66,7 @@ class StudentManagementCounselAdapter(val context:Context, val counselCurrentArr
                             context as StudentDetailActivity, Pair(holder.binding.tvCounselContent, "counsel")
                         )
                     context.startActivity(intent, options.toBundle())
-
+                    context.finish()
                 } else if(it.itemId == R.id.menu_delete) {  // 상담 내용 삭제
 
                     AlertDialog.Builder(context)
