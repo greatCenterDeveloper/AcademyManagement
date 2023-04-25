@@ -12,6 +12,7 @@ import android.view.MotionEvent
 import android.view.WindowInsets
 import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
+import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.result.ActivityResultCallback
 import androidx.activity.result.ActivityResultLauncher
@@ -320,6 +321,15 @@ class StudentActivity : AppCompatActivity() {
         // NavigationView 안에 있는 HeaderView 안에 있는 CircleImageView를 찾아오기
         val headerView = binding.nav.getHeaderView(0)
         civ = headerView.findViewById(R.id.civ_profile)
+
+        // NavigationView 안에 있는 HeaderView 안에 있는 이름 설정
+        val nameView: TextView = headerView.findViewById(R.id.tv_name)
+        nameView.text = G.member.name
+
+        // NavigationView 안에 있는 HeaderView 안에 있는 휴대폰 번호 설정
+        val callView: TextView = headerView.findViewById(R.id.tv_call)
+        callView.text = G.member.call_number
+
 
         // member 테이블의 Primary Key인 id로 FirebaseStorage에 저장된 profile 이미지 이름 가져오기
         RetrofitHelper.getRetrofitInstance().create(RetrofitMemberService::class.java)
