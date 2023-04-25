@@ -73,7 +73,7 @@ class CourseScheduleDetailActivity : AppCompatActivity() {
 
         if(cst.studentArr.size > 0) {
             // 내 강좌에 수강 중인 학생 리스트가 있다면 학생 리스트 조회
-            binding.recycler.adapter = CourseScheduleStudentListAdapter(this, cst.courseScheduleCode, cst.studentArr)
+            binding.recycler.adapter = CourseScheduleStudentListAdapter(this, cst.studentArr, cst.courseScheduleCode, cst.date,)
         } else {
             // 학생 RecyclerView 숨기기
             binding.recycler.visibility = View.GONE

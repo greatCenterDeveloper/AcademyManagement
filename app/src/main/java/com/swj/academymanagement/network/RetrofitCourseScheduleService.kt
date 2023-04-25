@@ -28,5 +28,6 @@ interface RetrofitCourseScheduleService {
     @FormUrlEncoded
     @POST("/courseSchedule/courseScheduleAttendanceRead.php")
     fun courseScheduleAttendanceRead(@Field("courseScheduleCode") courseScheduleCode:String,
-                                     @Field("studentId") studentId:String): Call<String>
+                                     @Field("studentId") studentId:String,
+                                     @Field("date") date:String): Call<String>
 }
