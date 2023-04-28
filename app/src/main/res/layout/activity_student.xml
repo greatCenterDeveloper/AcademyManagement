@@ -64,7 +64,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
                 android:orientation="horizontal"
-                android:weightSum="36">
+                android:weightSum="36"
+                android:layout_marginTop="8dp">
 
                 <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/btn_attendance_confirm"
