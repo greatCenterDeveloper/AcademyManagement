@@ -19,7 +19,7 @@ import java.util.Date
 import java.util.TimeZone
 
 // 선생님 권한 특정 수업 시간표 클릭 시 해당 강좌에 수강 중인 학생 RecyclerView 어댑터
-class CourseScheduleStudentListAdapter(val context: Context, val courseScheduleCode:String, val studentArr:MutableList<Member>)
+class CourseScheduleStudentListAdapter(val context: Context, val studentArr:MutableList<Member>, val courseScheduleCode:String, val date:String)
     : Adapter<CourseScheduleStudentListAdapter.VH>() {
     inner class VH(val binding: RecyclerItemCourseScheduleStudentBinding):ViewHolder(binding.root)
 
@@ -70,7 +70,8 @@ class CourseScheduleStudentListAdapter(val context: Context, val courseScheduleC
         RetrofitHelper.getRetrofitInstance().create(RetrofitCourseScheduleService::class.java)
             .courseScheduleAttendanceRead(
                 courseScheduleCode,     // 수업 시간표 코드
-                student.id              // 학생 아이디
+                student.id,             // 학생 아이디
+                date                    // 수업 날짜
             ).enqueue(object :Callback<String> {
                 override fun onResponse(call: Call<String>, response: Response<String>) {
                     val attendanceState = response.body()

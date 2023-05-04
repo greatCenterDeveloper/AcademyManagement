@@ -124,7 +124,8 @@ class StudentAttendanceActivity : AppCompatActivity() {
                         if(message != null) {
                             Toast.makeText(this@StudentAttendanceActivity, message, Toast.LENGTH_SHORT).show()
 
-                            if(message.contains("완료")) {  // [학생 이름] 하원 완료! 이므로..
+                            // [학생 이름] 하원 완료!  /  이미 하원 처리 되었습니다. 이므로..
+                            if(message.contains("이미") || message.contains("완료")) {
                                 startActivity(Intent(this@StudentAttendanceActivity, StudentActivity::class.java))
                                 finish()
                             }

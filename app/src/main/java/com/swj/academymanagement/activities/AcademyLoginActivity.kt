@@ -1,6 +1,7 @@
 package com.swj.academymanagement.activities
 
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -46,6 +47,14 @@ class AcademyLoginActivity : AppCompatActivity() {
         setSupportActionBar(binding.toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowTitleEnabled(false)
+
+        val pref:SharedPreferences = getPreferences(MODE_PRIVATE)
+        val id:String? = pref.getString("id", "")
+        val pw:String? = pref.getString("pw", "")
+
+        binding.tilId.editText?.setText(id)
+        binding.tilPassword.editText?.setText(pw)
+
 
         // 학원 계정으로 회원가입
         binding.btnSignUp.setOnClickListener { startActivity(Intent(this, AcademySignupActivity::class.java)) }
@@ -170,6 +179,16 @@ class AcademyLoginActivity : AppCompatActivity() {
                         /*AlertDialog.Builder(this@AcademyLoginActivity)
                             .setMessage("message : ${result?.authority}")
                             .setPositiveButton("OK", null).show()*/
+
+                        // 로그인 정보 저장 체크박스를 선택했다면..
+                        if(binding.checkboxLoginInfo.isChecked) {
+                            val pref:SharedPreferences = getPreferences(MODE_PRIVATE)
+                            val editor:SharedPreferences.Editor = pref.edit()
+                            editor.putString("id", result?.id)
+                            editor.putString("pw", result?.password)
+                            editor.apply()
+                        }
+
                         when(result?.authority) {
                             "teacher" -> {  // 선생님 로그인
                                 // G 클래스의 companion object에 선생님 객체 주입
