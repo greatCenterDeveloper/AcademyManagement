@@ -397,7 +397,7 @@ class StudentActivity : AppCompatActivity() {
                 if(it.resultCode != RESULT_CANCELED) {
                     if(it.data != null) {
                         val intent:Intent = it.data!!
-                        profile = intent.clipData?.getItemAt(0)?.uri
+                        profile = intent.data
                     } else {
                         Toast.makeText(this, "이미지가 선택되지 않았습니다.", Toast.LENGTH_SHORT).show()
                         return@ActivityResultCallback
