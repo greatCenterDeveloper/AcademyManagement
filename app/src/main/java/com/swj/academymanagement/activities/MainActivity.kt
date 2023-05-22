@@ -402,8 +402,13 @@ class MainActivity : AppCompatActivity() {
             ActivityResultContracts.StartActivityForResult(),
             ActivityResultCallback {
                 if(it.resultCode != RESULT_CANCELED) {
-                    val intent:Intent = it.data!!
-                    profile = intent.clipData!!.getItemAt(0).uri
+                    if(it.data != null) {
+                        val intent:Intent = it.data!!
+                        profile = intent.data
+                    } else {
+                        Toast.makeText(this, "이미지가 선택되지 않았습니다.", Toast.LENGTH_SHORT).show()
+                        return@ActivityResultCallback
+                    }
 
                     // 디비 프로필 사진 이름 변경..
                     // member 테이블의 Primary Key인 id로 FirebaseStorage에 저장된 profile 이미지 이름 가져오기

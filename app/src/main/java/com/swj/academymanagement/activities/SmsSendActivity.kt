@@ -233,11 +233,16 @@ class SmsSendActivity : AppCompatActivity() {
         registerForActivityResult(
             ActivityResultContracts.StartActivityForResult()) {
                 if(it.resultCode != RESULT_CANCELED) {
-                    val intent = it.data
-                    val clipData:ClipData = intent?.clipData!!
-                    images.clear()
-                    for(i in 0 until clipData.itemCount)
-                        images.add(clipData.getItemAt(i).uri)
+                    if(it.data != null) {
+                        val intent:Intent = it.data!!
+                        images.clear()
+                        if(intent.clipData == null || intent.clipData?.itemCount == 1 ) {
+                            if(intent.data != null) images.add(intent.data!!)
+                        } else {
+                            for(i in 0 until intent.clipData!!.itemCount)
+                                images.add(intent.clipData!!.getItemAt(i).uri)
+                        }
+                    }
                     binding.pager.adapter!!.notifyDataSetChanged()
                 }
             }
