@@ -6,13 +6,13 @@ plugins {
 
 android {
     namespace 'com.swj.academymanagement'
-    compileSdk 33
+    compileSdk 34
 
     defaultConfig {
         applicationId "com.swj.academymanagement"
         minSdk 24
-        targetSdk 33
-        versionCode 11
+        targetSdk 34
+        versionCode 13
         versionName "1.2"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
